@@ -3,7 +3,9 @@ import React from 'react';
 function Preferences() {
 	return (
 		<>
-			<h1>Preferences</h1>
+			<div className='preferences'>
+				<h1>Preferences</h1>
+			</div>
 		</>
 	);
 }

@@ -3,7 +3,9 @@ import React from 'react';
 function Friends() {
 	return (
 		<>
-			<h1>Friends</h1>
+			<div className='friends'>
+				<h1>Friends</h1>
+			</div>
 		</>
 	);
 }

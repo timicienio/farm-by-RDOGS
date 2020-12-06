@@ -3,7 +3,9 @@ import React from 'react';
 function Farms() {
 	return (
 		<>
-			<h1>Farms</h1>
+			<div className='farms'>
+				<h1>Farms</h1>
+			</div>
 		</>
 	);
 }
