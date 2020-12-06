@@ -2,6 +2,7 @@ import React from 'react';
 import validate from '../functions/validateSignupInfo';
 import useForm from '../hooks/useForm';
 import './EntranceForm.css';
+import { Link } from 'react-router-dom';
 
 const FormSignup = ({ submitForm }) => {
 	const { handleChange, handleSubmit, values, errors } = useForm(
@@ -68,7 +69,8 @@ const FormSignup = ({ submitForm }) => {
 					Sign up
 				</button>
 				<span className='form-input-login'>
-					Already have an account? Login <a href='#'>here</a>
+					Already have an account? Login
+					<Link to='/login'> here</Link>
 				</span>
 			</form>
 		</div>

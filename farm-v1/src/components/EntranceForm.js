@@ -12,13 +12,13 @@ const EntranceForm = () => {
 	return (
 		<>
 			<div className='form-container'>
-				<span className='close-btn'>×</span>
+				{/* <span className='close-btn'>×</span> */}
 				<div className='form-content-left'>
-					<img
+					{/* <img
 						className='form-img'
 						src='img/img-2.svg'
 						alt='spaceship'
-					/>
+					/> */}
 				</div>
 				{!isSubmitted ? (
 					<FormSignup submitForm={submitForm} />
