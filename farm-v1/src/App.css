@@ -8,7 +8,7 @@
 }
 
 .home,
-.reports,
+.friends,
 .products {
 	display: flex;
 	height: 90vh;
