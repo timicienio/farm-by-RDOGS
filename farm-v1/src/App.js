@@ -39,31 +39,23 @@ function App() {
 	return (
 		<>
 			<Router>
-				{userData.name === '' ? (
-					<>
-						<Switch>
-							<Route exact path='/'>
-								<Redirect to='/signup' />
-							</Route>
-							<Route path='/signup' component={EntranceForm} />
-							<Route path='/login' component={LoginForm} />
-						</Switch>
-					</>
-				) : (
-					<>
-						<Navbar />
-						<Switch>
-							<Route exact path='/' component={Home} />
-							<Route path='/friends' component={Friends} />
-							<Route path='/farms' component={Farms} />
-							<Route
-								path='/preferences'
-								component={Preferences}
-							/>
-							<Route path='/about' component={About} />
-						</Switch>
-					</>
-				)}
+				<Navbar />
+				<Switch>
+					<Route exact path='/'>
+						<Redirect to='/signup' />
+					</Route>
+					<Route path='/home' component={Home} />
+					<Route path='/friends' component={Friends} />
+					<Route path='/farms' component={Farms} />
+					<Route path='/preferences' component={Preferences} />
+					<Route path='/about' component={About} />
+					<Route path='/signup' component={EntranceForm} />
+					<Route
+						path='/login'
+						setUserData={setUserData}
+						component={LoginForm}
+					/>
+				</Switch>
 			</Router>
 		</>
 	);

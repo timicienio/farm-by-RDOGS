@@ -9,6 +9,7 @@ const EntranceForm = () => {
 	function submitForm() {
 		setIsSubmitted(true);
 	}
+
 	return (
 		<>
 			<div className='form-container'>
