@@ -45,7 +45,7 @@ function FormLogIn({ submitForm, userData, setUserData }) {
 						<button
 							className='form-input-btn'
 							type='submit'
-							onClick={submitForm}
+							onClick={handleSubmit}
 						>
 							Log In
 						</button>
