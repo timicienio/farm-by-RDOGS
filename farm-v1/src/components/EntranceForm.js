@@ -8,8 +8,17 @@ import FormLogIn from './FormLogIn';
 const EntranceForm = ({ userData, setUserData }) => {
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
-	function submitForm() {
+	function submitSignUpForm() {
 		setIsSubmitted(true);
+	}
+
+	function submitLogInForm({ name, passwords }) {
+		//TODO: callbacks for log in (optional)
+		setUserData({
+			loggedIn: true,
+			name: name,
+			passwords: passwords,
+		});
 	}
 
 	return (
@@ -35,13 +44,14 @@ const EntranceForm = ({ userData, setUserData }) => {
 								{isSubmitted ? (
 									<FormSuccess />
 								) : (
-									<FormSignup submitForm={submitForm} />
+									<FormSignup submitForm={submitSignUpForm} />
 								)}
 							</Route>
 							<Route path='/entrance/login'>
 								<FormLogIn
 									userData={userData}
 									setUserData={setUserData}
+									submitForm={submitLogInForm}
 								/>
 							</Route>
 						</>

@@ -8,7 +8,6 @@ import {
 
 import Navbar from './components/Navbar';
 import EntranceForm from './components/EntranceForm';
-import LoginForm from './components/FormLogIn';
 import Home from './pages/Home';
 import Friends from './pages/Friends';
 import Farms from './pages/Farms';
