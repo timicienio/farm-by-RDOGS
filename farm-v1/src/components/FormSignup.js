@@ -70,7 +70,7 @@ const FormSignup = ({ submitForm }) => {
 				</button>
 				<span className='form-input-login'>
 					Already have an account? Login
-					<Link to='/login'> here</Link>
+					<Link to='/entrance/login'> here</Link>.
 				</span>
 			</form>
 		</div>

@@ -1,28 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
-function LoginForm({ setUserData }) {
-	const [loggedIn, setLoggedIn] = useState(false);
-
+function FormLogIn({ userData, setUserData }) {
 	return (
 		<>
-			{loggedIn ? (
-				<Redirect to='/farms' />
+			{userData.loggedIn ? (
+				<Redirect to='/home' />
 			) : (
-				//<Redirect to='/' />
 				<form>
 					<div className='login'>
 						<h2>Login</h2>
 						<span>TODO...</span>
-						<Link to='/home'> Go home </Link>
 						<button
 							onClick={() => {
 								setUserData({
+									loggedIn: true,
 									name: 'rdogs',
 									email: 'rdogs@rdogs.com',
 								});
 								console.log('logged in');
-								setLoggedIn(true);
 							}}
 						>
 							Log In
@@ -34,4 +30,4 @@ function LoginForm({ setUserData }) {
 	);
 }
 
-export default LoginForm;
+export default FormLogIn;
