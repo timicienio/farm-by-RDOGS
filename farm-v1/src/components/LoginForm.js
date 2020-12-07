@@ -7,7 +7,7 @@ function LoginForm({ setUserData }) {
 	return (
 		<>
 			{loggedIn ? (
-				<Redirect to='/home' />
+				<Redirect to='/farms' />
 			) : (
 				//<Redirect to='/' />
 				<form>
@@ -15,7 +15,7 @@ function LoginForm({ setUserData }) {
 						<h2>Login</h2>
 						<span>TODO...</span>
 						<Link to='/home'> Go home </Link>
-						{/* <button
+						<button
 							onClick={() => {
 								setUserData({
 									name: 'rdogs',
@@ -26,7 +26,7 @@ function LoginForm({ setUserData }) {
 							}}
 						>
 							Log In
-						</button> */}
+						</button>
 					</div>
 				</form>
 			)}

@@ -50,11 +50,9 @@ function App() {
 					<Route path='/preferences' component={Preferences} />
 					<Route path='/about' component={About} />
 					<Route path='/signup' component={EntranceForm} />
-					<Route
-						path='/login'
-						setUserData={setUserData}
-						component={LoginForm}
-					/>
+					<Route path='/login'>
+						<LoginForm setUserData={setUserData} />
+					</Route>
 				</Switch>
 			</Router>
 		</>
