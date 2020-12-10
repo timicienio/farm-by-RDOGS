@@ -1,3 +1,5 @@
+//import checkExist from '../axios';
+
 export default function validateSignupInfo(values) {
 	let errors = {};
 
@@ -12,6 +14,11 @@ export default function validateSignupInfo(values) {
 		errors.email = 'Email required';
 	} else if (!/\S+@\S+\.\S+/.test(values.email)) {
 		errors.email = 'Email address is invalid';
+		// if(!errors.email){
+		// 	msg = checkExist(values.email);
+		// 	if (msg === 'email has been registered!')
+		// 		errors.email = 'email has been registered!';
+		// }
 	}
 	if (!values.password) {
 		errors.password = 'Password is required';
