@@ -1,4 +1,5 @@
-//import checkExist from '../axios';
+//import checkEmailExist from '../axios';
+//import checkUserExist from '../axios';
 
 export default function validateSignupInfo(values) {
 	let errors = {};
@@ -6,6 +7,11 @@ export default function validateSignupInfo(values) {
 	if (!values.username.trim()) {
 		errors.username = 'Username required';
 	}
+	// else {
+	// 	msg = checkUserExist(values.username);
+	// 	if (msg === 'User exists')
+	// 		errors.username = msg;
+	// }
 	// else if (!/^[A-Za-z]+/.test(values.name.trim())) {
 	//   errors.name = 'Enter a valid name';
 	// }
@@ -15,9 +21,9 @@ export default function validateSignupInfo(values) {
 	} else if (!/\S+@\S+\.\S+/.test(values.email)) {
 		errors.email = 'Email address is invalid';
 		// if(!errors.email){
-		// 	msg = checkExist(values.email);
+		// 	msg = checkEamilExist(values.email);
 		// 	if (msg === 'email has been registered!')
-		// 		errors.email = 'email has been registered!';
+		// 		errors.email = msg;
 		// }
 	}
 	if (!values.password) {

@@ -3,9 +3,16 @@
 
 // //to check whether the email has been registered
 // //if existing, return "email has been registered!", else return "not exist" 
-// const checkExist = async (email) => {
+// const checkEmailExist = async (email) => {
+// 	const {msg: msg} = await instance.get('/chechEmailExist', {email: email});
+// 	return msg;
+// }
+
+// //to check whether the user exists
+// //if existing, return "User exists", else return "not exist" 
+// const checkUserExist = async (email) => {
 // 	const {msg: msg} = await instance.get('/chechUserExist', {email: email});
 // 	return msg;
 // }
 
-//export default {checkExist};
+// export default {checkEmailExist, checkUserExist};
