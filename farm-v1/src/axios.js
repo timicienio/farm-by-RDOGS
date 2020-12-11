@@ -20,4 +20,12 @@
 //     await instance.post('/createUser', {email: email, name: name, hashValue: hashValue});
 // }
 
-// export default {checkEmailExist, checkUserExist, createUser};
+// // get friend list
+// const getFriendList = async () =>{
+//     const {
+// 		data : {message, friendList}
+// 	} = await instance.get('/getFriendList')
+// 	return friendList;
+// }
+
+// export default {checkEmailExist, checkUserExist, createUser, getFriendList};
