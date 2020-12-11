@@ -4,12 +4,14 @@ import './EntranceForm.css';
 import FormSignup from './FormSignup';
 import FormSuccess from './FormSuccess';
 import FormLogIn from './FormLogIn';
+//import createUser from '../axios';
 
 const EntranceForm = ({ userData, setUserData }) => {
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
-	function submitSignUpForm() {
+	function submitSignUpForm({email, userName, hashValue}) {
 		setIsSubmitted(true);
+		//createUser(email, name, hashValue);
 	}
 
 	function submitLogInForm({ name, passwords }) {

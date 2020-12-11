@@ -15,4 +15,9 @@
 // 	return msg;
 // }
 
-// export default {checkEmailExist, checkUserExist};
+// // create a user
+// const createUser = async (email, name, hashValue) => {
+//     await instance.post('/createUser', {email: email, name: name, hashValue: hashValue});
+// }
+
+// export default {checkEmailExist, checkUserExist, createUser};

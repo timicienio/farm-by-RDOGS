@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import validate from '../functions/validateSignupInfo';
 import useForm from '../hooks/useForm';
 import './EntranceForm.css';
 import { Link } from 'react-router-dom';
+//import cyrb53 from '../functions/hashFunction';
 
 const FormSignup = ({ submitForm }) => {
+
 	const { handleChange, handleSubmit, values, errors } = useForm(
 		submitForm,
 		validate
 	);
-
+	
 	return (
 		<div className='form-content-right'>
 			<form onSubmit={handleSubmit} className='form' noValidate>

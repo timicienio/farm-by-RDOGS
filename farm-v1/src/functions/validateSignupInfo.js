@@ -1,5 +1,7 @@
 //import checkEmailExist from '../axios';
 //import checkUserExist from '../axios';
+//import createUser from '../axios';
+import cyrb53 from './hashFunction';
 
 export default function validateSignupInfo(values) {
 	let errors = {};
@@ -37,5 +39,12 @@ export default function validateSignupInfo(values) {
 	} else if (values.password2 !== values.password) {
 		errors.password2 = 'Passwords do not match';
 	}
+
+	if(!errors){
+		// createUser = async (email, name, hashValue) => {
+		//     await instance.post('/createUser', {email: values.email, name: values.username, hashValue: cyrb53(values.password)});
+		// }
+	}
+
 	return errors;
 }
