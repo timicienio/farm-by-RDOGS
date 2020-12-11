@@ -10,8 +10,8 @@ const checkEmailExist = async (email) => {
 
 //to check whether the user exists
 //if existing, return "User exists", else return "not exist" 
-const checkUserExist = async (email) => {
-	// const {msg: msg} = await instance.get('/chechUserExist', {email: email});
+const checkUserExist = async (name) => {
+	// const {msg: msg} = await instance.get('/chechUserExist', {name: name});
 	// return msg;
 }
 
