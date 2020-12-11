@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-//import getFriendList from '../axios';
+import getFriendList from '../axios';
 
-function Friends() {
+const Friends = ({userData}) => {
 	//const [friendList, setFriendList] = useState([]);
 	const [friendList, setFriendList] = useState([
 		{ name: 'rdogs1'},
@@ -19,14 +19,15 @@ function Friends() {
 
 	useEffect( () =>{
 		if(!friendList.length){
-			setFriendList(getFriendList());
+			setFriendList(getFriendList(userData.name));
 		}
+		console.log(userData);
 	})
 	
 	return (
 		<>
 			<div className='friends'>
-				<h1>Friends</h1>
+				<h1>{userData.name}'s Friends</h1>
 			</div>
 			{
 				friendList.map((friend, key) => {

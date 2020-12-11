@@ -61,8 +61,16 @@ function App() {
 							</Route>
 
 							<Route path='/home' component={Home} />
-							<Route path='/friends' component={Friends} />
-							<Route path='/farms' component={Farms} />
+							<Route path='/friends'>
+								<Friends
+									userData = {userData}
+								></Friends>
+							</Route>
+							<Route path='/farms'>
+								<Farms
+									userData = {userData}
+								/>
+							</Route>
 							<Route
 								path='/preferences'
 								component={Preferences}

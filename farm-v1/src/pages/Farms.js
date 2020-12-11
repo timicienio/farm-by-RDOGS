@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Farms() {
+const Farms = ({userData}) => {
 	return (
 		<>
 			<div className='farms'>
-				<h1>Farms</h1>
+				<h1>{userData.name}'s Farms</h1>
 			</div>
 		</>
 	);

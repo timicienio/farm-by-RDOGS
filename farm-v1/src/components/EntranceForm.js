@@ -9,18 +9,20 @@ import FormLogIn from './FormLogIn';
 const EntranceForm = ({ userData, setUserData }) => {
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
-	function submitSignUpForm({email, userName, hashValue}) {
+	function submitSignUpForm() {
 		setIsSubmitted(true);
 		//createUser(email, name, hashValue);
 	}
 
-	function submitLogInForm({ name, passwords }) {
+	function submitLogInForm(values) {
 		//TODO: callbacks for log in (optional)
+		//console.log(values);
 		setUserData({
 			loggedIn: true,
-			name: name,
-			passwords: passwords,
+			name: values.username,
+			passwords: values.password,
 		});
+		
 	}
 
 	return (

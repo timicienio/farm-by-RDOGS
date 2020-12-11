@@ -26,6 +26,7 @@ const useLogInForm = (callback, validate) => {
 	useEffect(() => {
 		if (Object.keys(errors).length === 0 && isSubmitting) {
 			callback(values);
+			//console.log(values);
 		}
 	}, [errors]);
 
