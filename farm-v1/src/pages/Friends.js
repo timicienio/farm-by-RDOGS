@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import getFriendList from '../axios';
+import { getFriendList } from '../axios';
 
 const Friends = ({userData}) => {
 	//const [friendList, setFriendList] = useState([]);

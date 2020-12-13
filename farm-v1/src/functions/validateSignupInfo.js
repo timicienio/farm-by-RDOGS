@@ -1,29 +1,30 @@
-import checkEmailExist from '../axios';
-import checkUserExist from '../axios';
-import createUser from '../axios';
+import { checkEmailExist } from '../axios';
+import { checkUserExist } from '../axios';
+import { createUser } from '../axios';
 import cyrb53 from './hashFunction';
 
 export default function validateSignupInfo(values) {
 	let errors = {};
 
-	if (!values.username.trim()) {
-		errors.username = 'Username required';
-	}
-	else if (!/^[A-Za-z]+/.test(values.name.trim())) {
-	  errors.name = 'Enter a valid name';
-	}
-	else {
-		msg = checkUserExist(values.username);
-		if (msg === 'User exists')
-			errors.username = msg;
-	}
+	// if (!values.username.trim()) {
+	// 	errors.username = 'Username required';
+	// }
+	// else if (!/^[A-Za-z]+/.test(values.name.trim())) {
+	//   errors.name = 'Enter a valid name';
+	// }
+	// else {
+	// 	var msg = checkUserExist(values.username);
+	// 	// msg = checkUserExist(values.username);
+	// 	if (msg === 'User exists')
+	// 		errors.username = msg;
+	// }
 
 	if (!values.email) {
 		errors.email = 'Email required';
 	} else if (!/\S+@\S+\.\S+/.test(values.email)) {
 		errors.email = 'Email address is invalid';
 		if(!errors.email){
-			msg = checkEamilExist(values.email);
+			var msg = checkEmailExist(values.email);
 			if (msg === 'email has been registered!')
 				errors.email = msg;
 		}
@@ -41,7 +42,7 @@ export default function validateSignupInfo(values) {
 	}
 
 	if(!errors){
-		createUser(email, name, cyrb53(values.password));
+		createUser(values.email, values.name, cyrb53(values.password));
 	}
 
 	return errors;

@@ -3,7 +3,7 @@ import validate from '../functions/validateSignupInfo';
 import useForm from '../hooks/useForm';
 import './EntranceForm.css';
 import { Link } from 'react-router-dom';
-//import cyrb53 from '../functions/hashFunction';
+import cyrb53 from '../functions/hashFunction';
 
 const FormSignup = ({ submitForm }) => {
 
