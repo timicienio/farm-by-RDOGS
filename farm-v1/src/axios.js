@@ -19,9 +19,10 @@ const checkUserExist = async (username) => {
 const createUser = async (email, username, hashValue) => {
 	// email = 'ntuim@gmail.com';
 	// username = 'ntuim';
-	// hashValue = 'fuckU';
-	const { msg: msg } = await instance.post('/createUser', { params: { email, username, hashValue } });
-	return msg;
+    // hashValue = 'fuckU';
+	const { data : {msg} } = await instance.post('/createUser', { params: { email, username, hashValue } });
+    console.log(msg);
+    return msg;
 }
 
 // get friend list
@@ -32,4 +33,15 @@ const getFriendList = async (username) =>{
 	return friendList;
 }
 
-export { checkEmailExist, checkUserExist, createUser, getFriendList };
+//validate password when log in
+//if wrong hashvalue, return "Error", else, return "Success"
+const validateLogin = async (username, hashValue) => {
+    var msg = "Success";
+    // const{
+    //     data : {msg}
+    // } = await instance.get('validateLogin', {params: {username, hashValue}})
+    
+    return msg;
+}
+
+export { checkEmailExist, checkUserExist, createUser, getFriendList, validateLogin };

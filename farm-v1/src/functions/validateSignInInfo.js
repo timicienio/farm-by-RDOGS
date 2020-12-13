@@ -1,4 +1,5 @@
 import cyrb53 from './hashFunction';
+import {validateLogin} from '../axios';
 
 export default function validateSignInInfo(values) {
 	let errors = {};
@@ -9,8 +10,10 @@ export default function validateSignInInfo(values) {
 	let hashValue = cyrb53(values.password);
 	// console.log("hash value:", hashValue);
 	// send hash values to backend
-
-	// when hash value is false
-	// errors.password = 'Wrong password';
+	var msg = validateLogin(values.username, hashValue);
+	
+	if(msg === "Error"){
+		errors.password = 'Wrong password';
+	}
 	return errors;
 }

@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { createUser } from '../axios';
+import cyrb53 from '../functions/hashFunction';
 
 const useForm = (callback, validate) => {
 	const [values, setValues] = useState({
@@ -27,6 +29,7 @@ const useForm = (callback, validate) => {
 
 	useEffect(() => {
 		if (Object.keys(errors).length === 0 && isSubmitting) {
+			createUser(values.email, values.username, cyrb53(values.password))
 			callback();
 		}
 	}, [errors]);

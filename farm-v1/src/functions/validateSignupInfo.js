@@ -41,9 +41,5 @@ export default function validateSignupInfo(values) {
 		errors.password2 = 'Passwords do not match';
 	}
 
-	if(!errors){
-		createUser(values.email, values.name, cyrb53(values.password));
-	}
-
 	return errors;
 }
