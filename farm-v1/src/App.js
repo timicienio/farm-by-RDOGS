@@ -60,13 +60,17 @@ function App() {
 								<Redirect to='/home' />
 							</Route>
 
-							<Route path='/home' component={Home} />
+							<Route path='/home'>
+								<Home
+									userData = {userData}
+								></Home>
+							</Route>
 							<Route path='/friends'>
 								<Friends
 									userData = {userData}
 								></Friends>
 							</Route>
-							<Route path='/farms'>
+							<Route path={'/farms/'+userData.name}>
 								<Farms
 									userData = {userData}
 								/>

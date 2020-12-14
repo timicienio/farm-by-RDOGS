@@ -1,23 +1,20 @@
 import { checkEmailExist } from '../axios';
 import { checkUserExist } from '../axios';
-import { createUser } from '../axios';
-import cyrb53 from './hashFunction';
 
 export default function validateSignupInfo(values) {
 	let errors = {};
 
-	// if (!values.username.trim()) {
-	// 	errors.username = 'Username required';
-	// }
-	// else if (!/^[A-Za-z]+/.test(values.name.trim())) {
-	//   errors.name = 'Enter a valid name';
-	// }
-	// else {
-	// 	var msg = checkUserExist(values.username);
-	// 	// msg = checkUserExist(values.username);
-	// 	if (msg === 'User exists')
-	// 		errors.username = msg;
-	// }
+	if (!values.username.trim()) {
+		errors.username = 'Username required';
+	}
+	else if (!/^[A-Za-z]+/.test(values.username.trim())) {
+	  errors.username = 'Enter a valid name';
+	}
+	else {
+		var msg = checkUserExist(values.username);
+		if (msg === 'User exists')
+			errors.username = msg;
+	}
 
 	if (!values.email) {
 		errors.email = 'Email required';

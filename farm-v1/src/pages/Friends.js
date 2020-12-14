@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getFriendList } from '../axios';
+import { Link } from 'react-router-dom';
 
 const Friends = ({userData}) => {
 	//const [friendList, setFriendList] = useState([]);
@@ -21,7 +22,7 @@ const Friends = ({userData}) => {
 		if(!friendList.length){
 			setFriendList(getFriendList(userData.name));
 		}
-		console.log(userData);
+		//console.log(userData);
 	})
 	
 	return (
@@ -31,7 +32,13 @@ const Friends = ({userData}) => {
 			</div>
 			{
 				friendList.map((friend, key) => {
-            		return <div className='friendList' key={key}>{friend.name}</div>
+					return (
+						<div>
+							<Link to = {"/farms/" + friend.name}> 
+								<div className='friendList' key={key}>{friend.name}</div>
+							</Link>
+						</div>
+					)
         		})
 			}
 		</>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Home() {
+const Home = ({userData}) => {
 	return (
 		<>
 			<div className ='home'>
@@ -13,7 +13,7 @@ function Home() {
 				</span>
 				<br></br>
 				<span>
-					<Link to = '/farms'> SHOW MY FARMS </Link>
+					<Link to = {'/farms/'+ userData.name}> SHOW MY FARMS </Link>
 				</span>
 
 			</div>
