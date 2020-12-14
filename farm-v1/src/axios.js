@@ -44,4 +44,13 @@ const validateLogin = async (username, hashValue) => {
     return msg;
 }
 
-export { checkEmailExist, checkUserExist, createUser, getFriendList, validateLogin };
+// get farm
+const getFarm = async (username) =>{
+    // const {
+	// 	data
+	// } = await instance.get('/getFarm', { params: { username } })
+    
+    // return data;
+}
+
+export { checkEmailExist, checkUserExist, createUser, getFriendList, validateLogin, getFarm };

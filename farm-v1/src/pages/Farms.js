@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+//import { getFarm } from '../axios';
 
 const Farms = ({userData}) => {
+	const [farm, setFarm] = useState([]);
+
+	useEffect(()=>{
+		// if(!farm.length){
+		// 	setFarm(getFarm(userData.name));
+		// }
+	})
+	
 	return (
 		<>
 			<div className='farms'>

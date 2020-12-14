@@ -13,7 +13,7 @@ const Home = ({userData}) => {
 				</span>
 				<br></br>
 				<span>
-					<Link to = {'/farms/'+ userData.name}> SHOW MY FARMS </Link>
+					<Link to = {'/farms/authuser'}> SHOW MY FARMS </Link>
 				</span>
 
 			</div>
