@@ -7,3 +7,17 @@
 .form {
   padding: 50px;
 }
+
+.row{
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  align-items: stretch;
+}
+
+.invitation{
+  padding: 50px;
+  position: absolute;
+  right:80px
+}

@@ -13,7 +13,7 @@ import {
   } from 'reactstrap'
 
 
-//import classes from './Friend.module.css';
+import classes from './Friend.module.css';
 
 const Friends = ({userData}) => {
 	//const [friendList, setFriendList] = useState([]);
@@ -71,44 +71,52 @@ const Friends = ({userData}) => {
 				<h1>{userData.name}'s Friends</h1>
 			</div>
 			<Container>
-				<Row>
-					<Form onSubmit={handleFormSubmit}>
-						<FormGroup>
-						<Label for="body">Add Friend  </Label>
-						<Input
-							type="text"
-							name="body"
-							value={formBody}
-							id="body"
-							placeholder="Enter a Username"
-							onChange={(e) => setFormBody(e.target.value)}
-						/>
-						<Button
-							type="submit"
-							color="primary"
-							disabled={formBody === ''}
-						>
-							Invite!
-						</Button>
-						</FormGroup>
-					</Form>
+				<Row className={classes.row}>
+					<Col xs="20" className={classes.form}>
+						<Form onSubmit={handleFormSubmit}>
+							<FormGroup row>
+							<Label for="body">Add Friend  </Label>
+							<Input
+								type="text"
+								name="body"
+								value={formBody}
+								id="body"
+								placeholder="Enter a Username"
+								onChange={(e) => setFormBody(e.target.value)}
+							/>
+							<Button
+								type="submit"
+								color="primary"
+								disabled={formBody === ''}
+							>
+								Invite!
+							</Button>
+							</FormGroup>
+						</Form>
+						{
+							friendList.map((friend, key) => {
+								return (
+									<div className='friendList' key={key}>{friend.name}</div>
+								)
+							})
+						}
+					</Col>
+					<Col xs="4" className={classes.invitation}>
+						<h2>Invitation</h2>
+						{
+							invitation.map((friend, key) => {
+								return (
+									<div className='friendList' key={key}>{friend.name + "    "}
+										<Button>
+											Accept
+										</Button>
+									</div>
+								)
+							})
+						}
+					</Col>
 				</Row>
 			</Container>
-			{
-				friendList.map((friend, key) => {
-					return (
-						<div className='friendList' key={key}>{friend.name}</div>
-					)
-        		})
-			}
-			<h2>Invitation</h2>
-			{
-				invitation.map((friend, key) => {
-					return (
-						<div className='friendList' key={key}>{friend.name}</div>
-					)
-        		})
-			}
 		</>
 	);
 }
