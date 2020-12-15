@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-//import { getFarm } from '../axios';
+//import { getFarmList } from '../axios';
 
 const Farms = ({userData}) => {
-	const [farm, setFarm] = useState([]);
+	const [haveFarm, setHaveFarm] = useState(false);
+	const [farmList, setFarmList] = useState([]);
+	const [friendList, setFriendList] = useState([]);
 
+	
 	useEffect(()=>{
-		// if(!farm.length){
-		// 	setFarm(getFarm(userData.name));
+		// if(!haveFarm){
+		// 	setFarmList(getFarmList(userData.name));
+		//  setHaveFarm(true);
 		// }
 	})
 	
@@ -15,6 +19,7 @@ const Farms = ({userData}) => {
 			<div className='farms'>
 				<h1>{userData.name}'s Farms</h1>
 			</div>
+			
 		</>
 	);
 }

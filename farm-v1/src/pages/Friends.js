@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { getFriendList } from '../axios';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
+import {
+	Container,
+	Row,
+	Col,
+	Form,
+	FormGroup,
+	Label,
+	Input,
+	Button
+  } from 'reactstrap'
+
+
+//import classes from './Friend.module.css';
 
 const Friends = ({userData}) => {
 	//const [friendList, setFriendList] = useState([]);
@@ -18,26 +31,81 @@ const Friends = ({userData}) => {
 		{ name: 'rdogs11'}
 	]);
 
+	const [formBody, setFormBody] = useState('');
+	const [checkInvitation, setCheckInvitation] = useState(false);
+	//const [invitation, setInvitation] = useState([]);
+	const [invitation, setInvitation] = useState([
+		{ name: 'rdogs12'},
+		{ name: 'rdogs13'}
+	]);
+
 	useEffect( () =>{
+		//console.log(userData);
 		if(!friendList.length){
 			setFriendList(getFriendList(userData.name));
 		}
-		//console.log(userData);
+		if(!checkInvitation){
+			//setInvitation();
+			setCheckInvitation(true);
+		}
 	})
+
+	const acceptInvitation = (friendName) =>{
+
+	}
+
+	const handleFormSubmit = (
+		(e) => {
+		  e.preventDefault()
+		  console.log("submit form")
+		  if (formBody != ""){
+			  // addFriend
+			  setFormBody('')
+		  }
+		}
+	)
 	
 	return (
 		<>
 			<div className='friends'>
 				<h1>{userData.name}'s Friends</h1>
 			</div>
+			<Container>
+				<Row>
+					<Form onSubmit={handleFormSubmit}>
+						<FormGroup>
+						<Label for="body">Add Friend  </Label>
+						<Input
+							type="text"
+							name="body"
+							value={formBody}
+							id="body"
+							placeholder="Enter a Username"
+							onChange={(e) => setFormBody(e.target.value)}
+						/>
+						<Button
+							type="submit"
+							color="primary"
+							disabled={formBody === ''}
+						>
+							Invite!
+						</Button>
+						</FormGroup>
+					</Form>
+				</Row>
+			</Container>
 			{
 				friendList.map((friend, key) => {
 					return (
-						<div>
-							<Link to = {"/farms/" + friend.name}> 
-								<div className='friendList' key={key}>{friend.name}</div>
-							</Link>
-						</div>
+						<div className='friendList' key={key}>{friend.name}</div>
+					)
+        		})
+			}
+			<h2>Invitation</h2>
+			{
+				invitation.map((friend, key) => {
+					return (
+						<div className='friendList' key={key}>{friend.name}</div>
 					)
         		})
 			}

@@ -19,7 +19,7 @@ export const SidebarData = [
 	},
 	{
 		title: 'Farms',
-		path: '/farms/authuser',
+		path: '/farms',
 		icon: <IoIcons.IoIosGrid />,
 		cName: 'nav-text',
 	},

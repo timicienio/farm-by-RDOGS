@@ -11,7 +11,7 @@ import EntranceForm from './components/EntranceForm';
 import Home from './pages/Home';
 import Friends from './pages/Friends';
 import Farms from './pages/Farms';
-import FarmofFriend from './pages/FarmofFriend';
+import FarmofClub from './pages/FarmofClub';
 import Preferences from './pages/Preferences';
 import About from './pages/About';
 import { useState } from 'react';
@@ -71,12 +71,12 @@ function App() {
 									userData = {userData}
 								></Friends>
 							</Route>
-							<Route exact path={'/farms/authuser'}>
+							<Route exact path={'/farms'}>
 								<Farms
 									userData = {userData}
 								/>
 							</Route>
-							<Route path="/farms/:id?" component={FarmofFriend}></Route>
+							<Route path="/farms/:id?" component={FarmofClub}></Route>
 							<Route
 								path='/preferences'
 								component={Preferences}
