@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getFriendList } from '../axios';
+import { getFriendList, addFriend, getInvitationList, acceptFriend } from '../axios';
 //import { Link } from 'react-router-dom';
 import {
 	Container,
@@ -42,25 +42,31 @@ const Friends = ({userData}) => {
 	useEffect( () =>{
 		//console.log(userData);
 		if(!friendList.length){
-			setFriendList(getFriendList(userData.name));
+			//setFriendList(getFriendList(userData.name));
 		}
 		if(!checkInvitation){
-			//setInvitation();
+			//setInvitation(getInvitationList(userData.name));
 			setCheckInvitation(true);
 		}
 	})
 
 	const acceptInvitation = (friendName) =>{
-
+		acceptFriend(friendName);
+		//setInvitation(getInvitationList(userData.name));
+		//setFriendList(getFriendList(userData.name));
 	}
 
 	const handleFormSubmit = (
 		(e) => {
 		  e.preventDefault()
 		  console.log("submit form")
-		  if (formBody != ""){
-			  // addFriend
-			  setFormBody('')
+		  if (formBody !== ""){
+			  var msg = addFriend(userData.name, formBody);
+			  
+			  if(msg !== "success"){
+				  // alert("User doesn't exist.");
+			  }
+			  setFormBody('');
 		  }
 		}
 	)
@@ -107,7 +113,7 @@ const Friends = ({userData}) => {
 							invitation.map((friend, key) => {
 								return (
 									<div className='friendList' key={key}>{friend.name + "    "}
-										<Button>
+										<Button onClick={()=>acceptInvitation(friend)}>
 											Accept
 										</Button>
 									</div>

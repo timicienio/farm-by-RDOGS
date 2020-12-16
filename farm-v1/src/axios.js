@@ -53,4 +53,35 @@ const getFarm = async (username) =>{
     // return data;
 }
 
-export { checkEmailExist, checkUserExist, createUser, getFriendList, validateLogin, getFarm };
+// make a new friend
+const addFriend = async (username, friendname) =>{
+	var msg = 'success';
+	//var msg = 'success'
+	// const {
+	// 	data : {msg}
+	// } = await instance.post('/addFriend', { params: { username, friendname } })
+    //console.log(message);
+    return msg;
+}
+
+// get my invitation list
+const getInvitationList = async (username) =>{
+	let invitationList =[{name: 'rdogs14'},
+						 {name: 'rdogs15'}]
+	// const {
+	// 	data : {msg, invitationList}
+	// } = await instance.get('/getInvitationList', { params: { username } })
+    
+    return invitationList;
+}
+
+const acceptFriend = async (username, friendname) =>{
+	var msg = "success";
+	// const {
+	// 	data : {msg}
+	// } = await instance.post('/acceptFriend', { params: { username, friendname } })
+    
+    return msg;
+}
+
+export { checkEmailExist, checkUserExist, createUser, getFriendList, validateLogin, getFarm, addFriend, getInvitationList, acceptFriend};

@@ -76,7 +76,11 @@ function App() {
 									userData = {userData}
 								/>
 							</Route>
-							<Route path="/farms/:id?" component={FarmofClub}></Route>
+							<Route path="/farms/:farmname?" component={FarmofClub}>
+								<FarmofClub
+									userData = {userData}
+								/>
+							</Route>
 							<Route
 								path='/preferences'
 								component={Preferences}
