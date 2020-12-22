@@ -1,40 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 //import { getFarmList } from '../axios';
 
-const Farms = ({userData}) => {
+const Farms = ({ userData }) => {
 	const [haveFarm, setHaveFarm] = useState(false);
-	//const [farmList, setFarmList] = useState([]);
-	const [friendList, setFriendList] = useState([]);
+	// const [friendList, setFriendList] = useState([]);
 	const [farmList, setFarmList] = useState([
-		{farmname: 'rdogsFarm1'},
-		{farmname: 'rdogsFarm2'}
+		{ farmName: 'rdogsFarm1', members: [] },
+		{ farmName: 'rdogsFarm2' },
 	]);
-	
-	useEffect(()=>{
-		if(!haveFarm){
+
+	useEffect(() => {
+		if (!haveFarm) {
 			//setFarmList(getFarmList(userData.name));
 			setHaveFarm(true);
 		}
-	})
-	
+	});
+
 	return (
 		<>
-			<div className='farms'>
-				<h1>{userData.name}'s Farms</h1>
-			</div>
-			{
-				farmList.map((farm, key) => {
-					return (
-						<div>
-							<Link to={"/farms/"+ farm.farmname}>{farm.farmname}</Link>				
-						</div>
-					)
-				})
-			}
-			
+			<Container fluid>
+				<Row>
+					<Col sm={2}>
+						<ListGroup>
+							{farmList.map((farm, key) => (
+								<ListGroup.Item eventKey={key}>
+									<Link to={'/farms/' + farm.farmName}>
+										{farm.farmName}
+									</Link>
+								</ListGroup.Item>
+							))}
+						</ListGroup>
+					</Col>
+					<Col sm={10}></Col>
+				</Row>
+			</Container>
 		</>
 	);
-}
+};
 
 export default Farms;

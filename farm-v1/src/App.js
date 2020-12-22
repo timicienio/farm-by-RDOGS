@@ -11,10 +11,12 @@ import EntranceForm from './components/EntranceForm';
 import Home from './pages/Home';
 import Friends from './pages/Friends';
 import Farms from './pages/Farms';
-import FarmofClub from './pages/FarmofClub';
+import FarmOfClub from './pages/FarmOfClub';
 import Preferences from './pages/Preferences';
 import About from './pages/About';
 import { useState } from 'react';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // const UserContext = React.createContext({ name: 'RDOGS'});
 
@@ -42,6 +44,12 @@ function App() {
 
 	return (
 		<>
+			<link
+				rel='stylesheet'
+				href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css'
+				integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk'
+				crossorigin='anonymous'
+			/>
 			<Router>
 				{!userData.loggedIn ? (
 					<>
@@ -62,24 +70,16 @@ function App() {
 							</Route>
 
 							<Route path='/home'>
-								<Home
-									userData = {userData}
-								></Home>
+								<Home userData={userData}></Home>
 							</Route>
 							<Route path='/friends'>
-								<Friends
-									userData = {userData}
-								></Friends>
+								<Friends userData={userData}></Friends>
 							</Route>
 							<Route exact path={'/farms'}>
-								<Farms
-									userData = {userData}
-								/>
+								<Farms userData={userData} />
 							</Route>
-							<Route path="/farms/:farmname?" component={FarmofClub}>
-								<FarmofClub
-									userData = {userData}
-								/>
+							<Route path='/farms/:farmname?'>
+								<FarmOfClub userData={userData} />
 							</Route>
 							<Route
 								path='/preferences'
