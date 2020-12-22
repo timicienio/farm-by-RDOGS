@@ -26,6 +26,136 @@ function App() {
 		password: 'admin',
 	};
 
+	let db = {
+		users: [
+			{
+				username: 'timicienio',
+				email: 'timmy960072@gmail.com',
+				passwordHash: '',
+			},
+		],
+		farms: [
+			{
+				farmName: 'farm1',
+				type: 'Club',
+				members: [
+					// users with access to farm (including current user)
+					{
+						username: 'timicienio',
+						email: 'timmy960072@gmail.com',
+					},
+					{
+						username: 'rdogs1',
+						email: 'rdogs1@rdogs.com',
+					},
+					{
+						username: 'rdogs2',
+						email: 'rdogs2@rdogs.com',
+					},
+				],
+				chunks: [
+					{
+						// initial chunk
+						coor: {
+							x: 0,
+							y: 0,
+						},
+						plants: [
+							{
+								type: 'Post',
+								title: 'RDOGS FARM IS NICE',
+								body: 'Text body',
+								localCoor: {
+									x: 30,
+									y: 30,
+								},
+								authorUserName: 'timicienio',
+								author: {
+									username: 'timicienio',
+									email: 'timmy960072@gmail.com',
+								},
+							},
+							{
+								type: 'Comment',
+								body: 'YEAH',
+								localCoor: {
+									x: 28,
+									y: 30,
+								},
+								authorUserName: 'timicienio',
+								author: {
+									username: 'timicienio',
+									email: 'timmy960072@gmail.com',
+								},
+							},
+							{
+								type: 'Reaction',
+								body: '🐕',
+								localCoor: {
+									x: 33,
+									y: 30,
+								},
+								authorUserName: 'timicienio',
+								author: {
+									username: 'timicienio',
+									email: 'timmy960072@gmail.com',
+								},
+							},
+						],
+					},
+					{
+						coor: {
+							x: 1,
+							y: 0,
+						},
+						plants: [
+							{
+								type: 'Post',
+								title: 'RDOGS FARM IS NICE',
+								body: 'Text body',
+								localCoor: {
+									x: 30,
+									y: 30,
+								},
+								authorUserName: 'timicienio',
+								author: {
+									username: 'timicienio',
+									email: 'timmy960072@gmail.com',
+								},
+							},
+							{
+								type: 'Comment',
+								body: 'YEAH',
+								localCoor: {
+									x: 28,
+									y: 30,
+								},
+								authorUserName: 'timicienio',
+								author: {
+									username: 'timicienio',
+									email: 'timmy960072@gmail.com',
+								},
+							},
+							{
+								type: 'Reaction',
+								body: '🐕',
+								localCoor: {
+									x: 33,
+									y: 30,
+								},
+								authorUserName: 'timicienio',
+								author: {
+									username: 'timicienio',
+									email: 'timmy960072@gmail.com',
+								},
+							},
+						],
+					},
+				],
+			},
+		],
+	};
+
 	const [userData, setUserData] = useState({
 		loggedIn: false,
 		name: '',
