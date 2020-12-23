@@ -6,12 +6,7 @@ function FarmOfClub({ data }) {
 	const [farm, setFarm] = useState([]);
 	const { farmName } = useParams();
 
-	// useEffect(() => {
-	// 	if (farm.length) {
-	// 		//setFarm(getFarm);
-	// 	}
-	// });
-	console.log('rendering a club farm');
+	// console.log('rendering a club farm');
 
 	return (
 		<>
