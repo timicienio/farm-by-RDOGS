@@ -1,10 +1,15 @@
+import './Farms.css';
+
 import React, { useEffect, useState } from 'react';
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Draggable from 'react-draggable';
 import Farm from '../components/Farm';
+import * as MdIcons from 'react-icons/md';
+import { IconContext } from 'react-icons/lib';
 //import { getFarmList } from '../axios';
 
 const Farms = ({ userData }) => {
@@ -12,7 +17,7 @@ const Farms = ({ userData }) => {
 	// const [friendList, setFriendList] = useState([]);
 	const [farmList, setFarmList] = useState([
 		{
-			farmName: 'farm1',
+			farmName: 'RDOGS Working Group',
 			type: 'Club',
 			members: [
 				// users with access to farm (including current user)
@@ -130,7 +135,7 @@ const Farms = ({ userData }) => {
 			],
 		},
 		{
-			farmName: 'farm2',
+			farmName: 'IM B08',
 			type: 'Club',
 			members: [
 				// users with access to farm (including current user)
@@ -248,7 +253,7 @@ const Farms = ({ userData }) => {
 			],
 		},
 		{
-			farmName: 'farm3',
+			farmName: "I don't know how to name a club",
 			type: 'Club',
 			members: [
 				// users with access to farm (including current user)
@@ -386,30 +391,42 @@ const Farms = ({ userData }) => {
 
 	return (
 		<>
-			<Container fluid>
-				<Row>
-					<Col sm={2}>
-						<ListGroup>
-							{farmList.map((farm, key) => (
-								<ListGroup.Item
-									eventKey={key}
-									onClick={() => onSelectFarm(key)}
-								>
-									{farm.farmName}
-								</ListGroup.Item>
-							))}
-						</ListGroup>
-					</Col>
-					<Col sm={10}>
-						<Switch>
-							<Route exact path='/farms'>
-								Select a farm
-							</Route>
-							{farmList.map(farmRoute)}
-						</Switch>
-					</Col>
-				</Row>
-			</Container>
+			<div className='map-container'>
+				<IconContext.Provider value={{ color: '#26979f' }}>
+					<Draggable
+						axis='both'
+						handle='.farm-list-handle'
+						defaultPosition={{ x: 0, y: 0 }}
+						position={null}
+					>
+						<div className='farm-list'>
+							<div className='farm-list-handle'>
+								<MdIcons.MdDragHandle />
+							</div>
+							<div className='farm-list-content'>
+								Farms
+								<ListGroup>
+									{farmList.map((farm, key) => (
+										<ListGroup.Item
+											eventKey={key}
+											onClick={() => onSelectFarm(key)}
+										>
+											{farm.farmName}
+										</ListGroup.Item>
+									))}
+								</ListGroup>
+							</div>
+						</div>
+					</Draggable>
+				</IconContext.Provider>
+			</div>
+
+			<Switch>
+				<Route exact path='/farms'>
+					Select a farm
+				</Route>
+				{farmList.map(farmRoute)}
+			</Switch>
 		</>
 	);
 };

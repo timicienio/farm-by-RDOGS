@@ -180,6 +180,21 @@ function App() {
 				integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk'
 				crossorigin='anonymous'
 			/>
+			<style type='text/css'>
+				{`
+					.list-group {
+						border-radius: 12px;
+					}
+					.list-group-item {
+    					background-color: #c8f0ef;
+    					color: #1c3532;
+					}
+					.list-group-item.active {
+						background-color: #26979f;
+						border-color: #26979f
+					}
+				`}
+			</style>
 			<Router>
 				{!userData.loggedIn ? (
 					<>

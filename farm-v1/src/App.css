@@ -7,13 +7,16 @@
 	font-family: 'Lato', sans-serif;
 }
 
+html body {
+	background-color: #faebd7;
+}
+
 .home,
 .friends,
 .products,
 .farms,
 .preferences,
-.about
-{
+.about {
 	display: flex;
 	height: 15vh;
 	align-items: center;
