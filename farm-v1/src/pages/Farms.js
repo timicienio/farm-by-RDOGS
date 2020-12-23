@@ -381,52 +381,48 @@ const Farms = ({ userData }) => {
 		history.push('/farms/' + String(key));
 	};
 
-	const farmRoute = farm => {
-		return (
-			<Route path={farm.key}>
-				<Farm data={farm} />
-			</Route>
-		);
-	};
-
 	return (
 		<>
 			<div className='map-container'>
-				<IconContext.Provider value={{ color: '#26979f' }}>
-					<Draggable
-						axis='both'
-						handle='.farm-list-handle'
-						defaultPosition={{ x: 0, y: 0 }}
-						position={null}
-					>
-						<div className='farm-list'>
-							<div className='farm-list-handle'>
+				<Switch>
+					<Route exact path='/farms'>
+						Select a farm
+					</Route>
+					{farmList.map((farm, index) => (
+						<Route path={'/farms/' + String(index)}>
+							<Farm data={farm} />
+						</Route>
+					))}
+				</Switch>
+				<Draggable
+					axis='both'
+					handle='.farm-list-handle'
+					defaultPosition={{ x: 0, y: 0 }}
+					position={null}
+					bounds='parent'
+				>
+					<div className='farm-list'>
+						<div className='farm-list-handle'>
+							<IconContext.Provider value={{ color: '#c8f0ef' }}>
 								<MdIcons.MdDragHandle />
-							</div>
-							<div className='farm-list-content'>
-								Farms
-								<ListGroup>
-									{farmList.map((farm, key) => (
-										<ListGroup.Item
-											eventKey={key}
-											onClick={() => onSelectFarm(key)}
-										>
-											{farm.farmName}
-										</ListGroup.Item>
-									))}
-								</ListGroup>
-							</div>
+							</IconContext.Provider>
 						</div>
-					</Draggable>
-				</IconContext.Provider>
+						<div className='farm-list-content'>
+							<div className='toolbox-title'>Farms</div>
+							<ListGroup>
+								{farmList.map((farm, key) => (
+									<ListGroup.Item
+										eventKey={key}
+										onClick={() => onSelectFarm(key)}
+									>
+										{farm.farmName}
+									</ListGroup.Item>
+								))}
+							</ListGroup>
+						</div>
+					</div>
+				</Draggable>
 			</div>
-
-			<Switch>
-				<Route exact path='/farms'>
-					Select a farm
-				</Route>
-				{farmList.map(farmRoute)}
-			</Switch>
 		</>
 	);
 };

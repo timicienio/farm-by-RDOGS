@@ -184,14 +184,16 @@ function App() {
 				{`
 					.list-group {
 						border-radius: 12px;
+						margin: 5px;
 					}
 					.list-group-item {
-    					background-color: #c8f0ef;
+    					background-color: #faebd7;
     					color: #1c3532;
 					}
 					.list-group-item.active {
-						background-color: #26979f;
-						border-color: #26979f
+						background-color: #ff6169;
+						color: #faebd7;
+						border-color: transparent
 					}
 				`}
 			</style>

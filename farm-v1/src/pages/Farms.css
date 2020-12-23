@@ -1,22 +1,39 @@
+.map-container {
+	padding-top: calc(80px + 0.5rem);
+
+	height: 700px;
+}
+
+.toolbox-title {
+	margin: 5px;
+	font-size: 24px;
+}
+
 .farm-list {
-	background-color: #c8f0ef;
-	color: #26979f;
+	background-color: #26979f;
+	color: #c8f0ef;
 	width: 200px;
 	height: auto;
 	display: flex;
+	flex-direction: column;
 	justify-content: start;
+
 	/* position: fixed; */
 	top: 90px;
 
 	z-index: 1000;
 	margin: 0.5rem;
 	border-radius: 12px;
-	padding: 0.5rem;
+	padding: 1rem;
 }
 
 .farm-list-handle {
+	margin: 5px;
+	margin-top: -5px;
+	margin-bottom: -4px;
 	width: 20px;
 	height: 20px;
+	/* margin-top: 10px; */
 }
 
 .farm-list-content {
