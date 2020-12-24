@@ -43,6 +43,7 @@ const Farms = ({ userData }) => {
 					},
 					plants: [
 						{
+							id: 0,
 							type: 'Post',
 							title: 'RDOGS FARM IS NICE',
 							body: 'Text body',
@@ -57,6 +58,7 @@ const Farms = ({ userData }) => {
 							},
 						},
 						{
+							id: 1,
 							type: 'Comment',
 							body: 'YEAH',
 							localCoor: {
@@ -70,6 +72,7 @@ const Farms = ({ userData }) => {
 							},
 						},
 						{
+							id: 2,
 							type: 'Reaction',
 							body: '🐕',
 							localCoor: {
@@ -91,6 +94,7 @@ const Farms = ({ userData }) => {
 					},
 					plants: [
 						{
+							id: 0,
 							type: 'Post',
 							title: 'RDOGS FARM IS NICE',
 							body: 'Text body',
@@ -105,6 +109,7 @@ const Farms = ({ userData }) => {
 							},
 						},
 						{
+							id: 1,
 							type: 'Comment',
 							body: 'YEAH',
 							localCoor: {
@@ -118,6 +123,7 @@ const Farms = ({ userData }) => {
 							},
 						},
 						{
+							id: 2,
 							type: 'Reaction',
 							body: '🐕',
 							localCoor: {
@@ -161,6 +167,7 @@ const Farms = ({ userData }) => {
 					},
 					plants: [
 						{
+							id: 0,
 							type: 'Post',
 							title: 'RDOGS FARM IS NICE',
 							body: 'Text body',
@@ -175,6 +182,7 @@ const Farms = ({ userData }) => {
 							},
 						},
 						{
+							id: 1,
 							type: 'Comment',
 							body: 'YEAH',
 							localCoor: {
@@ -188,6 +196,7 @@ const Farms = ({ userData }) => {
 							},
 						},
 						{
+							id: 2,
 							type: 'Reaction',
 							body: '🐕',
 							localCoor: {
@@ -209,6 +218,7 @@ const Farms = ({ userData }) => {
 					},
 					plants: [
 						{
+							id: 0,
 							type: 'Post',
 							title: 'RDOGS FARM IS NICE',
 							body: 'Text body',
@@ -223,6 +233,7 @@ const Farms = ({ userData }) => {
 							},
 						},
 						{
+							id: 1,
 							type: 'Comment',
 							body: 'YEAH',
 							localCoor: {
@@ -236,6 +247,7 @@ const Farms = ({ userData }) => {
 							},
 						},
 						{
+							id: 3,
 							type: 'Reaction',
 							body: '🐕',
 							localCoor: {
@@ -279,6 +291,7 @@ const Farms = ({ userData }) => {
 					},
 					plants: [
 						{
+							id: 0,
 							type: 'Post',
 							title: 'RDOGS FARM IS NICE',
 							body: 'Text body',
@@ -293,6 +306,7 @@ const Farms = ({ userData }) => {
 							},
 						},
 						{
+							id: 1,
 							type: 'Comment',
 							body: 'YEAH',
 							localCoor: {
@@ -306,6 +320,7 @@ const Farms = ({ userData }) => {
 							},
 						},
 						{
+							id: 2,
 							type: 'Reaction',
 							body: '🐕',
 							localCoor: {

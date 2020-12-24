@@ -15,7 +15,6 @@ import FarmOfClub from './components/FarmOfClub';
 import Preferences from './pages/Preferences';
 import About from './pages/About';
 import { useState } from 'react';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // const UserContext = React.createContext({ name: 'RDOGS'});

@@ -1,3 +1,29 @@
 .farm {
 	z-index: 2000;
 }
+
+.chunk {
+	background-color: #e2af6b;
+	display: flex;
+	flex-direction: column;
+	height: fit-content;
+	width: fit-content;
+	overflow: visible;
+}
+
+.chunk.not-created {
+	background-color: grey;
+}
+
+.cell-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.cell {
+	height: 60px;
+	width: 60px;
+	background-color: #96703f;
+	border-radius: 20px;
+	margin: 6px;
+}

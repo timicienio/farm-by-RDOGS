@@ -2,11 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getFarm } from '../axios';
 import Draggable from 'react-draggable';
+import useFarm from '../hooks/useFarm';
+import Chunk from './Chunk';
 import './Farm.css';
 
 function FarmOfClub({ data }) {
-	const [farm, setFarm] = useState([]);
-	const { farmName } = useParams();
+	const [
+		farmName,
+		type,
+		members,
+		chunks,
+		setFarmName,
+		setType,
+		addMember,
+		modifyMember,
+		removeMember,
+		addChunk,
+		modifyChunk,
+	] = useFarm(data);
 
 	// console.log('rendering a club farm');
 
@@ -18,7 +31,9 @@ function FarmOfClub({ data }) {
 				position={null}
 			>
 				<div className='farm'>
-					<h1>{data.farmName}</h1>
+					{chunks.map(item => (
+						<Chunk data={item} modifier={modifyChunk} />
+					))}
 				</div>
 			</Draggable>
 		</>
