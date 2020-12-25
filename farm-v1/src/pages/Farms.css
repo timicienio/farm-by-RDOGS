@@ -1,6 +1,6 @@
 .map-container {
 	padding-top: calc(80px + 0.5rem);
-
+	position: absolute;
 	height: 700px;
 }
 
@@ -10,6 +10,7 @@
 }
 
 .farm-list {
+	position: absolute;
 	background-color: #26979f;
 	color: #c8f0ef;
 	width: 200px;
@@ -25,6 +26,8 @@
 	margin: 0.5rem;
 	border-radius: 12px;
 	padding: 1rem;
+
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .farm-list-handle {

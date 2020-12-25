@@ -3,7 +3,7 @@
 }
 
 .chunk {
-	background-color: #e2af6b;
+	background-color: #ecc99a;
 	display: flex;
 	flex-direction: column;
 	height: fit-content;
@@ -23,7 +23,7 @@
 .cell {
 	height: 60px;
 	width: 60px;
-	background-color: #96703f;
+	background-color: #ddb886;
 	border-radius: 20px;
 	margin: 6px;
 }
