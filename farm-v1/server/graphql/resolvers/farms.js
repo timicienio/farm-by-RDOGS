@@ -7,7 +7,7 @@ module.exports = {
             try
             {
                 const farms = await Farm.find().sort({ createdAt: -1 });
-                console.log(farms);
+                console.log(farms[0].plants);
                 return farms;
             }
             catch(err)

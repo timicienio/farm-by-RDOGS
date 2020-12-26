@@ -55,7 +55,6 @@ module.exports = {
             }
         ){
             //Validate user data
-            console.log(`user.js ${confirmHash}`)
             const { valid, errors } = validateRegisterInput(username, email, passwordHash, confirmHash);
             if(!valid)
             {
@@ -105,7 +104,7 @@ module.exports = {
             const user = checkAuth(context);
             try
             {
-                const farm = await Farm.findById(farmId);
+                var farm = await Farm.findById(farmId);
                 if(!farm)
                 {
                     throw new Error('Farm not found');
@@ -130,14 +129,13 @@ module.exports = {
                         {
                             $push: 
                             {
-                                plants: 
-                                {
-                                    plant
-                                }
+                                plants: plant
                             }
                         })
+                        farm = await Farm.findById(farmId);
                     if(farm.plants.find(plt => plt._id === plant._id) !== -1)
                     {
+                        console.log(farm.plants)
                         return plant;
                     }
                     else
@@ -227,7 +225,6 @@ module.exports = {
         },
         async leaveFarm(_, { farmId }, context)
         {
-            console.log(context.req.headers.authorization)
             const user = checkAuth(context);
             try{
                 await Farm.findByIdAndUpdate(

@@ -2,7 +2,7 @@ const { gql } = require('apollo-server');
 
 module.exports = gql`
     type Farm {
-        id: ID!
+        _id: ID!
         farmName: String!
         farmType: String!
         members: [FarmUser]!
@@ -16,7 +16,7 @@ module.exports = gql`
         joinedAt: String!
     }
     type Chunk {
-        id: ID!
+        _id: ID!
         coordinates: Coordinate!
         createdAt: String!
     }
@@ -25,7 +25,7 @@ module.exports = gql`
         y: Int!
     }
     type Plant {
-        id: ID!
+        _id: ID!
         plantType: String!
         title: String
         body: String!
@@ -35,7 +35,7 @@ module.exports = gql`
         createdAt: String!
     }
     type User {
-        id: ID!
+        _id: ID!
         email: String!
         token: String!
         username: String!
