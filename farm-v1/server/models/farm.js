@@ -1,4 +1,5 @@
-const { model, Schema } =require('mongoose');
+const { model, Schema, SchemaType } =require('mongoose');
+const { schema } = require('./User');
 
 const farmSchema = new Schema({
     farmName: String,
@@ -12,6 +13,7 @@ const farmSchema = new Schema({
     ],
     chunks: [
         {
+            _id: Schema.Types.ObjectId,
             coordinates: 
             {
                 x: Number,
@@ -22,6 +24,7 @@ const farmSchema = new Schema({
     ],
     plants: [
         {
+            _id: Schema.Types.ObjectId,
             plantType: String,
             title: String,//only for type === 'Post
             body: String,
