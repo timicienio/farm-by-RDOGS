@@ -24,10 +24,6 @@ module.exports = gql`
         x: Int!
         y: Int!
     }
-    input CoordinateInput {
-        x: Int!
-        y: Int!
-    }
     type Plant {
         id: ID!
         plantType: String!
@@ -51,6 +47,18 @@ module.exports = gql`
         confirmHash: String!
         email: String!
     }
+    input CoordinateInput {
+        x: Int!
+        y: Int!
+    }
+    input PlantInput {
+        farmId: ID!
+        plantType: String!
+        title: String
+        body: String!
+        chunkCoordinates: CoordinateInput!
+        plantCoordinates: CoordinateInput!
+    }
     type Query {
         getFarms: [Farm]!
         getFarm(farmId: ID!): Farm
@@ -58,9 +66,9 @@ module.exports = gql`
         getPlant(plantId: ID!): Plant
     }
     type Mutation {
-        register(registerInput: RegisterInput): User!
+        register(registerInput: RegisterInput!): User!
         login(username: String!, passwordHash: String!): User!
-        createPlant(farmId: ID!, plantType: String!, title: String body: String!, chunkCoordinates: CoordinateInput!, plantCoordinates: CoordinateInput!): Plant!
+        createPlant(plantInput: PlantInput!): Plant!
         # deletePlant(plantId: ID!): String!
         createFarm(farmName: String!, farmType: String!): Farm!
         leaveFarm(farmId: ID!): String!

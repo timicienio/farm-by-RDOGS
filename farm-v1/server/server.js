@@ -1,9 +1,9 @@
+require('dotenv-defaults').config();
 const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
 
 const typeDefs = require('./graphql/typeDefs.js');
 const resolvers = require('./graphql/resolvers')
-const { MONGO_URL } = require('./config.js');
 
 
 const server = new ApolloServer({
@@ -12,9 +12,16 @@ const server = new ApolloServer({
     context: ({req}) => ({req})
 });
 
-mongoose.connect(MONGO_URL, { 
+if(!process.env.MONGO_URL)
+{
+    console.error('Missing MONGO_URL');
+    process.exit(1);
+}
+
+mongoose.connect(process.env.MONGO_URL, { 
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 }).then(() => {
     console.log('MongoDB Connected');
     return server.listen({ port: 5000 });

@@ -1,12 +1,14 @@
+require('dotenv-defaults').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { UserInputError, AuthenticationError } = require('apollo-server');
+const mongodb = require('mongodb');
 
 const User = require('../../models/User');
 const Farm = require('../../models/Farm');
 const { validateRegisterInput, validateLoginInput } = require('../../util/validators');
-const { SECRET_KEY } = require('../../config');
-const checkAuth = require('../../util/check-auth')
+const checkAuth = require('../../util/check-auth');
+const { mongo } = require('mongoose');
 
 function genToken(user)
 {
@@ -14,7 +16,7 @@ function genToken(user)
         id: user.id,
         email: user.email,
         username: user.username
-    }, SECRET_KEY, { expiresIn: '1h' });
+    }, process.env.SECRET_KEY, { expiresIn: '1h' });
 }
 
 module.exports = {
@@ -96,7 +98,9 @@ module.exports = {
             };
         },
 
-        async createPlant(_, { farmId, plantType, title, body, chunkCoordinates, plantCoordinates }, context)
+        async createPlant(_, {
+                plantInput: { farmId, plantType, title, body, chunkCoordinates, plantCoordinates }
+            }, context)
         {
             const user = checkAuth(context);
             try
@@ -113,6 +117,7 @@ module.exports = {
                 else
                 {
                     const plant = {
+                        _id: new mongodb.ObjectID(),
                         plantType,
                         title,
                         body,
@@ -131,7 +136,7 @@ module.exports = {
                                 }
                             }
                         })
-                    if(farm.plants.find(plt => plt.coordinates === plant.coordinates) !== -1)
+                    if(farm.plants.find(plt => plt._id === plant._id) !== -1)
                     {
                         return plant;
                     }
@@ -184,6 +189,7 @@ module.exports = {
                 ],
                 chunks: [
                     {
+                        _id: new mongodb.ObjectId(),
                         coordinates: {
                             x: 0,
                             y: 0
@@ -193,6 +199,7 @@ module.exports = {
                 ],
                 plants: [
                     {
+                        _id: new mongodb.ObjectId(),
                         plantType: 'Post',
                         title: 'Grow your first plant',
                         body: 'Press the button below to grow your first plant!',
