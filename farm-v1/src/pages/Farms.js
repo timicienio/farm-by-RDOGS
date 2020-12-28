@@ -48,8 +48,8 @@ const Farms = ({ userData }) => {
 							title: 'RDOGS FARM IS NICE',
 							body: 'Text body',
 							localCoor: {
-								x: 30,
-								y: 30,
+								x: 10,
+								y: 10,
 							},
 							authorUserName: 'timicienio',
 							author: {
@@ -62,8 +62,8 @@ const Farms = ({ userData }) => {
 							type: 'Comment',
 							body: 'YEAH',
 							localCoor: {
-								x: 28,
-								y: 30,
+								x: 14,
+								y: 10,
 							},
 							authorUserName: 'timicienio',
 							author: {
@@ -76,8 +76,8 @@ const Farms = ({ userData }) => {
 							type: 'Reaction',
 							body: '🐕',
 							localCoor: {
-								x: 33,
-								y: 30,
+								x: 16,
+								y: 10,
 							},
 							authorUserName: 'timicienio',
 							author: {
@@ -99,8 +99,8 @@ const Farms = ({ userData }) => {
 							title: 'RDOGS FARM IS NICE',
 							body: 'Text body',
 							localCoor: {
-								x: 30,
-								y: 30,
+								x: 8,
+								y: 8,
 							},
 							authorUserName: 'timicienio',
 							author: {
@@ -113,8 +113,8 @@ const Farms = ({ userData }) => {
 							type: 'Comment',
 							body: 'YEAH',
 							localCoor: {
-								x: 28,
-								y: 30,
+								x: 8,
+								y: 12,
 							},
 							authorUserName: 'timicienio',
 							author: {
@@ -127,8 +127,8 @@ const Farms = ({ userData }) => {
 							type: 'Reaction',
 							body: '🐕',
 							localCoor: {
-								x: 33,
-								y: 30,
+								x: 8,
+								y: 14,
 							},
 							authorUserName: 'timicienio',
 							author: {
@@ -200,7 +200,7 @@ const Farms = ({ userData }) => {
 							type: 'Reaction',
 							body: '🐕',
 							localCoor: {
-								x: 33,
+								x: 20,
 								y: 30,
 							},
 							authorUserName: 'timicienio',
@@ -251,7 +251,7 @@ const Farms = ({ userData }) => {
 							type: 'Reaction',
 							body: '🐕',
 							localCoor: {
-								x: 33,
+								x: 20,
 								y: 30,
 							},
 							authorUserName: 'timicienio',
@@ -296,8 +296,8 @@ const Farms = ({ userData }) => {
 							title: 'RDOGS FARM IS NICE',
 							body: 'Text body',
 							localCoor: {
-								x: 30,
-								y: 30,
+								x: 10,
+								y: 10,
 							},
 							authorUserName: 'timicienio',
 							author: {
@@ -310,8 +310,8 @@ const Farms = ({ userData }) => {
 							type: 'Comment',
 							body: 'YEAH',
 							localCoor: {
-								x: 28,
-								y: 30,
+								x: 10,
+								y: 14,
 							},
 							authorUserName: 'timicienio',
 							author: {
@@ -324,8 +324,8 @@ const Farms = ({ userData }) => {
 							type: 'Reaction',
 							body: '🐕',
 							localCoor: {
-								x: 33,
-								y: 30,
+								x: 10,
+								y: 15,
 							},
 							authorUserName: 'timicienio',
 							author: {
@@ -346,8 +346,8 @@ const Farms = ({ userData }) => {
 							title: 'RDOGS FARM IS NICE',
 							body: 'Text body',
 							localCoor: {
-								x: 30,
-								y: 30,
+								x: 0,
+								y: 2,
 							},
 							authorUserName: 'timicienio',
 							author: {
@@ -359,8 +359,8 @@ const Farms = ({ userData }) => {
 							type: 'Comment',
 							body: 'YEAH',
 							localCoor: {
-								x: 28,
-								y: 30,
+								x: 0,
+								y: 6,
 							},
 							authorUserName: 'timicienio',
 							author: {
@@ -372,8 +372,8 @@ const Farms = ({ userData }) => {
 							type: 'Reaction',
 							body: '🐕',
 							localCoor: {
-								x: 33,
-								y: 30,
+								x: 0,
+								y: 8,
 							},
 							authorUserName: 'timicienio',
 							author: {

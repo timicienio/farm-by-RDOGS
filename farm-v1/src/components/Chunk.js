@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useChunk from '../hooks/useChunk';
 import Cell from './Cell';
 
@@ -7,9 +7,21 @@ function Chunk({ data, modifier }) {
 		data,
 		modifier
 	);
-	let item;
-	const grid = new Array(64).fill(0);
-	console.log(grid);
+
+	const grid = new Array(32).fill(new Array(32).fill({ type: 'Empty' }));
+
+	// useEffect(() => {
+	// 	for (item in plants) {
+	// 		switch (item.type){
+	// 			case 'Post':
+
+	// 		}
+	// 	}
+
+	// 	return () => {
+	// 		cleanup;
+	// 	};
+	// }, [input]);
 
 	return (
 		<div className={'chunk ' + (created ? '' : 'not-created')}>
