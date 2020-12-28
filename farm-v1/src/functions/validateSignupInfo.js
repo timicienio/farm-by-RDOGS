@@ -1,8 +1,11 @@
 import { checkEmailExist } from '../axios';
 import { checkUserExist } from '../axios';
 
+import cyrb53 from '../functions/hashFunction';
+
 export default function validateSignupInfo(values) {
 	let errors = {};
+	
 
 	if (!values.username.trim()) {
 		errors.username = 'Username required';
@@ -37,6 +40,8 @@ export default function validateSignupInfo(values) {
 	} else if (values.password2 !== values.password) {
 		errors.password2 = 'Passwords do not match';
 	}
+
+
 
 	return errors;
 }
