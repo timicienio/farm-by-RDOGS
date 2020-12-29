@@ -36,10 +36,10 @@ body,
 .std-box {
 	background-color: #26979f;
 	color: #c8f0ef;
-	margin: 0.5rem;
+	margin: 1rem;
 	border-radius: 12px;
 	padding: 0.5rem;
-	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .std-box.light {
@@ -49,6 +49,7 @@ body,
 
 .std-box-title {
 	margin: 5px;
+	margin-bottom: 15px;
 	font-size: 36px;
 }
 

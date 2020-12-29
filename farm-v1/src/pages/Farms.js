@@ -2,10 +2,10 @@ import './Farms.css';
 
 import React, { useEffect, useState } from 'react';
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { ListGroup } from 'react-bootstrap';
+// import Container from 'react-bootstrap/Container';
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
 import Draggable from 'react-draggable';
 import Farm from '../components/Farm';
 import * as MdIcons from 'react-icons/md';

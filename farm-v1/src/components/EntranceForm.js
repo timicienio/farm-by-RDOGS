@@ -5,14 +5,13 @@ import FormSignup from './FormSignup';
 import FormSuccess from './FormSuccess';
 import FormLogIn from './FormLogIn';
 
-import { useQuery, useMutation } from '@apollo/react-hooks'
-import { REGISTER_MUTATION } from '../graphql'
-
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { REGISTER_MUTATION } from '../graphql';
 
 const EntranceForm = ({ userData, setUserData }) => {
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
-	const [register] = useMutation(REGISTER_MUTATION)
+	const [register] = useMutation(REGISTER_MUTATION);
 	// const res = await register({
 	// 			variables: {
 	// 				username: values.username,
@@ -21,7 +20,7 @@ const EntranceForm = ({ userData, setUserData }) => {
 	// 				email: values.email
 	// 			}
 	// 		})
-	
+
 	function submitSignUpForm() {
 		setIsSubmitted(true);
 		//console.log(values);
@@ -36,19 +35,13 @@ const EntranceForm = ({ userData, setUserData }) => {
 			name: values.username,
 			passwords: values.password,
 		});
-		
 	}
 
 	return (
 		<>
 			<div className='form-container'>
-				{/* <span className='close-btn'>×</span> */}
 				<div className='form-content-left'>
-					{/* <img
-						className='form-img'
-						src='img/img-2.svg'
-						alt='spaceship'
-					/> */}
+					<div className='entrance-title'>Farm by RDOGS</div>
 				</div>
 				<Switch>
 					{userData.isLoggedIn ? (

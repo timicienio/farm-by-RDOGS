@@ -79,7 +79,7 @@ const Friends = ({ userData }) => {
 			</div>
 			<Container fluid>
 				<Row className='justify-content-md-center'>
-					<Col xs='200'>
+					<Col xs={200}>
 						<StdBox className='friend-list' title='Friends'>
 							<InputGroup
 								className='mb-3'
@@ -106,7 +106,7 @@ const Friends = ({ userData }) => {
 							})}
 						</StdBox>
 					</Col>
-					<Col xs='500'>
+					<Col xs={500}>
 						<StdBox
 							className='friend-invitations'
 							title='Invitations'
