@@ -8,6 +8,7 @@ import { split } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
+//import { onError } from 'apollo-link-error'
 
 import * as serviceWorker from './serviceWorker';
 
@@ -40,6 +41,10 @@ const link = split(
 const client = new ApolloClient({
 	link,
 	cache: new InMemoryCache().restore({}),
+	onError: ({ networkError, graphQLErrors }) => {
+		console.log('graphQLErrors', graphQLErrors)
+		console.log('networkError', networkError)
+	}
 });
 
 const wrappedApp = (

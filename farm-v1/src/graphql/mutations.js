@@ -8,8 +8,18 @@ export const REGISTER_MUTATION = gql`
         $email: String!
     ){
         register(
+            data:{
+            registerInput:{
             username: $username
-        )
+            passwordHash: $passwordHash
+            confirmHash: $confirmHash
+            email: $email
+            }
+        }
+        ){
+            username
+            token
+        }
     }
 `
 
