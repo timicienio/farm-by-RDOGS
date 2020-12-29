@@ -2,7 +2,7 @@ const { gql } = require('apollo-server');
 
 module.exports = gql`
     type Farm {
-        _id: ID!
+        id: ID!
         farmName: String!
         farmType: String!
         members: [FarmUser]!
@@ -11,12 +11,13 @@ module.exports = gql`
         createdAt: String!
     }
     type FarmUser{
+        id: String!
         username: String!
         email: String!
         joinedAt: String!
     }
     type Chunk {
-        _id: ID!
+        id: ID!
         coordinates: Coordinate!
         createdAt: String!
     }
@@ -25,7 +26,7 @@ module.exports = gql`
         y: Int!
     }
     type Plant {
-        _id: ID!
+        id: ID!
         plantType: String!
         title: String
         body: String!
@@ -35,10 +36,18 @@ module.exports = gql`
         createdAt: String!
     }
     type User {
-        _id: ID!
+        id: ID!
         email: String!
         token: String!
         username: String!
+        invitations: [Friend]!
+        friends: [Friend]!
+        createdAt: String!
+    }
+    type Friend {
+        id: String!
+        username: String!
+        email: String!
         createdAt: String!
     }
     input RegisterInput {
@@ -72,5 +81,9 @@ module.exports = gql`
         # deletePlant(plantId: ID!): String!
         createFarm(farmName: String!, farmType: String!): Farm!
         leaveFarm(farmId: ID!): String!
+        sendInvitation(friendId: ID!): Friend!
+        acceptInvitation(friendId: ID!): Friend!
+        getFriends: [Friend]!
+        getInvitations: [Friend]!
     }
 `;

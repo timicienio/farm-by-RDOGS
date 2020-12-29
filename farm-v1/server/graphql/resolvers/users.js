@@ -85,6 +85,8 @@ module.exports = {
                 username,
                 passwordHash,
                 email,
+                invitations: [],
+                friends: [],
                 createdAt: new Date().toISOString()
             });
             const res = await newUser.save();
@@ -132,11 +134,20 @@ module.exports = {
                                 plants: plant
                             }
                         })
-                        farm = await Farm.findById(farmId);
-                    if(farm.plants.find(plt => plt._id === plant._id) !== -1)
+                    farm = await Farm.findById(farmId);
+                    const plantIndex = farm.plants.find(plt => plt._id === plant._id);
+                    if(plantIndex !== -1)
                     {
-                        console.log(farm.plants)
-                        return plant;
+                        return {
+                            id: plant._id,
+                            plantType,
+                            title,
+                            body,
+                            author: plant.author,
+                            chunkCoordinates,
+                            plantCoordinates,
+                            createdAt: plant.createdAt
+                        };
                     }
                     else
                     {
@@ -180,6 +191,7 @@ module.exports = {
                 farmType,
                 members: [
                     {
+                        _id: user.id,
                         username: user.username,
                         email: user.email,
                         joinedAt: date
@@ -219,9 +231,13 @@ module.exports = {
                 createdAt: date
             });
 
-            const farm = newFarm.save();
+            const res = await newFarm.save();
 
-            return farm;
+            return {
+                ...res._doc,
+                id: res._id
+            }
+            ;
         },
         async leaveFarm(_, { farmId }, context)
         {
@@ -260,6 +276,100 @@ module.exports = {
             catch(err)
             {
                 throw new Error(err);
+            }
+        },
+        async acceptInvitation(_, { friendId }, context)
+        {
+            const user = checkAuth(context);
+            try {
+                const date = new Date().toISOString();
+                var friend = await User.findById(friendId);
+                var dbUser = await User.findById(user.id);
+                const invIndex = dbUser.friends.find(inv => inv._id === friendId);
+                if(invIndex === -1)
+                {
+                    throw new UserInputError('Friend user not found');
+                }
+                dbUser.invitations.splice(invIndex, 1);
+                friend.friends.push({
+                    _id: dbUser._id,
+                    username: dbUser.username,
+                    email: dbUser.email,
+                    createdAt: date
+                });
+                dbUser.friends.push({
+                    _id: friend._id,
+                    username: friend.username,
+                    email: friend.email,
+                    createdAt: date
+                })
+                await dbUser.save();
+                await friend.save();
+                return {
+                    id: friend._id,
+                    username: friend.username,
+                    email: friend.email,
+                    createdAt: date
+                }
+            }
+            catch (err) {
+                throw new Error(err);
+            }
+        },
+        async sendInvitation(_, { friendId }, context)
+        {
+            const user = checkAuth(context);
+            try {
+                const inv = {
+                    _id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    createdAt: new Date().toISOString()
+                }
+                await User.findByIdAndUpdate(friendId,{
+                    $push: {
+                        invitations: inv
+                    }
+                });
+                return inv;
+            } catch (err) {
+                throw new Error(err)
+            }
+        },
+        async getFriends(_, __, context)
+        {
+            const user = checkAuth(context);
+            try {
+                const dbUser = await User.findById(user.id);
+                if(dbUser)
+                {
+                    return dbUser.friends;
+                }
+                else
+                {
+                    throw new UserInputError('User not found');
+                }
+            } 
+            catch (err) {
+                throw new Error(err);
+            }
+        },
+        async getInvitations(_, __, context)
+        {
+            const user = checkAuth(context);
+            try {
+                const dbUser = await User.findById(user.id);
+                if(dbUser)
+                {
+                    return dbUser.invitations;
+                }
+                else
+                {
+                    throw new UserInputError('User not found');
+                }
+            } 
+            catch (err) {
+                throw new Error(err);  
             }
         }
     }

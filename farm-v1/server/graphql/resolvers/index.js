@@ -3,10 +3,9 @@ const farmsResolvers = require('./farms.js');
 
 module.exports = {
     Query: {
-        ...farmsResolvers.Query
+        ...farmsResolvers.Query,
     },
     Mutation: {
         ...usersResolvers.Mutation,
-        // ...plantsResolvers.Mutation
     }
 };
