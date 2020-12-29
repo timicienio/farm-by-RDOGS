@@ -23,20 +23,20 @@ const useForm = (callback, validate) => {
 		if(values.username != ""){
 			console.log(values);
 			console.log(values.username);	
-			console.log({variables: { 
-				username: values.username,
-				passwordHash: "asdf",
-				confirmHash: "asdf",
-				email: values.email
-			
+			console.log({variables: {
+				registerInput:{
+					username: values.username,
+					passwordHash: "abcd",
+					confirmHash: "abcd",
+					email: values.email	 
+				}
 			}});
 			const res = await register({
 				variables: {
-						username: values.username,
-						passwordHash: cyrb53(values.password),
-						confirmHash: cyrb53(values.password2),
-						email: values.email
-					 
+					username: values.username,
+					passwordHash: "abcd",
+					confirmHash: "abcd",
+					email: values.email	 
 				}
 			})
 			console.log(res);
