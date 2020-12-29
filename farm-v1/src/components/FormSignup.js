@@ -5,12 +5,39 @@ import './EntranceForm.css';
 import { Link } from 'react-router-dom';
 import cyrb53 from '../functions/hashFunction';
 
-const FormSignup = ({ submitForm }) => {
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { REGISTER_MUTATION } from '../graphql'
 
+
+const FormSignup = ({ submitForm }) => {
+	
+	const [register] = useMutation(REGISTER_MUTATION)
+	const handleRegister = async() =>{
+		console.log(errors);
+		//console.log(values);
+		//console.log(values.username)
+		if(values.username != ""){
+			console.log(values);
+			console.log(values.username);	
+			const res = await register({
+				variables: {
+					username: values.username,
+					passwordHash: cyrb53(values.password),
+					confirmHash: cyrb53(values.password2),
+					email: values.email
+				}
+			})
+			
+			console.log(res)
+		}
+	}
 	const { handleChange, handleSubmit, values, errors } = useForm(
 		submitForm,
 		validate
 	);
+
+
+	
 	
 	return (
 		<div className='form-content-right'>

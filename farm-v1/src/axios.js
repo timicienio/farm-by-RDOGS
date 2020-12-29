@@ -1,5 +1,5 @@
 import axios from 'axios'
-const instance = axios.create ({ baseURL: 'http://localhost:4000/api' });
+const instance = axios.create ({ baseURL: 'http://localhost:5000/api' });
 
 //to check whether the email has been registered
 //if existing, return "email has been registered!", else return "not exist" 

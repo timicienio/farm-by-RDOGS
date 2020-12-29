@@ -55,6 +55,7 @@ module.exports = {
             }
         ){
             //Validate user data
+            console.log(username, email, passwordHash)
             const { valid, errors } = validateRegisterInput(username, email, passwordHash, confirmHash);
             if(!valid)
             {

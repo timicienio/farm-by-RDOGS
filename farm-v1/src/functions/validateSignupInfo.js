@@ -1,8 +1,11 @@
 import { checkEmailExist } from '../axios';
 import { checkUserExist } from '../axios';
 
+import cyrb53 from '../functions/hashFunction';
+
 export default function validateSignupInfo(values) {
 	let errors = {};
+	
 
 	if (!values.username.trim()) {
 		errors.username = 'Username required';
@@ -10,21 +13,21 @@ export default function validateSignupInfo(values) {
 	else if (!/^[A-Za-z]+/.test(values.username.trim())) {
 	  errors.username = 'Enter a valid name';
 	}
-	else {
-		var msg = checkUserExist(values.username);
-		if (msg === 'User exists')
-			errors.username = msg;
-	}
+	// else {
+	// 	var msg = checkUserExist(values.username);
+	// 	if (msg === 'User exists')
+	// 		errors.username = msg;
+	// }
 
 	if (!values.email) {
 		errors.email = 'Email required';
 	} else if (!/\S+@\S+\.\S+/.test(values.email)) {
 		errors.email = 'Email address is invalid';
-		if(!errors.email){
-			var msg = checkEmailExist(values.email);
-			if (msg === 'email has been registered!')
-				errors.email = msg;
-		}
+		// if(!errors.email){
+		// 	var msg = checkEmailExist(values.email);
+		// 	if (msg === 'email has been registered!')
+		// 		errors.email = msg;
+		// }
 	}
 	if (!values.password) {
 		errors.password = 'Password is required';
@@ -37,6 +40,8 @@ export default function validateSignupInfo(values) {
 	} else if (values.password2 !== values.password) {
 		errors.password2 = 'Passwords do not match';
 	}
+
+
 
 	return errors;
 }
