@@ -1,5 +1,7 @@
 .farm {
 	z-index: 2000;
+	height: fit-content;
+	width: fit-content;
 }
 
 .chunk {

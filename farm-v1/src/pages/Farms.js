@@ -416,24 +416,26 @@ const Farms = ({ userData }) => {
 					position={null}
 					bounds='parent'
 				>
-					<div className='farm-list'>
+					<div className='farm-list std-box'>
 						<div className='farm-list-handle'>
 							<IconContext.Provider value={{ color: '#c8f0ef' }}>
 								<MdIcons.MdDragHandle />
 							</IconContext.Provider>
 						</div>
 						<div className='farm-list-content'>
-							<div className='toolbox-title'>Farms</div>
-							<ListGroup>
-								{farmList.map((farm, key) => (
-									<ListGroup.Item
-										eventKey={key}
-										onClick={() => onSelectFarm(key)}
-									>
-										{farm.farmName}
-									</ListGroup.Item>
-								))}
-							</ListGroup>
+							<div className='std-box-title'>Farms</div>
+							<div className='std-box-content'>
+								<ListGroup>
+									{farmList.map((farm, key) => (
+										<ListGroup.Item
+											eventKey={key}
+											onClick={() => onSelectFarm(key)}
+										>
+											{farm.farmName}
+										</ListGroup.Item>
+									))}
+								</ListGroup>
+							</div>
 						</div>
 					</div>
 				</Draggable>

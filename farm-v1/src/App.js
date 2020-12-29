@@ -181,9 +181,13 @@ function App() {
 			/>
 			<style type='text/css'>
 				{`
+					.btn-secondary {
+						background-color: #faebd7;
+						border-width: 0px;
+						color: #1c3532;
+					}
 					.list-group {
 						border-radius: 12px;
-						margin: 5px;
 					}
 					.list-group-item {
     					background-color: #faebd7;
