@@ -14,6 +14,7 @@ const useForm = (callback, validate) => {
 	});
 	const [errors, setErrors] = useState({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [isSubmitted, setIsSubmitted] = useState(false);
 
 	const [register] = useMutation(REGISTER_MUTATION)
 	const handleRegister = async (values) =>{
@@ -32,8 +33,8 @@ const useForm = (callback, validate) => {
 						email: values.email	
 					}
 				})
-				console.log(res);
-				//setIsSubmitting(true);
+				//console.log(res);
+				setIsSubmitted(true);
 			}
 			catch(err){
 				console.log(err)
@@ -42,8 +43,18 @@ const useForm = (callback, validate) => {
 					var errors = {username: "User Exists"} 
 					setErrors(errors);
 				}
+				else if (err.message == "GraphQL error: Email already registered"){
+					var errors = {email: "Email already registered"} 
+					setErrors(errors);
+				}
+				else{
+					var errors = {username: "Invaild. Please contact development."} 
+					setErrors(errors);
+				}
 			}
+			//setIsSubmitted(false);
 		}
+		
 	}
 
 	const handleChange = e => {
@@ -63,17 +74,24 @@ const useForm = (callback, validate) => {
 		//console.log(typeof errors)
 		if (Object.keys(errors).length === 0){
 			handleRegister(values);
-			console.log("handleRegister")	
+			//console.log("handleRegister")	
 		}
 		setIsSubmitting(true);
+
 	};
 
 	useEffect(() => {
-		if (Object.keys(errors).length === 0 && isSubmitting) {
+		if (Object.keys(errors).length === 0 && isSubmitting && isSubmitted) {
 			
 			callback();
 		}
 	}, [errors]);
+	useEffect(() => {
+		if (Object.keys(errors).length === 0 && isSubmitting && isSubmitted) {
+			
+			callback();
+		}
+	}, [isSubmitted]);
 
 	return { handleChange, handleSubmit, values, errors };
 };

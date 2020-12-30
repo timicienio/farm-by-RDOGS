@@ -159,6 +159,7 @@ function App() {
 		loggedIn: false,
 		name: '',
 		email: '',
+		token: ''
 	});
 
 	// const [error, setError] = useState('');

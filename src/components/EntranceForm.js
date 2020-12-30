@@ -11,29 +11,20 @@ import { REGISTER_MUTATION } from '../graphql';
 const EntranceForm = ({ userData, setUserData }) => {
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
-	const [register] = useMutation(REGISTER_MUTATION);
-	// const res = await register({
-	// 			variables: {
-	// 				username: values.username,
-	// 				passwordHash: cyrb53(values.password),
-	// 				confirmHash: cyrb53(values.password2),
-	// 				email: values.email
-	// 			}
-	// 		})
-
 	function submitSignUpForm() {
 		setIsSubmitted(true);
 		//console.log(values);
 		// console.log(email);
 	}
 
-	function submitLogInForm(values) {
+	function submitLogInForm(values, token) {
 		//TODO: callbacks for log in (optional)
 		console.log(values);
 		setUserData({
 			loggedIn: true,
 			name: values.username,
 			passwords: values.password,
+			token: token
 		});
 	}
 
