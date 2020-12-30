@@ -5,7 +5,7 @@
 }
 
 .chunk {
-	background-color: #ecc99a;
+	background-color: #faebd7;
 	display: flex;
 	flex-direction: column;
 	height: fit-content;
@@ -25,11 +25,11 @@
 .cell {
 	height: 60px;
 	width: 60px;
-	background-color: #ddb886;
+	background-color: #fbe5c8;
 	border-radius: 20px;
 	margin: 6px;
 }
 
 .cell:hover {
-	box-shadow: 2px 2px 2px 1px rgba(125, 93, 93, 0.326);
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.2);
 }

@@ -186,6 +186,9 @@ function App() {
 						border-width: 0px;
 						color: #1c3532;
 					}
+					.btn-secondary:hover{
+						background-color:#ff6169
+					}
 					.list-group {
 						border-radius: 12px;
 					}
