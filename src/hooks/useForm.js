@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { createUser } from '../axios';
 import cyrb53 from '../functions/hashFunction';
-import { useQuery, useMutation } from '@apollo/react-hooks'
-import { REGISTER_MUTATION } from '../graphql'
-
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { REGISTER_MUTATION } from '../graphql';
 
 const useForm = (callback, validate) => {
 	const [values, setValues] = useState({
@@ -16,46 +15,46 @@ const useForm = (callback, validate) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
-	const [register] = useMutation(REGISTER_MUTATION)
-	const handleRegister = async (values) =>{
+	const [register] = useMutation(REGISTER_MUTATION);
+	const handleRegister = async values => {
 		//console.log(errors);
 		//console.log(values);
 		//console.log(values.username)
-		if(values.username != ""){
+		if (values.username !== '') {
 			//console.log(values);
-			//console.log(values.username);	
-			try{
+			//console.log(values.username);
+			try {
 				const res = await register({
 					variables: {
 						username: values.username,
 						passwordHash: String(cyrb53(values.password)),
 						confirmHash: String(cyrb53(values.password2)),
-						email: values.email	
-					}
-				})
+						email: values.email,
+					},
+				});
 				//console.log(res);
 				setIsSubmitted(true);
-			}
-			catch(err){
-				console.log(err)
-				if (err.message == "GraphQL error: Username is taken"){
+			} catch (err) {
+				console.log(err);
+				if (err.message === 'GraphQL error: Username is taken') {
 					//console.log("hello");
-					var errors = {username: "User Exists"} 
-					setErrors(errors);
-				}
-				else if (err.message == "GraphQL error: Email already registered"){
-					var errors = {email: "Email already registered"} 
-					setErrors(errors);
-				}
-				else{
-					var errors = {username: "Invaild. Please contact development."} 
-					setErrors(errors);
+					var newErrors = { username: 'User Exists' };
+					setErrors(newErrors);
+				} else if (
+					err.message === 'GraphQL error: Email already registered'
+				) {
+					var newErrors = { email: 'Email already registered' };
+					setErrors(newErrors);
+				} else {
+					var newErrors = {
+						username: 'Invalid. Please contact development.',
+					};
+					setErrors(newErrors);
 				}
 			}
 			//setIsSubmitted(false);
 		}
-		
-	}
+	};
 
 	const handleChange = e => {
 		const { name, value } = e.target;
@@ -68,27 +67,24 @@ const useForm = (callback, validate) => {
 	const handleSubmit = e => {
 		e.preventDefault();
 
-		var errors = validate(values)
+		var errors = validate(values);
 		//console.log(errors);
 		setErrors(errors);
 		//console.log(typeof errors)
-		if (Object.keys(errors).length === 0){
+		if (Object.keys(errors).length === 0) {
 			handleRegister(values);
-			//console.log("handleRegister")	
+			//console.log("handleRegister")
 		}
 		setIsSubmitting(true);
-
 	};
 
 	useEffect(() => {
 		if (Object.keys(errors).length === 0 && isSubmitting && isSubmitted) {
-			
 			callback();
 		}
 	}, [errors]);
 	useEffect(() => {
 		if (Object.keys(errors).length === 0 && isSubmitting && isSubmitted) {
-			
 			callback();
 		}
 	}, [isSubmitted]);
