@@ -33,7 +33,7 @@ const useLogInForm = (callback, validate) => {
 				setToken(res.data.login.token);
 				setIsSubmitted(true);
 			} catch (err) {
-				console.log(err);
+				//console.log(err);
 				if (err.message === 'GraphQL error: User not found') {
 					//console.log("hello");
 					var newErrors = { username: 'User not found' };

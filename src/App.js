@@ -17,6 +17,8 @@ import About from './pages/About';
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { AuthProvider } from './context/auth';
+
 // const UserContext = React.createContext({ name: 'RDOGS'});
 
 function App() {
@@ -173,7 +175,7 @@ function App() {
 	};
 
 	return (
-		<>
+		<AuthProvider>
 			<link
 				rel='stylesheet'
 				href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
@@ -244,7 +246,7 @@ function App() {
 					</>
 				)}
 			</Router>
-		</>
+		</AuthProvider>
 	);
 }
 
