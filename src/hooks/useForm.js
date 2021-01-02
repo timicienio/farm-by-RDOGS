@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { createUser } from '../axios';
 import cyrb53 from '../functions/hashFunction';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { REGISTER_MUTATION } from '../graphql';
+import { AuthContext } from '../context/auth';
 
 const useForm = (callback, validate) => {
+	const context = useContext(AuthContext);
 	const [values, setValues] = useState({
 		username: '',
 		email: '',
@@ -32,10 +34,12 @@ const useForm = (callback, validate) => {
 						email: values.email,
 					},
 				});
+				//console.log(res.data.register);
+				//context.login(res.data.register);
 				//console.log(res);
 				setIsSubmitted(true);
 			} catch (err) {
-				console.log(err);
+				//console.log(err);
 				if (err.message === 'GraphQL error: Username is taken') {
 					//console.log("hello");
 					var newErrors = { username: 'User Exists' };
@@ -43,13 +47,13 @@ const useForm = (callback, validate) => {
 				} else if (
 					err.message === 'GraphQL error: Email already registered'
 				) {
-					var newErrors = { email: 'Email already registered' };
-					setErrors(newErrors);
+					var newErrors1 = { email: 'Email already registered' };
+					setErrors(newErrors1);
 				} else {
-					var newErrors = {
+					var newErrors2 = {
 						username: 'Invalid. Please contact development.',
 					};
-					setErrors(newErrors);
+					setErrors(newErrors2);
 				}
 			}
 			//setIsSubmitted(false);

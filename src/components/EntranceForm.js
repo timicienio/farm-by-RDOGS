@@ -19,7 +19,7 @@ const EntranceForm = ({ userData, setUserData }) => {
 
 	function submitLogInForm(values, token) {
 		//TODO: callbacks for log in (optional)
-		console.log(values);
+		//console.log(values);
 		setUserData({
 			loggedIn: true,
 			name: values.username,

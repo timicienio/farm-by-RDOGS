@@ -29,6 +29,9 @@ export const LOGIN_MUTATION = gql`
             username: $username
             passwordHash: $passwordHash
         ){
+            id
+            email
+            username
             token
         }
     }

@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { LOGIN_MUTATION } from '../graphql';
 import cyrb53 from '../functions/hashFunction';
+import { AuthContext } from '../context/auth';
 
 const useLogInForm = (callback, validate) => {
+	const context = useContext(AuthContext);
 	const [values, setValues] = useState({
 		username: '',
 		password: '',
@@ -25,6 +27,8 @@ const useLogInForm = (callback, validate) => {
 						passwordHash: String(cyrb53(values.password)),
 					},
 				});
+				context.login(res.data.login);
+				console.log(res.data.login);
 				//console.log(res.data.login.token);
 				setToken(res.data.login.token);
 				setIsSubmitted(true);
@@ -35,11 +39,11 @@ const useLogInForm = (callback, validate) => {
 					var newErrors = { username: 'User not found' };
 					setErrors(newErrors);
 				} else if (err.message === 'GraphQL error: Wrong credentials') {
-					var newErrors = { password: 'Wrong password' };
-					setErrors(newErrors);
+					var newErrors1 = { password: 'Wrong password' };
+					setErrors(newErrors1);
 				} else {
-					var newErrors = { username: 'Wrong Username or Password' };
-					setErrors(newErrors);
+					var newErrors2 = { username: 'Wrong Username or Password' };
+					setErrors(newErrors2);
 				}
 			}
 		}
