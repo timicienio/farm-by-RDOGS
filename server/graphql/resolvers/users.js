@@ -86,6 +86,7 @@ module.exports = {
                 username,
                 passwordHash,
                 email,
+                farms: [],
                 invitations: [],
                 friends: [],
                 createdAt: new Date().toISOString()
@@ -190,12 +191,13 @@ module.exports = {
             const newFarm = new Farm({
                 farmName,
                 farmType,
+                invited: [],
                 members: [
                     {
                         _id: user.id,
                         username: user.username,
                         email: user.email,
-                        joinedAt: date
+                        createdAt: date
                     }
                 ],
                 chunks: [
@@ -213,7 +215,7 @@ module.exports = {
                         _id: new mongodb.ObjectId(),
                         plantType: 'Post',
                         title: 'Grow your first plant',
-                        body: 'Press the button below to grow your first plant!',
+                        body: 'Press the button to grow your first plant!',
                         author: 'RDOGS',
                         chunkCoordinates:
                         {
@@ -234,11 +236,18 @@ module.exports = {
 
             const res = await newFarm.save();
 
+            let dbUser = await User.findById(user.id);
+            dbUser.farms.push({
+                _id: res._id,
+                farmName: res.farmName,
+                farmType: res.farmType,
+                createdAt: res.createdAt
+            })
+
             return {
                 ...res._doc,
                 id: res._id
-            }
-            ;
+            };
         },
         async leaveFarm(_, { farmId }, context)
         {
@@ -284,12 +293,17 @@ module.exports = {
             const user = checkAuth(context);
             try {
                 const date = new Date().toISOString();
+                console.log(friendId)
                 var friend = await User.findById(friendId);
                 var dbUser = await User.findById(user.id);
-                const invIndex = dbUser.friends.find(inv => inv._id === friendId);
-                if(invIndex === -1)
+                if(!friend)
                 {
                     throw new UserInputError('Friend user not found');
+                }
+                const invIndex = dbUser.invitations.find(inv => inv._id === friendId);
+                if(invIndex === -1)
+                {
+                    throw new UserInputError('Invitation not found');
                 }
                 dbUser.invitations.splice(invIndex, 1);
                 friend.friends.push({
@@ -320,19 +334,34 @@ module.exports = {
         async sendInvitation(_, { friendId }, context)
         {
             const user = checkAuth(context);
+            console.log(user);
             try {
+                let friend = await User.findById(friendId);
+                if(!friend)
+                {
+                    throw new UserInputError('User not found');
+                }
+                if(friend._id === user.id)
+                {
+                    throw new UserInputError('You cannot be friends with yourself');
+                }
+                if(friend.invitations.find(inv => inv._id === friendId) !== -1)
+                {
+                    throw new Error('Already invited');
+                }
                 const inv = {
                     _id: user.id,
                     username: user.username,
                     email: user.email,
                     createdAt: new Date().toISOString()
                 }
-                await User.findByIdAndUpdate(friendId,{
-                    $push: {
-                        invitations: inv
-                    }
-                });
-                return inv;
+                await friend.save();
+                return {
+                    id: inv._id,
+                    username: inv.username,
+                    email: inv.email,
+                    createdAt: inv.createdAt,
+                };
             } catch (err) {
                 throw new Error(err)
             }
@@ -371,6 +400,52 @@ module.exports = {
             } 
             catch (err) {
                 throw new Error(err);  
+            }
+        },
+        async sendFarmInvitation(_, { farmId, friendId }, context)
+        {
+            const user = checkAuth(context);
+            try {
+                let farm = await Farm.findById(farmId);
+                let friend = await User.findById(friendId);
+                console.log(farm)
+                if(!friend)
+                {
+                    throw new UserInputError('User not found');
+                }
+                //check if already a member
+                if(farm.members.find(mem => mem._id === friendId) === -1)
+                {
+                    throw new Error('User already a member');
+                }
+                //check if already invited
+                if(farm.invited.find(inv => inv._id === friendId) === -1)
+                {
+                    throw new Error('User already invited');
+                }
+                const date = new Date().toISOString();
+                friend.farmInvitations.push(
+                    {
+                        _id: farm._id,
+                        farmName: farm.farmName,
+                        farmType: farm.farmType,
+                        invitedBy: user.username,
+                        createdAt: date
+                    }
+                );
+                await friend.save();
+                farm.invited.push(
+                    {
+                        _id: friend._id,
+                        username: friend.username,
+                        email: friend.username,
+                        createdAt: date
+                    }
+                );
+                await farm.save();
+                return 'Invited successfully';
+            } catch (err) {
+                throw new Error(err);
             }
         }
     }

@@ -14,7 +14,7 @@ module.exports = gql`
         id: String!
         username: String!
         email: String!
-        joinedAt: String!
+        createdAt: String!
     }
     type Chunk {
         id: ID!
@@ -40,8 +40,17 @@ module.exports = gql`
         email: String!
         token: String!
         username: String!
+        farmInvitations: [FarmInfo]!
+        farms: [FarmInfo]!
         invitations: [Friend]!
         friends: [Friend]!
+        createdAt: String!
+    }
+    type FarmInfo {
+        id: ID!
+        farmName: String!
+        farmType: String!
+        invitedBy: String!
         createdAt: String!
     }
     type Friend {
@@ -85,5 +94,6 @@ module.exports = gql`
         acceptInvitation(friendId: ID!): Friend!
         getFriends: [Friend]!
         getInvitations: [Friend]!
+        sendFarmInvitation(farmId: ID!, friendId: ID!): String!
     }
 `;

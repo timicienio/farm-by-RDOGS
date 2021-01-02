@@ -1,14 +1,22 @@
-const { model, Schema, SchemaType } =require('mongoose');
-const { schema } = require('./User');
+const { model, Schema, SchemaTypes } =require('mongoose');
 
 const farmSchema = new Schema({
     farmName: String,
     farmType: String,
-    members: [
+    invited: [
         {
+            _id: Schema.Types.ObjectId,
             username: String,
             email: String,
-            joinedAt: String
+            createdAt: String
+        }
+    ],
+    members: [
+        {
+            _id: Schema.Types.ObjectId,
+            username: String,
+            email: String,
+            createdAt: String
         }
     ],
     chunks: [
