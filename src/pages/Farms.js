@@ -6,11 +6,9 @@ import { ListGroup } from 'react-bootstrap';
 // import Container from 'react-bootstrap/Container';
 // import Row from 'react-bootstrap/Row';
 // import Col from 'react-bootstrap/Col';
-import Draggable from 'react-draggable';
+
 import Farm from '../components/Farm';
-import * as MdIcons from 'react-icons/md';
-import { IconContext } from 'react-icons/lib';
-//import { getFarmList } from '../axios';
+import FarmToolbox from '../components/FarmToolbox';
 
 const Farms = ({ userData }) => {
 	const [farmSelected, setFarmSelected] = useState(-1);
@@ -409,36 +407,18 @@ const Farms = ({ userData }) => {
 						</Route>
 					))}
 				</Switch>
-				<Draggable
-					axis='both'
-					handle='.farm-list-handle'
-					defaultPosition={{ x: 0, y: 0 }}
-					position={null}
-					bounds='parent'
-				>
-					<div className='farm-list std-box'>
-						<div className='farm-list-handle'>
-							<IconContext.Provider value={{ color: '#c8f0ef' }}>
-								<MdIcons.MdDragHandle />
-							</IconContext.Provider>
-						</div>
-						<div className='farm-list-content'>
-							<div className='std-box-title'>Farms</div>
-							<div className='std-box-content'>
-								<ListGroup>
-									{farmList.map((farm, key) => (
-										<ListGroup.Item
-											eventKey={key}
-											onClick={() => onSelectFarm(key)}
-										>
-											{farm.farmName}
-										</ListGroup.Item>
-									))}
-								</ListGroup>
-							</div>
-						</div>
-					</div>
-				</Draggable>
+				<FarmToolbox title='Farms'>
+					<ListGroup>
+						{farmList.map((farm, key) => (
+							<ListGroup.Item
+								eventKey={key}
+								onClick={() => onSelectFarm(key)}
+							>
+								{farm.farmName}
+							</ListGroup.Item>
+						))}
+					</ListGroup>
+				</FarmToolbox>
 			</div>
 		</>
 	);

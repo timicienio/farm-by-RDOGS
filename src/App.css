@@ -39,12 +39,12 @@ body,
 	margin: 1rem;
 	border-radius: 12px;
 	padding: 0.5rem;
-	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 5px 7px 0 rgba(0, 0, 0, 0.2);
 }
 
 .std-box.light {
 	background-color: #c8f0ef;
-	color: unset;
+	color: #26979f;
 }
 
 .std-box-title {
@@ -56,4 +56,6 @@ body,
 .std-box-content {
 	margin: 8px;
 	font-size: 16px;
+	display: flex;
+	flex-direction: column;
 }

@@ -7,31 +7,34 @@ import {
 	Col,
 	Button,
 } from 'react-bootstrap';
-import {
-	getFriendList,
-	addFriend,
-	getInvitationList,
-	acceptFriend,
-} from '../axios';
 //import { Link } from 'react-router-dom';
 
 import StdBox from '../components/StdBox';
 import './Friends.css';
+import FriendInfo from '../components/FriendInfo';
 
 const Friends = ({ userData }) => {
-	//const [friendList, setFriendList] = useState([]);
 	const [friendList, setFriendList] = useState([
-		{ name: 'rdogs1' },
-		{ name: 'rdogs2' },
-		{ name: 'rdogs3' },
-		{ name: 'rdogs4' },
-		{ name: 'rdogs5' },
-		{ name: 'rdogs6' },
-		{ name: 'rdogs7' },
-		{ name: 'rdogs8' },
-		{ name: 'rdogs9' },
-		{ name: 'rdogs10' },
-		{ name: 'rdogs11' },
+		{
+			username: 'rdogs1',
+			email: 'rdogs1@rdogs.com',
+			createdAt: '2021/1/2',
+		},
+		{
+			username: 'timicienio',
+			email: 'rdogs2@rdogs.com',
+			createdAt: '2021/1/2',
+		},
+		{
+			username: 'fredred',
+			email: 'rdogs3@rdogs.com',
+			createdAt: '2021/1/2',
+		},
+		{
+			username: 'gary',
+			email: 'rdogs4@rdogs.com',
+			createdAt: '2021/1/2',
+		},
 	]);
 
 	const [formBody, setFormBody] = useState('');
@@ -53,23 +56,24 @@ const Friends = ({ userData }) => {
 		}
 	});
 
-	const acceptInvitation = friendName => {
-		acceptFriend(friendName);
-		//setInvitation(getInvitationList(userData.name));
-		//setFriendList(getFriendList(userData.name));
-	};
+	// const acceptInvitation = friendName => {
+	// 	acceptFriend(friendName);
+	// 	//setInvitation(getInvitationList(userData.name));
+	// 	//setFriendList(getFriendList(userData.name));
+	// };
 
 	const handleFormSubmit = e => {
 		e.preventDefault();
 		console.log('submit form');
-		if (formBody !== '') {
-			var msg = addFriend(userData.name, formBody);
+		//TODO
+		// if (formBody !== '') {
+		// 	var msg = addFriend(userData.name, formBody);
 
-			if (msg !== 'success') {
-				// alert("User doesn't exist.");
-			}
-			setFormBody('');
-		}
+		// 	if (msg !== 'success') {
+		// 		// alert("User doesn't exist.");
+		// 	}
+		// 	setFormBody('');
+		// }
 	};
 
 	return (
@@ -80,7 +84,11 @@ const Friends = ({ userData }) => {
 			<Container fluid>
 				<Row className='justify-content-md-center'>
 					<Col xs={200}>
-						<StdBox className='friend-list' title='Friends'>
+						<StdBox
+							className='friend-list'
+							title='Friends'
+							height={480}
+						>
 							<InputGroup
 								className='mb-3'
 								onSubmit={handleFormSubmit}
@@ -97,27 +105,26 @@ const Friends = ({ userData }) => {
 									<Button variant='secondary'>Find</Button>
 								</InputGroup.Append>
 							</InputGroup>
-							{friendList.map((friend, key) => {
-								return (
-									<div className='friendList' key={key}>
-										{friend.name}
-									</div>
-								);
-							})}
+							<div className='friend-list-body'>
+								{friendList.map(friend => (
+									<FriendInfo id={friend.id} info={friend} />
+								))}
+							</div>
 						</StdBox>
 					</Col>
 					<Col xs={500}>
 						<StdBox
-							className='friend-invitations'
-							title='Invitations'
+							className='friend-requests'
+							title='Friend Requests'
 						>
 							{invitation.map((friend, key) => {
 								return (
 									<div className='friendList' key={key}>
 										{friend.name + '    '}
 										<Button
-											onClick={() =>
-												acceptInvitation(friend)
+											onClick={
+												() => {}
+												// acceptInvitation(friend)
 											}
 										>
 											Accept

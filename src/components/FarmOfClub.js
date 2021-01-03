@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getFarm } from '../axios';
 import Draggable from 'react-draggable';
 import useFarm from '../hooks/useFarm';
 import Chunk from './Chunk';

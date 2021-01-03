@@ -72,6 +72,6 @@
 	align-items: center;
 }
 
-span {
+.sidebar-item-title {
 	margin-left: 16px;
 }

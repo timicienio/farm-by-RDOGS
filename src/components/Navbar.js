@@ -40,7 +40,9 @@ function Navbar() {
 										style={{ textDecoration: 'none' }}
 									>
 										{item.icon}
-										<span>{item.title}</span>
+										<span className='sidebar-item-title'>
+											{item.title}
+										</span>
 									</Link>
 								</li>
 							);

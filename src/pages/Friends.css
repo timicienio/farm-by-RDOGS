@@ -1,7 +1,8 @@
-.friendList {
+.friend-list {
 	height: 5vh;
 	font-size: 1.5rem;
 }
+
 .title {
 	text-align: center;
 	margin: 50px;
@@ -20,8 +21,8 @@
 	align-items: stretch;
 }
 
-.invitation {
-	padding: 50px;
-	position: absolute;
+.friend-requests {
+	/* padding: 50px; */
+	/* position: absolute; */
 	right: 80px;
 }
