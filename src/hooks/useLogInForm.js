@@ -29,6 +29,7 @@ const useLogInForm = (callback, validate) => {
 				});
 				context.login(res.data.login);
 				console.log(res.data.login);
+				console.log(res.data.login.token);
 				//console.log(res.data.login.token);
 				setToken(res.data.login.token);
 				setIsSubmitted(true);

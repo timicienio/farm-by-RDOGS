@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { createUser } from '../axios';
+// import { createUser } from '../axios';
 import cyrb53 from '../functions/hashFunction';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { REGISTER_MUTATION } from '../graphql';
