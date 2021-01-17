@@ -4,6 +4,7 @@ const userSchema = new Schema({
     username: String,
     passwordHash: String,
     email: String,
+    profile: String,
     farmInvitations: [
         {
             _id: Schema.Types.ObjectId,

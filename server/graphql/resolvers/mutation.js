@@ -86,6 +86,7 @@ module.exports = {
                 username,
                 passwordHash,
                 email,
+                profile: "",
                 farms: [],
                 invitations: [],
                 friends: [],
@@ -445,6 +446,25 @@ module.exports = {
                 await farm.save();
                 return 'Invited successfully';
             } catch (err) {
+                throw new Error(err);
+            }
+        },
+        async editProfile(_, { newProfile }, context)
+        {
+            const user = checkAuth(context);
+            try 
+            {
+                let dbUser = await User.findById(user.id);
+                if(!dbUser)
+                {
+                    throw new UserInputError("User not found");
+                }
+                dbUser.profile = newProfile;
+                await dbUser.save();
+                return "Profile updated";
+            } 
+            catch (err) 
+            {
                 throw new Error(err);
             }
         }

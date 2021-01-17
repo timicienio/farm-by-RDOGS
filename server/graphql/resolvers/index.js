@@ -1,11 +1,11 @@
-const usersResolvers = require('./users.js');
-const farmsResolvers = require('./farms.js');
+const mutationResolvers = require('./mutation.js');
+const queryResolvers = require('./query.js');
 
 module.exports = {
     Query: {
-        ...farmsResolvers.Query,
+        ...queryResolvers.Query,
     },
     Mutation: {
-        ...usersResolvers.Mutation,
+        ...mutationResolvers.Mutation,
     }
 };

@@ -38,7 +38,8 @@ module.exports = gql`
     type User {
         id: ID!
         email: String!
-        token: String!
+        profile: String!
+        token: String
         username: String!
         farmInvitations: [FarmInfo]!
         farms: [FarmInfo]!
@@ -79,9 +80,8 @@ module.exports = gql`
     }
     type Query {
         getFarms: [Farm]!
-        getFarm(farmId: ID!): Farm
-        getPlants: [Plant]
-        getPlant(plantId: ID!): Plant
+        getFarm(farmId: ID!): Farm!
+        getUserData(userId: ID!): User!
     }
     type Mutation {
         register(registerInput: RegisterInput!): User!
@@ -95,5 +95,6 @@ module.exports = gql`
         getFriends: [Friend]!
         getInvitations: [Friend]!
         sendFarmInvitation(farmId: ID!, friendId: ID!): String!
+        editProfile(newProfile: String!): String!
     }
 `;

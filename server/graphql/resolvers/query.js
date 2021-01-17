@@ -1,4 +1,6 @@
 const Farm = require('../../models/Farm');
+const User = require('../../models/User');
+const { UserInputError } = require('apollo-server');
 
 module.exports = {
     Query: {
@@ -29,6 +31,25 @@ module.exports = {
                 }
             }
             catch(err){
+                throw new Error(err);
+            }
+        },
+        async getUserData(_, { userId })
+        {
+            try
+            {
+                const user = await User.findById(userId);
+                if(!user)
+                {
+                    throw new UserInputError("User not found");
+                }
+                return {
+                    ...user._doc,
+                    id: user._id
+                }
+            }
+            catch(err)
+            {
                 throw new Error(err);
             }
         }
