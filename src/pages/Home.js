@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Home = ({userData}) => {
@@ -15,7 +15,6 @@ const Home = ({userData}) => {
 				<span>
 					<Link to = {'/farms'}> SHOW MY FARMS </Link>
 				</span>
-
 			</div>
 			
 		</>

@@ -9,6 +9,8 @@ import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 //import { onError } from 'apollo-link-error'
+import { setContext } from 'apollo-link-context';
+
 
 import * as serviceWorker from './serviceWorker';
 
@@ -38,8 +40,18 @@ const link = split(
 	httpLink
 );
 
+
+const authLink = setContext(() => {
+	const token = localStorage.getItem('jwtToken');
+	return {
+	  headers: {
+		  Authorization: token ? `Bearer ${token}` : ''
+		}
+	};
+});
+
 const client = new ApolloClient({
-	link,
+	link: authLink.concat(httpLink),
 	cache: new InMemoryCache().restore({}),
 	onError: ({ networkError, graphQLErrors }) => {
 		console.log('graphQLErrors', graphQLErrors)

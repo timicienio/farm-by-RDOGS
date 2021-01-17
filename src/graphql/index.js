@@ -1,3 +1,4 @@
 //export { GETFARM_QUERY } from './queries'
-export { REGISTER_MUTATION, LOGIN_MUTATION } from './mutations'
+export { REGISTER_MUTATION, LOGIN_MUTATION, GETFRIENDS_MUTATION, 
+    SENDINVITATION_MUTATION, GETINVITATIONS_MUTATION, ACCEPTINVITATION_MUTATION } from './mutations'
 //export { } from './subscriptions'

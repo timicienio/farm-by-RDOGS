@@ -36,3 +36,47 @@ export const LOGIN_MUTATION = gql`
         }
     }
 `
+export const GETFRIENDS_MUTATION = gql`
+    mutation {
+        getFriends{
+            id
+            username
+            email
+        }
+    }
+`
+export const SENDINVITATION_MUTATION = gql`
+    mutation sendInvitation(
+        $friendId: ID!
+    ){
+        sendInvitation(
+            friendId: $friendId
+        ){
+            id
+            username
+            email
+        }
+    }
+`
+export const GETINVITATIONS_MUTATION = gql`
+    mutation{
+        getInvitations{
+            id
+            username
+            email
+        }
+    }
+`
+export const ACCEPTINVITATION_MUTATION = gql`
+    mutation acceptInvitation(
+        $friendId: ID!
+    ){
+        acceptInvitation(
+            friendId: $friendId
+        ){
+            id
+            username
+            email
+        }
+    }
+`

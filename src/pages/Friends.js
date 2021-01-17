@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
 	InputGroup,
 	FormControl,
@@ -8,6 +8,7 @@ import {
 	Button,
 } from 'react-bootstrap';
 //import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/auth';
 
 import StdBox from '../components/StdBox';
 import './Friends.css';
@@ -37,6 +38,7 @@ const Friends = ({ userData }) => {
 		},
 	]);
 
+	const { user } = useContext(AuthContext);
 	const [formBody, setFormBody] = useState('');
 	const [checkInvitation, setCheckInvitation] = useState(false);
 	//const [invitation, setInvitation] = useState([]);
@@ -79,7 +81,7 @@ const Friends = ({ userData }) => {
 	return (
 		<>
 			<div className='friends'>
-				<h1>{userData.name}'s Friends</h1>
+				<h1>{user.username}'s Friends</h1>
 			</div>
 			<Container fluid>
 				<Row className='justify-content-md-center'>
