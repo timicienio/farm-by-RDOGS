@@ -1,7 +1,7 @@
 import './Farms.css';
 
 import React, { useEffect, useState } from 'react';
-import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ListGroup } from 'react-bootstrap';
 // import Container from 'react-bootstrap/Container';
 // import Row from 'react-bootstrap/Row';
@@ -389,8 +389,7 @@ const Farms = ({ userData }) => {
 	const {
 		handleNewFarmChange,
 		createNewFarm,
-		farmList,
-		farmSelected,
+		getFarms, // List of farms fetched
 		onSelectFarm,
 		createFarmName,
 		history,
@@ -403,18 +402,18 @@ const Farms = ({ userData }) => {
 					<Route exact path='/farms'>
 						Select a farm
 					</Route>
-					{farmList.map((farm, index) => (
+					{getFarms.map((farm, index) => (
 						<Route path={'/farms/' + String(index)}>
 							<Farm data={farm} />
 						</Route>
 					))}
 				</Switch>
 				<FarmToolbox title='Farms'>
-					{!farmList.length ? (
+					{!getFarms.length ? (
 						<span>Create your first farm!</span>
 					) : (
 						<ListGroup>
-							{farmList.map((farm, key) => (
+							{getFarms.map((farm, key) => (
 								<ListGroup.Item
 									eventKey={key}
 									onClick={() => onSelectFarm(key)}
