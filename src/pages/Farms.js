@@ -419,22 +419,20 @@ const Farms = ({}) => {
 					)}
 				</Switch>
 				<FarmToolbox title='Farms'>
-					{!getFarms.length ? (
+					{farmListLoading ? (
+						<></>
+					) : !getFarms.length ? (
 						<span>Create your first farm!</span>
 					) : (
 						<ListGroup>
-							{farmListLoading ? (
-								<></>
-							) : (
-								getFarms.map((farm, key) => (
-									<ListGroup.Item
-										eventKey={key}
-										onClick={() => onSelectFarm(key)}
-									>
-										{farm.farmName}
-									</ListGroup.Item>
-								))
-							)}
+							{getFarms.map((farm, key) => (
+								<ListGroup.Item
+									eventKey={key}
+									onClick={() => onSelectFarm(key)}
+								>
+									{farm.farmName}
+								</ListGroup.Item>
+							))}
 						</ListGroup>
 					)}
 					<Button

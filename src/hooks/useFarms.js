@@ -10,6 +10,7 @@ const useFarms = () => {
 		error: farmListError,
 		data: { getFarms },
 	} = useQuery(GET_FARMS_QUERY);
+
 	const [showCreateFarmPopUp, setShowCreateFarmPopUp] = useState(false);
 	const [createFarmName, setCreateFarmName] = useState('');
 	const [createFarmType, setCreateFarmType] = useState('Club');

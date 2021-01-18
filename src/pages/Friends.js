@@ -52,7 +52,7 @@ const Friends = ({}) => {
 		showAcceptInvitationAlert,
 		dismissInvitationAlert,
 		dismissAcceptInvitationAlert,
-		inviteFriendId,
+		inviteFriendName,
 		invitation,
 		friends,
 	} = useFriends();
@@ -91,7 +91,7 @@ const Friends = ({}) => {
 									aria-describedby='basic-addon2'
 									onChange={e => handleChange(e)}
 									id='body'
-									value={inviteFriendId}
+									value={inviteFriendName}
 								/>
 								<InputGroup.Append>
 									<Button
@@ -148,14 +148,16 @@ const Friends = ({}) => {
 								invitation.map((friend, key) => {
 									return (
 										<div className='friendList' key={key}>
-											{friend.name + '    '}
-											<Button
-												onClick={() => {
-													acceptInv(friend.id);
-												}}
-											>
-												Accept
-											</Button>
+											<FriendInfo id={key} info={friend}>
+												<Button
+													onClick={() => {
+														acceptInv(friend.id);
+													}}
+													variation='secondary'
+												>
+													Accept
+												</Button>
+											</FriendInfo>
 										</div>
 									);
 								})

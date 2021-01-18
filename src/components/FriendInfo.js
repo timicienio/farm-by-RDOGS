@@ -2,7 +2,7 @@ import React from 'react';
 import StdBox from './StdBox';
 import { Button } from 'react-bootstrap';
 
-function FriendInfo({ info: { username, email }, large, detailed }) {
+function FriendInfo({ info: { username, email }, large, detailed }, children) {
 	return (
 		<StdBox
 			light

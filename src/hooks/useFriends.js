@@ -9,7 +9,7 @@ import {
 } from '../graphql';
 
 const useFriends = () => {
-	const [inviteFriendId, setInviteFriendId] = useState('');
+	const [inviteFriendName, setInviteFriendName] = useState('');
 	const [invitation, setInvitation] = useState([]);
 	const [friends, setFriends] = useState([]);
 	const [hasGetFriend, setHasGetFriend] = useState(false);
@@ -29,12 +29,12 @@ const useFriends = () => {
 	const inviteFriend = async () => {
 		try {
 			const res = await sendInvitation({
-				variables:{
-					friendId: inviteFriendId,
-				}
+				variables: {
+					friendName: inviteFriendName,
+				},
 			});
 			console.log(res);
-			setInviteFriendId('');
+			setInviteFriendName('');
 		} catch (err) {
 			alert(err);
 			if (err.message === 'GraphQL error: User not found') {
@@ -60,9 +60,9 @@ const useFriends = () => {
 	const acceptInv = async friendId => {
 		try {
 			const res = await acceptInvitation({
-				variables:{
+				variables: {
 					friendId: friendId,
-				}
+				},
 			});
 			setHasGetFriend(false);
 			setHasGetInv(false);
@@ -104,7 +104,7 @@ const useFriends = () => {
 	};
 
 	const handleChange = e => {
-		setInviteFriendId(e.target.value);
+		setInviteFriendName(e.target.value);
 	};
 
 	const dismissInvitationAlert = () => {
@@ -133,7 +133,7 @@ const useFriends = () => {
 		showAcceptInvitationAlert,
 		dismissInvitationAlert,
 		dismissAcceptInvitationAlert,
-		inviteFriendId,
+		inviteFriendName,
 		invitation,
 		friends,
 	};

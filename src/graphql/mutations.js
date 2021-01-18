@@ -41,8 +41,8 @@ export const GET_FRIENDS_MUTATION = gql`
 	}
 `;
 export const SEND_INVITATION_MUTATION = gql`
-	mutation sendInvitation($friendId: ID!) {
-		sendInvitation(friendId: $friendId) {
+	mutation sendInvitation($friendName: String!) {
+		sendInvitation(friendName: $friendName) {
 			id
 			username
 			email
@@ -104,59 +104,48 @@ export const CREATE_FARM_MUTATION = gql`
 	}
 `;
 export const CREATE_PLANT_MUTATION = gql`
-    mutation createPlant(
-        $farmId: ID!
-        $plantType: String!
-        $title: String!
-        $body: String!
-        $chunkCoordinates: Coordinate!
-        $plantCoordinates: Coordinate!
-        $author: String!
-    ){
-
-        createPlant(
-            plantInput:{
-                farmId: $farmId,
-                plantType: $plantType,
-                title: $title,
-                body: $body,
-                chunkCoordinates: $chunkCoordinates,
-                plantCoordinates: $plantCoordinates,
-                author: $author
-            }
-        ){
-            plantType,
-            title,
-            body,
-            chunkCoordinates{
-                x
-                y
-            },
-            plantCoordinates{
-                x
-                y
-            }
-            author
-        }
-    }  
+	mutation createPlant(
+		$farmId: ID!
+		$plantType: String!
+		$title: String!
+		$body: String!
+		$chunkCoordinates: Coordinate!
+		$plantCoordinates: Coordinate!
+		$author: String!
+	) {
+		createPlant(
+			plantInput: {
+				farmId: $farmId
+				plantType: $plantType
+				title: $title
+				body: $body
+				chunkCoordinates: $chunkCoordinates
+				plantCoordinates: $plantCoordinates
+				author: $author
+			}
+		) {
+			plantType
+			title
+			body
+			chunkCoordinates {
+				x
+				y
+			}
+			plantCoordinates {
+				x
+				y
+			}
+			author
+		}
+	}
 `;
 export const LEAVE_FARM_MUTATION = gql`
-    mutation leaveFarm(
-        $farmId: String!
-    ){
-        leaveFarm(
-            farmId: $farmId
-        )
-    }
+	mutation leaveFarm($farmId: String!) {
+		leaveFarm(farmId: $farmId)
+	}
 `;
 export const SEND_FARM_INVITATION_MUTATION = gql`
-    mutation sendFarmInvitation(
-        $farmId: String!
-        $friendId: ID!
-    ){
-        sendFarmInvitation(
-            farmId: $farmId
-            friendId: $friendId
-        )
-    }
-`
+	mutation sendFarmInvitation($farmId: String!, $friendId: ID!) {
+		sendFarmInvitation(farmId: $farmId, friendId: $friendId)
+	}
+`;
