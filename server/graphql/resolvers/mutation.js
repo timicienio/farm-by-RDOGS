@@ -295,14 +295,14 @@ module.exports = {
             const user = checkAuth(context);
             try {
                 const date = new Date().toISOString();
-                var friend = await User.find({username: friendName});
-                var dbUser = await User.findById(user.id);
+                let friend = await User.findOne({username: friendName});
+                let dbUser = await User.findById(user.id);
                 if(!friend)
                 {
                     throw new UserInputError('Friend user not found');
                 }
-                const invIndex = dbUser.invitations.find(inv => inv.username === friendName);
-                if(!invIndex)
+                const invIndex = dbUser.invitations.findIndex(inv => inv.username === friendName);
+                if(invIndex === -1)
                 {
                     throw new UserInputError('Invitation not found');
                 }
@@ -321,12 +321,7 @@ module.exports = {
                 })
                 await dbUser.save();
                 await friend.save();
-                return {
-                    id: friend._id,
-                    username: friend.username,
-                    email: friend.email,
-                    createdAt: date
-                }
+                return "Friend added successfully";
             }
             catch (err) {
                 throw new Error(err);
@@ -338,12 +333,12 @@ module.exports = {
             console.log(user);
             try {
                 let friend = await User.findOne({username: friendName});
-                console.log(friend.invitations.find(inv => inv.username === friendName));
+                let dbUser = await User.findById(user.id);
                 if(!friend)
                 {
                     throw new UserInputError('User not found');
                 }
-                if(friend._id === user.id)
+                if(friendName === user.username)
                 {
                     throw new UserInputError('You cannot be friends with yourself');
                 }
@@ -351,20 +346,40 @@ module.exports = {
                 {
                     throw new Error('Already invited');
                 }
-                const inv = {
-                    _id: user.id,
-                    username: user.username,
-                    email: user.email,
-                    createdAt: new Date().toISOString()
+                const invIndex = dbUser.invitations.findIndex(inv => inv.username === friendName);
+                if(invIndex !== -1)
+                {
+                    //accept
+                    const date = new Date().toISOString();
+                    friend.invitations.splice(invIndex, 1);
+                    friend.friends.push({
+                        _id: dbUser._id,
+                        username: dbUser.username,
+                        email: dbUser.email,
+                        createdAt: date
+                    });
+                    dbUser.friends.push({
+                        _id: friend._id,
+                        username: friend.username,
+                        email: friend.email,
+                        createdAt: date
+                    })
+                    await dbUser.save();
+                    await friend.save();
+                    return "Friend added successfully";
                 }
-                friend.invitations.push(inv);
-                await friend.save();
-                return {
-                    id: inv._id,
-                    username: inv.username,
-                    email: inv.email,
-                    createdAt: inv.createdAt,
-                };
+                else
+                {    
+                    const inv = {
+                        _id: user.id,
+                        username: user.username,
+                        email: user.email,
+                        createdAt: new Date().toISOString()
+                    }
+                    friend.invitations.push(inv);
+                    await friend.save();
+                    return "Friend Invitation sent successfully";
+                }
             } catch (err) {
                 throw new Error(err)
             }
