@@ -5,14 +5,14 @@ import * as IoIcons from 'react-icons/io';
 import * as BsIcons from 'react-icons/bs';
 
 export const SidebarData = [
+	// {
+	// 	title: 'Home',
+	// 	path: '/home',
+	// 	icon: <AiIcons.AiFillHome />,
+	// 	cName: 'nav-text',
+	// },
 	{
-		title: 'Home',
-		path: '/home',
-		icon: <AiIcons.AiFillHome />,
-		cName: 'nav-text',
-	},
-	{
-		title: 'Friends',
+		title: 'Me & Friends',
 		path: '/friends',
 		icon: <FaIcons.FaUserFriends />,
 		cName: 'nav-text',

@@ -161,7 +161,7 @@ function App() {
 		loggedIn: false,
 		name: '',
 		email: '',
-		token: ''
+		token: '',
 	});
 
 	// const [error, setError] = useState('');
@@ -204,6 +204,9 @@ function App() {
 						color: #faebd7;
 						border-color: transparent
 					}
+					.container-fluid {
+						margin: 30px
+					}
 				`}
 			</style>
 			<Router>
@@ -222,11 +225,11 @@ function App() {
 						<Navbar />
 						<Switch>
 							<Route exact path='/'>
-								<Redirect to='/home' />
+								<Redirect to='/friends' />
 							</Route>
-							<Route path='/home'>
+							{/* <Route path='/home'>
 								<Home userData={userData}></Home>
-							</Route>
+							</Route> */}
 							<Route path='/friends'>
 								<Friends userData={userData}></Friends>
 							</Route>
@@ -241,7 +244,7 @@ function App() {
 								component={Preferences}
 							/>
 							<Route path='/about' component={About} />
-							<Redirect to='/home' />
+							<Redirect to='/friends' />
 						</Switch>
 					</>
 				)}

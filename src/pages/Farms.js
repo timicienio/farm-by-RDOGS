@@ -13,7 +13,7 @@ import CreateNewFarmPopUp from '../components/CreateNewFarmPopUp';
 import useFarms from '../hooks/useFarms';
 import useFarm from '../hooks/useFarm';
 
-const Farms = ({ userData }) => {
+const Farms = ({}) => {
 	// const [friendList, setFriendList] = useState([]);
 	// const [farmList, setFarmList] = useState([
 	// 	{

@@ -9,6 +9,7 @@ function StdBox({
 	className,
 	title,
 	titleSize,
+	bodySize,
 	light,
 	margin,
 	dragHandle,
@@ -42,7 +43,14 @@ function StdBox({
 				>
 					{title}
 				</div>
-				<div className='std-box-content'>{children}</div>
+				<div
+					className='std-box-content'
+					style={{
+						fontSize: bodySize === undefined ? 16 : bodySize,
+					}}
+				>
+					{children}
+				</div>
 			</div>
 		</>
 	);

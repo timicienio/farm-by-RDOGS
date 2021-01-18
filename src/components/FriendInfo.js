@@ -2,17 +2,17 @@ import React from 'react';
 import StdBox from './StdBox';
 import { Button } from 'react-bootstrap';
 
-function FriendInfo({ info: { username, email, createdAt } }) {
+function FriendInfo({ info: { username, email }, large, detailed }) {
 	return (
 		<StdBox
 			light
 			className='friend-info'
-			titleSize={20}
+			titleSize={large ? 32 : 20}
+			bodySize={large ? 20 : 16}
 			title={username}
 			margin={8}
 		>
 			<span>Email: {email}</span>
-			<span>Joined at: {createdAt}</span>
 		</StdBox>
 	);
 }

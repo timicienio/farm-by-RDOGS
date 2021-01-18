@@ -16,7 +16,7 @@ import FriendInfo from '../components/FriendInfo';
 import useFriends from '../hooks/useFriends';
 import './Friends.css';
 
-const Friends = ({ userData }) => {
+const Friends = ({}) => {
 	// const [friendList, setFriendList] = useState([
 	// 	{
 	// 		username: 'rdogs1',
@@ -62,16 +62,23 @@ const Friends = ({ userData }) => {
 
 	return (
 		<>
-			<div className='friends'>
+			{/* <div className='friends'>
 				<h1>{user.username}'s Friends</h1>
-			</div>
+			</div> */}
 			<Container fluid>
+				<Row className='justify-content-md-center'>
+					<Col xs={200}>
+						<StdBox className='user-info' title='Me' width={742}>
+							<FriendInfo info={user} large></FriendInfo>
+						</StdBox>
+					</Col>
+				</Row>
 				<Row className='justify-content-md-center'>
 					<Col xs={200}>
 						<StdBox
 							className='friend-list'
 							title='Friends'
-							height={600}
+							// height={600}
 							width={360}
 						>
 							<InputGroup
@@ -124,7 +131,7 @@ const Friends = ({ userData }) => {
 						<StdBox
 							className='friend-requests'
 							title='Friend Requests'
-							height={600}
+							// height={600}
 							width={360}
 						>
 							<Alert
