@@ -349,7 +349,7 @@ module.exports = {
                 {
                     throw new UserInputError('You cannot be friends with yourself');
                 }
-                if(!friend.invitations.find(inv => inv._id === friendId))
+                if(friend.invitations.find(inv => inv._id === friendId))
                 {
                     throw new Error('Already invited');
                 }
