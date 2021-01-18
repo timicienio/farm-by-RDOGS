@@ -243,7 +243,8 @@ module.exports = {
                 farmName: res.farmName,
                 farmType: res.farmType,
                 createdAt: res.createdAt
-            })
+            });
+            await dbUser.save();
 
             return {
                 ...res._doc,
