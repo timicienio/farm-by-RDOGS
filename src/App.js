@@ -79,7 +79,7 @@ function App() {
 					}
 					.container-fluid {
 						margin: 30px;
-						
+						height: fit-content;
 					}
 					.modal-content {
 						background-color: #26979f;
@@ -89,11 +89,15 @@ function App() {
 					
 					}
 					.modal-header {
+						color: #c8f0ef;
+						font-size: 32px;
 						border-bottom-width: 0px;
 					}
 					.form-control {
-						border-radius: 12px
+						border-radius: 12px;
+						margin-bottom: 10px;
 					}
+				
 				`}
 			</style>
 			<Router>
