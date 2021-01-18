@@ -31,9 +31,9 @@ function FarmOfClub({ data }) {
 				position={null}
 			>
 				<div className='farm'>
-					{chunks.map(item => (
+					{/* {chunks.map(item => (
 						<Chunk data={item} modifier={modifyChunk} />
-					))}
+					))} */}
 				</div>
 			</Draggable>
 		</>

@@ -3,9 +3,8 @@ import './Farms.css';
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ListGroup, Button } from 'react-bootstrap';
-// import Container from 'react-bootstrap/Container';
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
+import { IconContext } from 'react-icons';
+import { BiPlus } from 'react-icons/bi';
 
 import Farm from '../components/Farm';
 import FarmToolbox from '../components/FarmToolbox';
@@ -402,7 +401,7 @@ const Farms = ({}) => {
 	} = useFarms();
 
 	return (
-		<>
+		<IconContext.Provider value={{}}>
 			<div className='map-container'>
 				<Switch>
 					<Route exact path='/farms'>
@@ -441,7 +440,8 @@ const Farms = ({}) => {
 						variant='primary'
 						onClick={() => setShowCreateFarmPopUp(true)}
 					>
-						Create New Farm...
+						<BiPlus />
+						New Farm ...
 					</Button>
 				</FarmToolbox>
 				<CreateNewFarmPopUp
@@ -453,7 +453,7 @@ const Farms = ({}) => {
 					createFarmType={createFarmType}
 				/>
 			</div>
-		</>
+		</IconContext.Provider>
 	);
 };
 
