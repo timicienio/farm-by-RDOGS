@@ -290,20 +290,18 @@ module.exports = {
                 throw new Error(err);
             }
         },
-        async acceptInvitation(_, { friendId }, context)
+        async acceptInvitation(_, { friendName }, context)
         {
-            console.log(friendId);
             const user = checkAuth(context);
             try {
                 const date = new Date().toISOString();
-                console.log(friendId)
-                var friend = await User.findById(friendId);
+                var friend = await User.find({username: friendName});
                 var dbUser = await User.findById(user.id);
                 if(!friend)
                 {
                     throw new UserInputError('Friend user not found');
                 }
-                const invIndex = dbUser.invitations.find(inv => inv._id === friendId);
+                const invIndex = dbUser.invitations.find(inv => inv.username === friendName);
                 if(!invIndex)
                 {
                     throw new UserInputError('Invitation not found');
@@ -334,13 +332,13 @@ module.exports = {
                 throw new Error(err);
             }
         },
-        async sendInvitation(_, { friendId }, context)
+        async sendInvitation(_, { friendName }, context)
         {
             const user = checkAuth(context);
             console.log(user);
             try {
-                let friend = await User.findById(friendId);
-                console.log(friend.invitations.find(inv => inv._id === friendId));
+                let friend = await User.findOne({username: friendName});
+                console.log(friend.invitations.find(inv => inv.username === friendName));
                 if(!friend)
                 {
                     throw new UserInputError('User not found');
@@ -349,7 +347,7 @@ module.exports = {
                 {
                     throw new UserInputError('You cannot be friends with yourself');
                 }
-                if(friend.invitations.find(inv => inv._id === friendId))
+                if(friend.invitations.find(inv => inv.username === friendName))
                 {
                     throw new Error('Already invited');
                 }
@@ -419,7 +417,7 @@ module.exports = {
                     throw new UserInputError('User not found');
                 }
                 //check if already a member
-                if(!farm.members.find(mem => mem._id === friendId))
+                if(farm.members.find(mem => mem._id === friendId))
                 {
                     throw new Error('User already a member');
                 }
