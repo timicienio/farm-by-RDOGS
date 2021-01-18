@@ -1,5 +1,4 @@
 import React, { useState, useReducer } from 'react';
-import { MdPlaylistAddCheck } from 'react-icons/md';
 
 function useFarm(init) {
 	const [farmName, setFarmName] = useState(init.farmName);

@@ -5,13 +5,14 @@ import { useHistory } from 'react-router-dom';
 import { CREATE_FARM_MUTATION, GET_FARMS_QUERY } from '../graphql';
 
 const useFarms = () => {
-	//const [hasSetFarmList, setHasSetFarmList] = useState(false);
 	const {
+		loading,
+		error,
 		data: { getFarms },
 	} = useQuery(GET_FARMS_QUERY);
-	//const [farmList, setFarmList] = useState([]);
-	// record the farm name which will be created
-	const [createFarmName, setCreateFarmName] = useState(false);
+	const [showCreateFarmPopUp, setShowCreateFarmPopUp] = useState(false);
+	const [createFarmName, setCreateFarmName] = useState('');
+	const [createFarmType, setCreateFarmType] = useState('Club');
 
 	const [createFarm] = useMutation(CREATE_FARM_MUTATION);
 
@@ -19,7 +20,7 @@ const useFarms = () => {
 		try {
 			const res = await createFarm({
 				farmName: createFarmName,
-				farmType: 'Club',
+				farmType: createFarmType,
 			});
 			setCreateFarmName('');
 		} catch (err) {
@@ -28,6 +29,7 @@ const useFarms = () => {
 	};
 
 	const handleNewFarmChange = e => {
+		console.log(e.target);
 		setCreateFarmName(e.target.value);
 	};
 
@@ -54,15 +56,11 @@ const useFarms = () => {
 		getFarms, // List of farms fetched
 		onSelectFarm,
 		createFarmName,
+		createFarmType,
 		history,
+		showCreateFarmPopUp,
+		setShowCreateFarmPopUp,
 	};
-	// // useEffect(() => {
-	// // 	if (!hasSetFarmList) {
-	// // 		const { data } = useQuery(GET_FARMS_QUERY);
-	// // 		setFarmList(data.getFarms);
-	// // 		setHasSetFarmList(true);
-	// // 	}
-	// // }, [hasSetFarmList]);
 
 	// return { handleChange, createNewFarm, getFarms, createFarmName };
 };
