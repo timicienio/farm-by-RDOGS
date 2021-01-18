@@ -1,28 +1,85 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer, useEffect, useContext } from 'react';
 import { MdPlaylistAddCheck } from 'react-icons/md';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import { AuthContext } from '../context/auth';
 import {
 	CREATE_PLANT_MUTATION,
 	LEAVE_FARM_MUTATION,
 	SEND_FARM_INVITATION_MUTATION,
 	GET_FARM_QUERY,
+	GET_FRIENDS_MUTATION,
 } from '../graphql';
 
-const useFarm = init => {
+const useFarm = farmId => {
 	const [test, setTest] = useState(false);
-	const { loading, error, data } = useQuery(GET_FARM_QUERY, {
+	const { user } = useContext(AuthContext);
+	const {
+		loading: getFarmLoading,
+		error: getFarmError,
+		data
+	} = useQuery(GET_FARM_QUERY, {
 		variables: {
-			init,
+			farmId: farmId
 		},
 	});
-
+	
+	const [getFriends] = useMutation(GET_FRIENDS_MUTATION);
 	const [createPlant] = useMutation(CREATE_PLANT_MUTATION);
 	const [leaveFarm] = useMutation(LEAVE_FARM_MUTATION, {
 		variables: {
-			init,
+			farmId: farmId
 		},
 	});
 	const [sendFarmInvitation] = useMutation(SEND_FARM_INVITATION_MUTATION);
+	const [friends, setFriends] = useState([]);
+	const [hasGetFriend, setHasGetFriend] = useState(false);
+
+	const getFriendsList = async () => {
+		try {
+			const res = await getFriends();
+			setFriends(res.data.getFriends);
+			setHasGetFriend(true);
+		} catch (err) {
+			//console.log(err);
+			alert(err);
+		}
+	};
+
+	//add a member to this farm
+	const addNewMember = async(friendName) => {
+		let id = "";
+		for(let i=0; i < friends.length-1; i++){
+			if(friends[i].username === friendName){
+				id = friends[i].id
+				break;
+			}
+		}
+		try{
+			const res = await sendFarmInvitation({
+				variables:{
+					friendId: id
+				},
+			})
+			console.log(res);
+		}
+		catch(err){
+			console.log(err);
+			alert(err);
+		}
+	}
+
+	// create a plant
+	const createNewPlant = async (plantType, title, body, chunkX, chunkY, plantX, plantY) => {
+		// author = user.username
+		try{
+			
+		}
+		catch(err){
+
+		}
+	} 
+
+	// test
 	useEffect(() => {
 		if (!test) {
 			console.log('farmName:', data.farmName);
@@ -33,6 +90,12 @@ const useFarm = init => {
 			setTest(true);
 		}
 	}, [test]);
+
+	useEffect(() => {
+		if (!hasGetFriend) {
+			getFriendsList();
+		}
+	}, [hasGetFriend]);
 
 	// const [members, membersDispatch] = useReducer(
 	// 	(members, { type, value }) => {
@@ -86,14 +149,10 @@ const useFarm = init => {
 
 	return [
 		data, //include id, farmName, farmType, members, chunks, plants
+		friends, //this user's all friends
 		leaveFarm,
-		// chunks,
-		// setFarmName,
-		// setType,
-		// addMember,
-		// removeMember,
-		// addChunk,
-		// modifyChunk,
+		createNewPlant,
+		addNewMember
 	];
 };
 
