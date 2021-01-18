@@ -392,7 +392,7 @@ const Farms = ({}) => {
 		createNewFarm,
 		farmListLoading,
 		farmListError,
-		getFarms, // List of farms fetched
+		data, // List of farms fetched
 		onSelectFarm,
 		createFarmName,
 		createFarmType,
@@ -411,7 +411,7 @@ const Farms = ({}) => {
 					{farmListLoading ? (
 						<></>
 					) : (
-						getFarms.map((farm, index) => (
+						data.getFarms.map((farm, index) => (
 							<Route path={'/farms/' + String(index)}>
 								<Farm data={farm} />
 							</Route>
@@ -421,11 +421,11 @@ const Farms = ({}) => {
 				<FarmToolbox title='Farms'>
 					{farmListLoading ? (
 						<></>
-					) : !getFarms.length ? (
+					) : !data.getFarms.length ? (
 						<span>Create your first farm!</span>
 					) : (
 						<ListGroup>
-							{getFarms.map((farm, key) => (
+							{data.getFarms.map((farm, key) => (
 								<ListGroup.Item
 									eventKey={key}
 									onClick={() => onSelectFarm(key)}
@@ -437,19 +437,19 @@ const Farms = ({}) => {
 					)}
 					<Button
 						variant='secondary'
-						onClick={setShowCreateFarmPopUp(true)}
+						onClick={() => setShowCreateFarmPopUp(true)}
 					>
 						Create...
 					</Button>
 				</FarmToolbox>
-				<CreateNewFarmPopUp
+				{/* <CreateNewFarmPopUp
 					show={showCreateFarmPopUp}
 					setShow={setShowCreateFarmPopUp}
 					handleNewFarmChange={handleNewFarmChange}
 					createNewFarm={createNewFarm}
 					createFarmName={createFarmName}
 					createFarmType={createFarmType}
-				/>
+				/> */}
 			</div>
 		</>
 	);

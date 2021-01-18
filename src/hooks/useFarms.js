@@ -8,7 +8,7 @@ const useFarms = () => {
 	const {
 		loading: farmListLoading,
 		error: farmListError,
-		data: { getFarms },
+		data: data,
 	} = useQuery(GET_FARMS_QUERY);
 
 	const [showCreateFarmPopUp, setShowCreateFarmPopUp] = useState(false);
@@ -56,7 +56,7 @@ const useFarms = () => {
 		createNewFarm,
 		farmListLoading,
 		farmListError,
-		getFarms, // List of farms fetched
+		data, // List of farms fetched
 		onSelectFarm,
 		createFarmName,
 		createFarmType,
@@ -64,8 +64,6 @@ const useFarms = () => {
 		showCreateFarmPopUp,
 		setShowCreateFarmPopUp,
 	};
-
-	// return { handleChange, createNewFarm, getFarms, createFarmName };
 };
 
 export default useFarms;
