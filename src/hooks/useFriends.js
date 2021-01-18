@@ -37,15 +37,16 @@ const useFriends = () => {
 			setInviteFriendName('');
 		} catch (err) {
 			alert(err);
+			console.log(err);
 			if (err.message === 'GraphQL error: User not found') {
 				console.log('User not found');
 				setInvitationAlert('User not found!');
 			} else if (
 				err.message ===
-				'GraphQL error: You cannot be friends with yourself'
+				'GraphQL error: UserInputError: You cannot be friends with yourself'
 			) {
 				console.log('You cannot be friends with yourself');
-				setInvitationAlert('You cannot be friends with yourself.');
+				setInvitationAlert('You cannot be friends with yourself :(');
 			} else if (err.message === 'GraphQL error: Already invited') {
 				console.log('Already invited');
 				setInvitationAlert('Already invited.');

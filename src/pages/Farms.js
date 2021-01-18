@@ -424,8 +424,7 @@ const Farms = ({}) => {
 					) : !data.getFarms.length ? (
 						<span>Create your first farm!</span>
 					) : (
-						<>
-							<span>Farms you own</span>
+						<div id='farm-list-switch'>
 							<ListGroup>
 								{data.getFarms.map((farm, key) => (
 									<ListGroup.Item
@@ -436,10 +435,10 @@ const Farms = ({}) => {
 									</ListGroup.Item>
 								))}
 							</ListGroup>
-						</>
+						</div>
 					)}
 					<Button
-						variant='secondary'
+						variant='primary'
 						onClick={() => setShowCreateFarmPopUp(true)}
 					>
 						Create New Farm...

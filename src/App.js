@@ -41,6 +41,15 @@ function App() {
 			/>
 			<style type='text/css'>
 				{`
+					.btn-primary {
+						background-color: #c8f0ef;
+						border-width: 0px;
+						color: #1c3532;
+						border-radius: 12px;
+					}
+					.btn-primary:hover{
+						background-color:#ff6169
+					}
 					.btn-secondary {
 						background-color: #faebd7;
 						border-width: 0px;

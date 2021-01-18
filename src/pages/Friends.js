@@ -165,7 +165,7 @@ const Friends = ({}) => {
 																friend.id
 															);
 														}}
-														variant='secondary'
+														variant='primary'
 													>
 														Accept
 													</Button>
