@@ -42,11 +42,7 @@ export const GET_FRIENDS_MUTATION = gql`
 `;
 export const SEND_INVITATION_MUTATION = gql`
 	mutation sendInvitation($friendName: String!) {
-		sendInvitation(friendName: $friendName) {
-			id
-			username
-			email
-		}
+		sendInvitation(friendName: $friendName)
 	}
 `;
 export const GET_INVITATIONS_MUTATION = gql`
@@ -60,11 +56,7 @@ export const GET_INVITATIONS_MUTATION = gql`
 `;
 export const ACCEPT_INVITATION_MUTATION = gql`
 	mutation acceptInvitation($friendName: String!) {
-		acceptInvitation(friendName: $friendName) {
-			id
-			username
-			email
-		}
+		acceptInvitation(friendName: $friendName)
 	}
 `;
 export const CREATE_FARM_MUTATION = gql`
