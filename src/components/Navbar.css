@@ -8,6 +8,7 @@
 	/* border-radius: 12px; */
 	z-index: 5000;
 	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+	position: fixed;
 }
 
 .menu-bars {

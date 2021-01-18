@@ -66,8 +66,15 @@ const Friends = ({}) => {
 			<Container fluid>
 				<Row className='justify-content-md-center'>
 					<Col xs={200}>
-						<StdBox className='user-info' title='Me' width={825}>
-							<FriendInfo info={user} large></FriendInfo>
+						<StdBox className='user-info' title='Me' width={824}>
+							<FriendInfo
+								info={user}
+								width={670}
+								large
+							></FriendInfo>
+							<div className='request-list-buttons'>
+								<Button variant='secondary'>Log out</Button>
+							</div>
 						</StdBox>
 					</Col>
 				</Row>

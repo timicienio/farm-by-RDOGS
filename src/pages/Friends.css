@@ -1,6 +1,10 @@
 .friends-root {
 	overflow-y: scroll;
 }
+.user-info .std-box-content {
+	display: flex;
+	flex-direction: row;
+}
 .friend-list {
 	height: 5vh;
 	font-size: 1.5rem;
