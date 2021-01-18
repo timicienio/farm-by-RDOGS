@@ -327,6 +327,27 @@ module.exports = {
                 throw new Error(err);
             }
         },
+        async declineInvitation(_, { friendName }, context)
+        {
+            const user = checkAuth(context);
+            try {
+                let dbUser = await User.findById(user.id);
+                if(!dbUser)
+                {
+                    throw new UserInputError("User not found");
+                }
+                const invIndex = dbUser.invitations.findIndex(inv => inv.username === friendName);
+                if(invIndex === -1)
+                {
+                    throw new Error("Invitation not found");
+                }
+                dbUser.invitations.splice(invIndex, 1);
+                await dbUser.save();
+                return "Invitation declined successfully";
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
         async sendInvitation(_, { friendName }, context)
         {
             const user = checkAuth(context);
@@ -345,6 +366,10 @@ module.exports = {
                 if(friend.invitations.find(inv => inv.username === friendName))
                 {
                     throw new Error('Already invited');
+                }
+                if(friend.friends.find(fr => fr.username === friendName))
+                {
+                    throw new Error('Already friends');
                 }
                 const invIndex = dbUser.invitations.findIndex(inv => inv.username === friendName);
                 if(invIndex !== -1)

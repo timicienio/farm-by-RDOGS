@@ -92,6 +92,7 @@ module.exports = gql`
         leaveFarm(farmId: ID!): String!
         sendInvitation(friendName: String!): String!
         acceptInvitation(friendName: String!): String!
+        declineInvitation(friendName: String!): String!
         getFriends: [Friend]!
         getInvitations: [Friend]!
         sendFarmInvitation(farmId: ID!, friendId: ID!): String!
