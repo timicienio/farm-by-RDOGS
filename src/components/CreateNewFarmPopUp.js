@@ -1,13 +1,23 @@
 import { Model } from 'mongoose';
 import React from 'react';
-import { Modal, FormGroup } from 'react-bootstrap';
+import { Modal, Form, Button } from 'react-bootstrap';
 function CreateNewFarmPopUp({
+	show,
+	setShow,
 	handleNewFarmChange,
 	createNewFarm,
 	createFarmName,
+	createFarmType,
 }) {
 	return (
-		<Modal size='lg' centered>
+		<Modal
+			size='lg'
+			show={show}
+			onHide={() => {
+				setShow(false);
+			}}
+			centered
+		>
 			<Modal.Header closeButton>Create a new farm...</Modal.Header>
 			<Model.Body>
 				<Form>
@@ -25,12 +35,10 @@ function CreateNewFarmPopUp({
 						<Form.Control
 							controlId=''
 							as='select'
-							onChange={
-								(e => {
-									handleNewFarmChange(e);
-								},
-								(value = { createNewFarmType }))
-							}
+							onChange={e => {
+								handleNewFarmChange(e);
+							}}
+							value={createFarmType}
 						>
 							<option>Club</option>
 						</Form.Control>
