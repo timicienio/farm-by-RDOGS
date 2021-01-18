@@ -15,7 +15,7 @@ const useFriends = () => {
 	const [sendInvitation] = useMutation(SENDINVITATION_MUTATION);
 	const [acceptInvitation] = useMutation(ACCEPTINVITATION_MUTATION);
 
-	const inviteFriend = () => {
+	const inviteFriend = async() => {
 		try{
 			const res = await sendInvitation({
 				friendId: inviteFriendId,
@@ -36,7 +36,7 @@ const useFriends = () => {
 		}
 	}
 
-	const acceptInv = (friendId) =>{
+	const acceptInv = async(friendId) =>{
 		try{
 			const res = await acceptInvitation({
 				friendId: friendId,
@@ -55,30 +55,38 @@ const useFriends = () => {
 		}
 	}
 
+	const getFriendsList = async() => {
+		try {
+			const res = await getFriends();
+			setFriends(res.data.getFriends);
+			setHasGetFriend(true);
+		} catch (err) {
+			//console.log(err);
+			alert(err);
+		}
+	}
+
+	const getInvitationsList = async() =>{
+		try {
+			const res = await getInvitations();
+			setInvitation(res.data.getInvitations);
+			setHasGetInv(true);
+		} catch (err) {
+			//console.log(err);
+			alert(err);
+		}
+	}
+
 	const handleChange = e => {
 		setInviteFriendName(e.target.value);
 	};
 
 	useEffect(()=>{
 		if(!hasGetFriend){
-			try {
-				const res = await getFriends();
-				setFriends(res.data.getFriends);
-				setHasGetFriend(true);
-			} catch (err) {
-				//console.log(err);
-				alert(err);
-			}
+			getFriendsList();
 		}
 		if(!hasGetInv){
-			try {
-				const res = await getInvitations();
-				setInvitation(res.data.getInvitations);
-				setHasGetInv(true);
-			} catch (err) {
-				//console.log(err);
-				alert(err);
-			}
+			getInvitationsList();
 		}
 	})
 

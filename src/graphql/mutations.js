@@ -80,3 +80,45 @@ export const ACCEPTINVITATION_MUTATION = gql`
         }
     }
 `
+export const CREATEFARM_MUTATION = gql`
+    mutation createFarm(
+        $farmName: String!
+        $farmType: String!
+    ){
+        createFarm(
+            farmName: $farmName
+            farmType: $farmType
+        ){
+            id
+            farmName
+            farmType
+            members{
+            id
+            username
+            email
+            }
+            chunks{
+            id
+            coordinates{
+                x
+                y
+            }
+            }
+            plants{
+            id
+            plantType
+            title
+            body
+            chunkCoordinates{
+                x
+                y
+            }
+            plantCoordinates{
+                x
+                y
+            }
+            author
+            }
+        }
+    }
+`
