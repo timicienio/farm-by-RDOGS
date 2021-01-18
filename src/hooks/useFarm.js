@@ -8,7 +8,7 @@ import {
 	GET_FARM_QUERY,
 } from '../graphql';
 
-const useFarm = init => {
+const useFarm = farmId => {
 	const [test, setTest] = useState(false);
 	const {
 		loading,

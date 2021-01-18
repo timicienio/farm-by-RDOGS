@@ -49,7 +49,7 @@ body,
 
 .std-box-title {
 	margin: 8px;
-	margin-bottom: 15px;
+	margin-bottom: 5px;
 	font-size: 36px;
 }
 
@@ -59,3 +59,7 @@ body,
 	display: flex;
 	flex-direction: column;
 }
+
+/* .std-box-content > * {
+	margin-top: 10px;
+} */

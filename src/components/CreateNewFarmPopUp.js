@@ -8,7 +8,6 @@ function CreateNewFarmPopUp({
 	createFarmName,
 	createFarmType,
 }) {
-	console.log(Modal);
 	return (
 		<Modal
 			size='lg'

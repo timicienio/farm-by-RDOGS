@@ -1,3 +1,6 @@
+.friends-root {
+	overflow-y: scroll;
+}
 .friend-list {
 	height: 5vh;
 	font-size: 1.5rem;
@@ -25,4 +28,19 @@
 	/* padding: 50px; */
 	/* position: absolute; */
 	right: 80px;
+}
+
+.request-list-item {
+	display: flex;
+	flex-direction: row;
+}
+
+.request-list-buttons {
+	margin: 15px;
+	border-radius: 12px;
+	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 5px 7px 0 rgba(0, 0, 0, 0.2);
+}
+
+.request-list-buttons > * {
+	height: 100%;
 }

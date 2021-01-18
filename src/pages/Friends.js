@@ -5,6 +5,7 @@ import {
 	Container,
 	Row,
 	Col,
+	ButtonGroup,
 	Button,
 	Alert,
 } from 'react-bootstrap';
@@ -61,14 +62,11 @@ const Friends = ({}) => {
 	// });
 
 	return (
-		<>
-			{/* <div className='friends'>
-				<h1>{user.username}'s Friends</h1>
-			</div> */}
+		<div className='friends-root'>
 			<Container fluid>
 				<Row className='justify-content-md-center'>
 					<Col xs={200}>
-						<StdBox className='user-info' title='Me' width={742}>
+						<StdBox className='user-info' title='Me' width={825}>
 							<FriendInfo info={user} large></FriendInfo>
 						</StdBox>
 					</Col>
@@ -79,7 +77,7 @@ const Friends = ({}) => {
 							className='friend-list'
 							title='Friends'
 							// height={600}
-							width={360}
+							width={400}
 						>
 							<InputGroup
 								className='mb-3'
@@ -115,7 +113,7 @@ const Friends = ({}) => {
 
 							<div className='friend-list-body'>
 								{!friends.length ? (
-									<span>Invite your first friend!</span>
+									<span>Find your first friend!</span>
 								) : (
 									friends.map(friend => (
 										<FriendInfo
@@ -132,7 +130,7 @@ const Friends = ({}) => {
 							className='friend-requests'
 							title='Friend Requests'
 							// height={600}
-							width={360}
+							width={400}
 						>
 							<Alert
 								show={showAcceptInvitationAlert}
@@ -142,33 +140,49 @@ const Friends = ({}) => {
 							>
 								<p>{invitationAlert}</p>
 							</Alert>
-							{!invitation.length ? (
-								<span>No invitations for now.</span>
-							) : (
-								invitation.map((friend, key) => {
-									return (
-										<div className='friendList' key={key}>
+							<ul>
+								{!invitation.length ? (
+									<span>No invitations for now.</span>
+								) : (
+									invitation.map((friend, key) => (
+										<li
+											className='request-list-item'
+											key={key}
+										>
 											<FriendInfo
 												id={key}
 												info={friend}
+												width={250}
 											></FriendInfo>
-											<Button
-												onClick={() => {
-													acceptInv(friend.id);
-												}}
-												variation='secondary'
-											>
-												Accept
-											</Button>
-										</div>
-									);
-								})
-							)}
+											<div className='request-list-buttons'>
+												<ButtonGroup
+													aria-label='Basic example'
+													vertical
+												>
+													<Button
+														onClick={() => {
+															acceptInv(
+																friend.id
+															);
+														}}
+														variant='secondary'
+													>
+														Accept
+													</Button>
+													<Button variant='secondary'>
+														Decline
+													</Button>
+												</ButtonGroup>
+											</div>
+										</li>
+									))
+								)}
+							</ul>
 						</StdBox>
 					</Col>
 				</Row>
 			</Container>
-		</>
+		</div>
 	);
 };
 
