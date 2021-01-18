@@ -442,14 +442,14 @@ const Farms = ({}) => {
 						Create...
 					</Button>
 				</FarmToolbox>
-				{/* <CreateNewFarmPopUp
+				<CreateNewFarmPopUp
 					show={showCreateFarmPopUp}
 					setShow={setShowCreateFarmPopUp}
 					handleNewFarmChange={handleNewFarmChange}
 					createNewFarm={createNewFarm}
 					createFarmName={createFarmName}
 					createFarmType={createFarmType}
-				/> */}
+				/>
 			</div>
 		</>
 	);

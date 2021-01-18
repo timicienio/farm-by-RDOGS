@@ -1,4 +1,3 @@
-import { Model } from 'mongoose';
 import React from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 function CreateNewFarmPopUp({
@@ -9,6 +8,7 @@ function CreateNewFarmPopUp({
 	createFarmName,
 	createFarmType,
 }) {
+	console.log(Modal);
 	return (
 		<Modal
 			size='lg'
@@ -19,7 +19,7 @@ function CreateNewFarmPopUp({
 			centered
 		>
 			<Modal.Header closeButton>Create a new farm...</Modal.Header>
-			<Model.Body>
+			<Modal.Body>
 				<Form>
 					<Form.Group controlId='newFarmForm'>
 						<Form.Label>Farm Name</Form.Label>
@@ -52,7 +52,7 @@ function CreateNewFarmPopUp({
 						Submit
 					</Button>
 				</Form>
-			</Model.Body>
+			</Modal.Body>
 		</Modal>
 	);
 }
