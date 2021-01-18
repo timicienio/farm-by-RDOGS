@@ -2,15 +2,20 @@ import './Farms.css';
 
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { ListGroup, Button } from 'react-bootstrap';
+import { ListGroup, Button, Dropdown } from 'react-bootstrap';
 import { IconContext } from 'react-icons';
-import { BiPlus } from 'react-icons/bi';
-
+import { BsFilePost } from 'react-icons/bs';
+import { BiPlus, BiCommentDetail } from 'react-icons/bi';
+import { FaRegHandPaper } from 'react-icons/fa';
+import { RiPlantLine } from 'react-icons/ri';
+import { GiDigDug, GiWheat } from 'react-icons/gi';
+import { VscReactions } from 'react-icons/vsc';
 import Farm from '../components/Farm';
 import FarmToolbox from '../components/FarmToolbox';
 import CreateNewFarmPopUp from '../components/CreateNewFarmPopUp';
 import useFarms from '../hooks/useFarms';
 import useFarm from '../hooks/useFarm';
+import { unset } from 'lodash';
 
 const Farms = ({}) => {
 	// const [friendList, setFriendList] = useState([]);
@@ -393,6 +398,10 @@ const Farms = ({}) => {
 		farmListError,
 		data, // List of farms fetched
 		onSelectFarm,
+		selectedTool,
+		onSelectTool,
+		selectedPlant,
+		onSelectPlant,
 		createFarmName,
 		createFarmType,
 		history,
@@ -443,6 +452,87 @@ const Farms = ({}) => {
 						<BiPlus />
 						New Farm ...
 					</Button>
+				</FarmToolbox>
+
+				<FarmToolbox title='Tools'>
+					<div id='farm-list-switch'>
+						<ListGroup>
+							<ListGroup.Item
+								onClick={() => onSelectTool('DRAG')}
+								active={selectedTool === 'DRAG'}
+							>
+								<FaRegHandPaper />
+								<span className='tool-name'>Drag</span>
+							</ListGroup.Item>
+
+							<ListGroup.Item active={selectedTool === 'PLANT'}>
+								<RiPlantLine />
+								<span className='tool-name'>Plant</span>
+								<ListGroup id='plant-type-switch' horizontal>
+									<ListGroup.Item
+										style={{ padding: 0 }}
+										onClick={() => {
+											onSelectTool('PLANT');
+											onSelectPlant('POST');
+										}}
+										active={
+											selectedTool === 'PLANT' &&
+											selectedPlant === 'POST'
+										}
+										variant='secondary'
+									>
+										<BsFilePost style={{ margin: 10 }} />
+									</ListGroup.Item>
+									<ListGroup.Item
+										style={{ padding: 0 }}
+										onClick={() => {
+											onSelectTool('PLANT');
+											onSelectPlant('COMMENT');
+										}}
+										active={
+											selectedTool === 'PLANT' &&
+											selectedPlant === 'COMMENT'
+										}
+										variant='secondary'
+									>
+										<BiCommentDetail
+											style={{ margin: 10 }}
+										/>
+									</ListGroup.Item>
+									<ListGroup.Item
+										style={{ padding: 0 }}
+										onClick={() => {
+											onSelectTool('PLANT');
+											onSelectPlant('REACTION');
+										}}
+										active={
+											selectedTool === 'PLANT' &&
+											selectedPlant === 'REACTION'
+										}
+										variant='secondary'
+									>
+										<VscReactions style={{ margin: 10 }} />
+									</ListGroup.Item>
+								</ListGroup>
+							</ListGroup.Item>
+
+							<ListGroup.Item
+								onClick={() => onSelectTool('MODIFY')}
+								active={selectedTool === 'MODIFY'}
+							>
+								<GiDigDug />
+								<span className='tool-name'>Edit</span>
+							</ListGroup.Item>
+
+							<ListGroup.Item
+								onClick={() => onSelectTool('HARVEST')}
+								active={selectedTool === 'HARVEST'}
+							>
+								<GiWheat />
+								<span className='tool-name'>Harvest</span>
+							</ListGroup.Item>
+						</ListGroup>
+					</div>
 				</FarmToolbox>
 				<CreateNewFarmPopUp
 					show={showCreateFarmPopUp}

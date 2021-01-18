@@ -34,6 +34,10 @@
 	width: auto;
 }
 
+.tool-name {
+	margin-left: 10px;
+}
+
 #farm-list-switch {
 	margin-bottom: 15px;
 }
@@ -44,4 +48,8 @@
 	margin-left: 50%;
 	transform: ;
 	color: #26979f;
+}
+
+#plant-type-switch {
+	margin-top: 5px;
 }

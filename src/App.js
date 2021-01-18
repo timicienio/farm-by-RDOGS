@@ -62,11 +62,15 @@ function App() {
 					.list-group {
 						border-radius: 12px;
 					}
+					.list-group-horizontal {
+						border-radius: unset;
+					}
 					.list-group-item {
     					background-color: #faebd7;
 						color: #1c3532;
 						transition-duration: 0.15s;
 					}
+					
 					.list-group-item:hover{
 						background-color:#ff6169;
 						color: #faebd7;
@@ -76,6 +80,15 @@ function App() {
 						background-color: #ff6169;
 						color: #faebd7;
 						border-color: transparent
+					}
+					.list-group-item-secondary:hover
+					{
+						background-color: #c8f0ef;
+						color: #1c3532;
+					}
+					.list-group-item-secondary.active {
+						background-color: #c8f0ef;
+						color: #1c3532;
 					}
 					.container-fluid {
 						margin: 30px;

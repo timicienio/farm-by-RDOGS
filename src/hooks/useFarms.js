@@ -14,6 +14,8 @@ const useFarms = () => {
 	const [showCreateFarmPopUp, setShowCreateFarmPopUp] = useState(false);
 	const [createFarmName, setCreateFarmName] = useState('');
 	const [createFarmType, setCreateFarmType] = useState('Club');
+	const [selectedTool, setSelectedTool] = useState('DRAG'); // DRAG, PLANT, MODIFY, HARVEST
+	const [selectedPlant, setSelectedPlant] = useState('POST');
 
 	const [createFarm] = useMutation(CREATE_FARM_MUTATION);
 
@@ -45,6 +47,14 @@ const useFarms = () => {
 		history.push('/farms/' + String(key));
 	};
 
+	const onSelectTool = tool => {
+		setSelectedTool(tool);
+	};
+
+	const onSelectPlant = plant => {
+		setSelectedPlant(plant);
+	};
+
 	// useEffect(() => {
 	// 	if (!hasSetFarmList) {
 	// 		const { data } = useQuery(GET_FARMS_QUERY);
@@ -60,6 +70,10 @@ const useFarms = () => {
 		farmListError,
 		data, // List of farms fetched
 		onSelectFarm,
+		selectedTool,
+		onSelectTool,
+		selectedPlant,
+		onSelectPlant,
 		createFarmName,
 		createFarmType,
 		history,
