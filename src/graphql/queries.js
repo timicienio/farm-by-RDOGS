@@ -2,35 +2,37 @@ import { gql } from 'apollo-boost';
 
 export const GET_FARM_QUERY = gql`
 	query getFarm($farmId: ID!) {
-		id
-		farmName
-		farmType
-		members {
+		getFarm(farmId: $farmId) {
 			id
-			username
-			email
-		}
-		chunks {
-			id
-			coordinates {
-				x
-				y
+			farmName
+			farmType
+			members {
+				id
+				username
+				email
 			}
-		}
-		plants {
-			id
-			plantType
-			title
-			body
-			chunkCoordinates {
-				x
-				y
+			chunks {
+				id
+				coordinates {
+					x
+					y
+				}
 			}
-			plantCoordinates {
-				x
-				y
+			plants {
+				id
+				plantType
+				title
+				body
+				chunkCoordinates {
+					x
+					y
+				}
+				plantCoordinates {
+					x
+					y
+				}
+				author
 			}
-			author
 		}
 	}
 `;

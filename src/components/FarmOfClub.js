@@ -9,14 +9,14 @@ import Spinner from 'react-bootstrap/Spinner';
 function FarmOfClub({ data }) {
 	const [
 		farmData, //include id, farmName, farmType, members, chunks, plants
-		friends, //this user's all friends
+		friends, // this user's friends
 		getFarmLoading,
 		leaveFarm,
 		createNewPlant,
 		addNewMember,
 	] = useFarm(data.id);
 
-	console.log(getFarmLoading);
+	console.log(farmData);
 
 	return getFarmLoading ? (
 		<Spinner animation='grow' id='farm-loading-spinner' />
@@ -28,7 +28,7 @@ function FarmOfClub({ data }) {
 				position={null}
 			>
 				<div className='farm'>
-					{farmData.chunks.map(item => (
+					{farmData.getFarm.chunks.map(item => (
 						<Chunk data={item} modifier={{}} />
 					))}
 				</div>

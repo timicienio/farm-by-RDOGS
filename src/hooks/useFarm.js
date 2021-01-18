@@ -9,8 +9,8 @@ import {
 	GET_FRIENDS_MUTATION,
 } from '../graphql';
 
-const useFarm = data => {
-	console.log(data);
+const useFarm = farmId => {
+	console.log(typeof farmId);
 	const [test, setTest] = useState(false);
 	const { user } = useContext(AuthContext);
 	const {
@@ -19,7 +19,7 @@ const useFarm = data => {
 		data: farmData,
 	} = useQuery(GET_FARM_QUERY, {
 		variables: {
-			farmId: data,
+			farmId: farmId,
 		},
 	});
 
@@ -27,7 +27,7 @@ const useFarm = data => {
 	const [createPlant] = useMutation(CREATE_PLANT_MUTATION);
 	const [leaveFarm] = useMutation(LEAVE_FARM_MUTATION, {
 		variables: {
-			farmId: data,
+			farmId: farmId,
 		},
 	});
 	const [sendFarmInvitation] = useMutation(SEND_FARM_INVITATION_MUTATION);
