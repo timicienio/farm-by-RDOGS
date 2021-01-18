@@ -90,8 +90,8 @@ module.exports = gql`
         # deletePlant(plantId: ID!): String!
         createFarm(farmName: String!, farmType: String!): Farm!
         leaveFarm(farmId: ID!): String!
-        sendInvitation(friendId: ID!): Friend!
-        acceptInvitation(friendId: ID!): Friend!
+        sendInvitation(friendName: String!): Friend!
+        acceptInvitation(friendName: String!): Friend!
         getFriends: [Friend]!
         getInvitations: [Friend]!
         sendFarmInvitation(farmId: ID!, friendId: ID!): String!
