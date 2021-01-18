@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { AuthContext } from '../context/auth';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
 import { CREATE_FARM_MUTATION, GET_FARMS_QUERY } from '../graphql';
 
 const useFarms = () => {
@@ -23,8 +24,17 @@ const useFarms = () => {
 		}
 	};
 
-	const handleChange = e => {
+	const handleNewFarmChange = e => {
 		setCreateFarmName(e.target.value);
+	};
+
+	const history = useHistory();
+
+	const [farmSelected, setFarmSelected] = useState(-1);
+
+	const onSelectFarm = key => {
+		setFarmSelected(key);
+		history.push('/farms/' + String(key));
 	};
 
 	useEffect(() => {
@@ -35,7 +45,15 @@ const useFarms = () => {
 		}
 	}, [hasSetFarmList]);
 
-	return { handleChange, createNewFarm, farmList, createFarmName };
+	return {
+		handleNewFarmChange,
+		createNewFarm,
+		farmList,
+		farmSelected,
+		onSelectFarm,
+		createFarmName,
+		history,
+	};
 };
 
-export default { useFarms };
+export default useFarms;

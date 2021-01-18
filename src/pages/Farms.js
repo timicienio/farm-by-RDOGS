@@ -9,9 +9,10 @@ import { ListGroup } from 'react-bootstrap';
 
 import Farm from '../components/Farm';
 import FarmToolbox from '../components/FarmToolbox';
+import useFarms from '../hooks/useFarms';
+import useFarm from '../hooks/useFarm';
 
 const Farms = ({ userData }) => {
-	const [farmSelected, setFarmSelected] = useState(-1);
 	// const [friendList, setFriendList] = useState([]);
 	// const [farmList, setFarmList] = useState([
 	// 	{
@@ -385,12 +386,15 @@ const Farms = ({ userData }) => {
 	// 	},
 	// ]);
 
-	const history = useHistory();
-
-	const onSelectFarm = key => {
-		setFarmSelected(key);
-		history.push('/farms/' + String(key));
-	};
+	const {
+		handleNewFarmChange,
+		createNewFarm,
+		farmList,
+		farmSelected,
+		onSelectFarm,
+		createFarmName,
+		history,
+	} = useFarms();
 
 	return (
 		<>
@@ -406,16 +410,20 @@ const Farms = ({ userData }) => {
 					))}
 				</Switch>
 				<FarmToolbox title='Farms'>
-					<ListGroup>
-						{farmList.map((farm, key) => (
-							<ListGroup.Item
-								eventKey={key}
-								onClick={() => onSelectFarm(key)}
-							>
-								{farm.farmName}
-							</ListGroup.Item>
-						))}
-					</ListGroup>
+					{!farmList.length ? (
+						<span>Create your first farm!</span>
+					) : (
+						<ListGroup>
+							{farmList.map((farm, key) => (
+								<ListGroup.Item
+									eventKey={key}
+									onClick={() => onSelectFarm(key)}
+								>
+									{farm.farmName}
+								</ListGroup.Item>
+							))}
+						</ListGroup>
+					)}
 				</FarmToolbox>
 			</div>
 		</>
