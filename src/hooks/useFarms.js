@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { CREATE_FARM_MUTATION, GET_FARMS_QUERY } from '../graphql';
 
 const useFarms = () => {
-	const {
+    const {
 		loading,
 		error,
 		data: { getFarms },
