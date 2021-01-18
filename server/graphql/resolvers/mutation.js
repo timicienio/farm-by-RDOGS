@@ -291,6 +291,7 @@ module.exports = {
         },
         async acceptInvitation(_, { friendId }, context)
         {
+            console.log(friendId);
             const user = checkAuth(context);
             try {
                 const date = new Date().toISOString();

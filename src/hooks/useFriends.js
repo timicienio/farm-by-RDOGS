@@ -29,7 +29,9 @@ const useFriends = () => {
 	const inviteFriend = async () => {
 		try {
 			const res = await sendInvitation({
-				friendId: inviteFriendId,
+				variables:{
+					friendId: inviteFriendId,
+				}
 			});
 			setInviteFriendId('');
 		} catch (err) {
@@ -57,7 +59,9 @@ const useFriends = () => {
 	const acceptInv = async friendId => {
 		try {
 			const res = await acceptInvitation({
-				friendId: friendId,
+				variables:{
+					friendId: friendId,
+				}
 			});
 			setHasGetFriend(false);
 			setHasGetInv(false);
