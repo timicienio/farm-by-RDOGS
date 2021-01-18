@@ -10,36 +10,33 @@ import {
 
 const useFarm = init => {
 	const [test, setTest] = useState(false);
-	let farmId = init.farmId;
 	const {
 		loading,
 		error,
-		data: {
-			getFarm: { farmName, farmType, members, chunks, plants },
-		},
+		data
 	} = useQuery(GET_FARM_QUERY, {
 		variables: {
-			farmId,
+			init
 		},
 	});
 
 	const [createPlant] = useMutation(CREATE_PLANT_MUTATION);
 	const [leaveFarm] = useMutation(LEAVE_FARM_MUTATION, {
 		variables: {
-			farmId,
+			init
 		},
 	});
 	const [sendFarmInvitation] = useMutation(SEND_FARM_INVITATION_MUTATION);
-	// useEffect(() => {
-	// 	if (!test) {
-	// 		console.log('farmName:', farmName);
-	// 		console.log('farmType:', farmType);
-	// 		console.log('members:', members);
-	// 		console.log('chunks:', chunks);
-	// 		console.log('plants:', plants);
-	// 		setTest(true);
-	// 	}
-	// }, [test]);
+	useEffect(() => {
+		if (!test) {
+			console.log('farmName:', data.farmName);
+			console.log('farmType:', data.farmType);
+			console.log('members:', data.members);
+			console.log('chunks:', data.chunks);
+			console.log('plants:', data.plants);
+			setTest(true);
+		}
+	}, [test]);
 
 	// const [members, membersDispatch] = useReducer(
 	// 	(members, { type, value }) => {
@@ -92,9 +89,7 @@ const useFarm = init => {
 	// };
 
 	return [
-		farmName,
-		farmType,
-		members,
+		data, //include id, farmName, farmType, members, chunks, plants
 		leaveFarm,
 		// chunks,
 		// setFarmName,
