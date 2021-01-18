@@ -33,6 +33,7 @@ const useFriends = () => {
 					friendId: inviteFriendId,
 				}
 			});
+			console.log(res);
 			setInviteFriendId('');
 		} catch (err) {
 			alert(err);

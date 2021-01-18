@@ -103,3 +103,60 @@ export const CREATE_FARM_MUTATION = gql`
 		}
 	}
 `;
+export const CREATE_PLANT_MUTATION = gql`
+    mutation createPlant(
+        $farmId: ID!
+        $plantType: String!
+        $title: String!
+        $body: String!
+        $chunkCoordinates: Coordinate!
+        $plantCoordinates: Coordinate!
+        $author: String!
+    ){
+
+        createPlant(
+            plantInput:{
+                farmId: $farmId,
+                plantType: $plantType,
+                title: $title,
+                body: $body,
+                chunkCoordinates: $chunkCoordinates,
+                plantCoordinates: $plantCoordinates,
+                author: $author
+            }
+        ){
+            plantType,
+            title,
+            body,
+            chunkCoordinates{
+                x
+                y
+            },
+            plantCoordinates{
+                x
+                y
+            }
+            author
+        }
+    }  
+`;
+export const LEAVE_FARM_MUTATION = gql`
+    mutation leaveFarm(
+        $farmId: String!
+    ){
+        leaveFarm(
+            farmId: $farmId
+        )
+    }
+`;
+export const SEND_FARM_INVITATION_MUTATION = gql`
+    mutation sendFarmInvitation(
+        $farmId: String!
+        $friendId: ID!
+    ){
+        sendFarmInvitation(
+            farmId: $farmId
+            friendId: $friendId
+        )
+    }
+`
