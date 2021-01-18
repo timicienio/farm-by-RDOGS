@@ -424,22 +424,25 @@ const Farms = ({}) => {
 					) : !data.getFarms.length ? (
 						<span>Create your first farm!</span>
 					) : (
-						<ListGroup>
-							{data.getFarms.map((farm, key) => (
-								<ListGroup.Item
-									eventKey={key}
-									onClick={() => onSelectFarm(key)}
-								>
-									{farm.farmName}
-								</ListGroup.Item>
-							))}
-						</ListGroup>
+						<>
+							<span>Farms you own</span>
+							<ListGroup>
+								{data.getFarms.map((farm, key) => (
+									<ListGroup.Item
+										eventKey={key}
+										onClick={() => onSelectFarm(key)}
+									>
+										{farm.farmName}
+									</ListGroup.Item>
+								))}
+							</ListGroup>
+						</>
 					)}
 					<Button
 						variant='secondary'
 						onClick={() => setShowCreateFarmPopUp(true)}
 					>
-						Create...
+						Create New Farm...
 					</Button>
 				</FarmToolbox>
 				<CreateNewFarmPopUp

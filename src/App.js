@@ -11,7 +11,6 @@ import EntranceForm from './components/EntranceForm';
 // import Home from './pages/Home';
 import Friends from './pages/Friends';
 import Farms from './pages/Farms';
-// import FarmOfClub from './components/FarmOfClub';
 import Preferences from './pages/Preferences';
 import About from './pages/About';
 import { useState } from 'react';
@@ -19,143 +18,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { AuthProvider } from './context/auth';
 
-// const UserContext = React.createContext({ name: 'RDOGS'});
-
 function App() {
 	const adminUser = {
 		email: 'admin@admin.com',
 		password: 'admin',
 	};
-
-	// let db = {
-	// 	users: [
-	// 		{
-	// 			username: 'timicienio',
-	// 			email: 'timmy960072@gmail.com',
-	// 			passwordHash: '',
-	// 		},
-	// 	],
-	// 	farms: [
-	// 		{
-	// 			farmName: 'farm1',
-	// 			type: 'Club',
-	// 			members: [
-	// 				// users with access to farm (including current user)
-	// 				{
-	// 					username: 'timicienio',
-	// 					email: 'timmy960072@gmail.com',
-	// 				},
-	// 				{
-	// 					username: 'rdogs1',
-	// 					email: 'rdogs1@rdogs.com',
-	// 				},
-	// 				{
-	// 					username: 'rdogs2',
-	// 					email: 'rdogs2@rdogs.com',
-	// 				},
-	// 			],
-	// 			chunks: [
-	// 				{
-	// 					// initial chunk
-	// 					coor: {
-	// 						x: 0,
-	// 						y: 0,
-	// 					},
-	// 					plants: [
-	// 						{
-	// 							type: 'Post',
-	// 							title: 'RDOGS FARM IS NICE',
-	// 							body: 'Text body',
-	// 							localCoor: {
-	// 								x: 30,
-	// 								y: 30,
-	// 							},
-	// 							authorUserName: 'timicienio',
-	// 							author: {
-	// 								username: 'timicienio',
-	// 								email: 'timmy960072@gmail.com',
-	// 							},
-	// 						},
-	// 						{
-	// 							type: 'Comment',
-	// 							body: 'YEAH',
-	// 							localCoor: {
-	// 								x: 28,
-	// 								y: 30,
-	// 							},
-	// 							authorUserName: 'timicienio',
-	// 							author: {
-	// 								username: 'timicienio',
-	// 								email: 'timmy960072@gmail.com',
-	// 							},
-	// 						},
-	// 						{
-	// 							type: 'Reaction',
-	// 							body: '🐕',
-	// 							localCoor: {
-	// 								x: 33,
-	// 								y: 30,
-	// 							},
-	// 							authorUserName: 'timicienio',
-	// 							author: {
-	// 								username: 'timicienio',
-	// 								email: 'timmy960072@gmail.com',
-	// 							},
-	// 						},
-	// 					],
-	// 				},
-	// 				{
-	// 					coor: {
-	// 						x: 1,
-	// 						y: 0,
-	// 					},
-	// 					plants: [
-	// 						{
-	// 							type: 'Post',
-	// 							title: 'RDOGS FARM IS NICE',
-	// 							body: 'Text body',
-	// 							localCoor: {
-	// 								x: 30,
-	// 								y: 30,
-	// 							},
-	// 							authorUserName: 'timicienio',
-	// 							author: {
-	// 								username: 'timicienio',
-	// 								email: 'timmy960072@gmail.com',
-	// 							},
-	// 						},
-	// 						{
-	// 							type: 'Comment',
-	// 							body: 'YEAH',
-	// 							localCoor: {
-	// 								x: 28,
-	// 								y: 30,
-	// 							},
-	// 							authorUserName: 'timicienio',
-	// 							author: {
-	// 								username: 'timicienio',
-	// 								email: 'timmy960072@gmail.com',
-	// 							},
-	// 						},
-	// 						{
-	// 							type: 'Reaction',
-	// 							body: '🐕',
-	// 							localCoor: {
-	// 								x: 33,
-	// 								y: 30,
-	// 							},
-	// 							authorUserName: 'timicienio',
-	// 							author: {
-	// 								username: 'timicienio',
-	// 								email: 'timmy960072@gmail.com',
-	// 							},
-	// 						},
-	// 					],
-	// 				},
-	// 			],
-	// 		},
-	// 	],
-	// };
 
 	const [userData, setUserData] = useState({
 		loggedIn: false,
@@ -164,23 +31,13 @@ function App() {
 		token: '',
 	});
 
-	// const [error, setError] = useState('');
-
-	const Login = details => {
-		console.log(details);
-	};
-
-	const Logout = () => {
-		console.log('Logout');
-	};
-
 	return (
 		<AuthProvider>
 			<link
 				rel='stylesheet'
 				href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
 				integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T'
-				crossorigin='anonymous'
+				crossOrigin='anonymous'
 			/>
 			<style type='text/css'>
 				{`
@@ -188,6 +45,7 @@ function App() {
 						background-color: #faebd7;
 						border-width: 0px;
 						color: #1c3532;
+						border-radius: 12px;
 					}
 					.btn-secondary:hover{
 						background-color:#ff6169
@@ -205,7 +63,21 @@ function App() {
 						border-color: transparent
 					}
 					.container-fluid {
-						margin: 30px
+						margin: 30px;
+						
+					}
+					.modal-content {
+						background-color: #26979f;
+						border-radius: 12px;
+						border-width: 0px;
+						color: #faebd7;
+					
+					}
+					.modal-header {
+						border-bottom-width: 0px;
+					}
+					.form-control {
+						border-radius: 12px
 					}
 				`}
 			</style>

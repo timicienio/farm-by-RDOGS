@@ -6,6 +6,7 @@ import Chunk from './Chunk';
 import './Farm.css';
 
 function FarmOfClub({ data }) {
+	console.log(data);
 	const [
 		farmName,
 		type,
@@ -18,7 +19,7 @@ function FarmOfClub({ data }) {
 		removeMember,
 		addChunk,
 		modifyChunk,
-	] = useFarm(data);
+	] = useFarm(data.farmId);
 
 	// console.log('rendering a club farm');
 
