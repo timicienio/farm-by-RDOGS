@@ -49,7 +49,7 @@ function CreateNewFarmPopUp({
 						type='submit'
 						onClick={() => createNewFarm()}
 					>
-						Submit
+						Create!
 					</Button>
 				</Form>
 			</Modal.Body>

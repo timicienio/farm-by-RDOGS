@@ -37,3 +37,11 @@
 #farm-list-switch {
 	margin-bottom: 15px;
 }
+
+#farm-loading-spinner {
+	position: absolute;
+	margin-top: 15%;
+	margin-left: 50%;
+	transform: ;
+	color: #26979f;
+}

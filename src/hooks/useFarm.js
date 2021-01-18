@@ -1,5 +1,4 @@
-import React, { useState, useReducer, useEffect, useContext } from 'react';
-import { MdPlaylistAddCheck } from 'react-icons/md';
+import React, { useState, useEffect, useContext } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { AuthContext } from '../context/auth';
 import {
@@ -10,24 +9,25 @@ import {
 	GET_FRIENDS_MUTATION,
 } from '../graphql';
 
-const useFarm = farmId => {
+const useFarm = data => {
+	console.log(data);
 	const [test, setTest] = useState(false);
 	const { user } = useContext(AuthContext);
 	const {
 		loading: getFarmLoading,
 		error: getFarmError,
-		data
+		data: farmData,
 	} = useQuery(GET_FARM_QUERY, {
 		variables: {
-			farmId: farmId
+			farmId: data,
 		},
 	});
-	
+
 	const [getFriends] = useMutation(GET_FRIENDS_MUTATION);
 	const [createPlant] = useMutation(CREATE_PLANT_MUTATION);
 	const [leaveFarm] = useMutation(LEAVE_FARM_MUTATION, {
 		variables: {
-			farmId: farmId
+			farmId: data,
 		},
 	});
 	const [sendFarmInvitation] = useMutation(SEND_FARM_INVITATION_MUTATION);
@@ -46,47 +46,50 @@ const useFarm = farmId => {
 	};
 
 	//add a member to this farm
-	const addNewMember = async(friendName) => {
-		let id = "";
-		for(let i=0; i < friends.length-1; i++){
-			if(friends[i].username === friendName){
-				id = friends[i].id
+	const addNewMember = async friendName => {
+		let id = '';
+		for (let i = 0; i < friends.length - 1; i++) {
+			if (friends[i].username === friendName) {
+				id = friends[i].id;
 				break;
 			}
 		}
-		try{
+		try {
 			const res = await sendFarmInvitation({
-				variables:{
-					friendId: id
+				variables: {
+					friendId: id,
 				},
-			})
+			});
 			console.log(res);
-		}
-		catch(err){
+		} catch (err) {
 			console.log(err);
 			alert(err);
 		}
-	}
+	};
 
 	// create a plant
-	const createNewPlant = async (plantType, title, body, chunkX, chunkY, plantX, plantY) => {
+	const createNewPlant = async (
+		plantType,
+		title,
+		body,
+		chunkX,
+		chunkY,
+		plantX,
+		plantY
+	) => {
 		// author = user.username
-		try{
-			
-		}
-		catch(err){
-
-		}
-	} 
+		try {
+		} catch (err) {}
+	};
 
 	// test
 	useEffect(() => {
-		if (!test) {
-			console.log('farmName:', data.farmName);
-			console.log('farmType:', data.farmType);
-			console.log('members:', data.members);
-			console.log('chunks:', data.chunks);
-			console.log('plants:', data.plants);
+		if (!test && !getFarmLoading) {
+			console.log('farmName:', farmData.farmName);
+			console.log('farmType:', farmData.farmType);
+			console.log('members:', farmData.members);
+			console.log('chunks:', farmData.chunks);
+			console.log('plants:', farmData.plants);
 			setTest(true);
 		}
 	}, [test]);
@@ -97,62 +100,13 @@ const useFarm = farmId => {
 		}
 	}, [hasGetFriend]);
 
-	// const [members, membersDispatch] = useReducer(
-	// 	(members, { type, value }) => {
-	// 		switch (type) {
-	// 			case 'ADD':
-	// 				return [...members, value];
-	// 			case 'MODIFY':
-	// 				let filteredMembers = members.filter(
-	// 					item => item.id !== value.id
-	// 				);
-	// 				return [...filteredMembers, value];
-	// 			case 'REMOVE':
-	// 				return members.filter(item => item.id !== value.id);
-	// 			default:
-	// 				console.log('Invalid action when setting members');
-	// 				return members;
-	// 		}
-	// 	},
-	// 	init.members
-	// );
-	// const [chunks, chunksDispatch] = useReducer((chunks, { type, value }) => {
-	// 	switch (type) {
-	// 		case 'ADD':
-	// 			return [...chunks, value];
-	// 		case 'MODIFY':
-	// 			let filteredChunks = chunks.filter(
-	// 				item => item.id !== value.id
-	// 			);
-	// 			return [...filteredChunks, value];
-	// 		default:
-	// 			console.log('Invalid action when setting chunks');
-	// 			return chunks;
-	// 	}
-	// }, init.chunks);
-
-	// const addMember = value => {
-	// 	membersDispatch({ type: 'ADD', value: { value } });
-	// };
-
-	// const removeMember = value => {
-	// 	membersDispatch({ type: 'REMOVE', value: { value } });
-	// };
-
-	// const addChunk = coor => {
-	// 	chunksDispatch({ type: 'ADD', value: { coor: coor } });
-	// };
-
-	// const modifyChunk = value => {
-	// 	chunksDispatch({ type: 'MODIFY', value: value });
-	// };
-
 	return [
-		data, //include id, farmName, farmType, members, chunks, plants
+		farmData, //include id, farmName, farmType, members, chunks, plants
 		friends, //this user's all friends
+		getFarmLoading,
 		leaveFarm,
 		createNewPlant,
-		addNewMember
+		addNewMember,
 	];
 };
 

@@ -4,26 +4,23 @@ import Draggable from 'react-draggable';
 import useFarm from '../hooks/useFarm';
 import Chunk from './Chunk';
 import './Farm.css';
+import Spinner from 'react-bootstrap/Spinner';
 
 function FarmOfClub({ data }) {
-	console.log(data);
 	const [
-		farmName,
-		type,
-		members,
-		chunks,
-		setFarmName,
-		setType,
-		addMember,
-		modifyMember,
-		removeMember,
-		addChunk,
-		modifyChunk,
-	] = useFarm(data.farmId);
+		farmData, //include id, farmName, farmType, members, chunks, plants
+		friends, //this user's all friends
+		getFarmLoading,
+		leaveFarm,
+		createNewPlant,
+		addNewMember,
+	] = useFarm(data.id);
 
-	// console.log('rendering a club farm');
+	console.log(getFarmLoading);
 
-	return (
+	return getFarmLoading ? (
+		<Spinner animation='grow' id='farm-loading-spinner' />
+	) : (
 		<>
 			<Draggable
 				axis='both'
@@ -31,9 +28,9 @@ function FarmOfClub({ data }) {
 				position={null}
 			>
 				<div className='farm'>
-					{/* {chunks.map(item => (
-						<Chunk data={item} modifier={modifyChunk} />
-					))} */}
+					{farmData.chunks.map(item => (
+						<Chunk data={item} modifier={{}} />
+					))}
 				</div>
 			</Draggable>
 		</>

@@ -169,7 +169,7 @@ const Friends = ({}) => {
 													<Button
 														onClick={() => {
 															acceptInv(
-																friend.id
+																friend.username
 															);
 														}}
 														variant='primary'

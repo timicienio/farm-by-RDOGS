@@ -19,10 +19,12 @@ const useFarms = () => {
 
 	const createNewFarm = async () => {
 		try {
+			console.log('create farm');
 			const res = await createFarm({
 				farmName: createFarmName,
 				farmType: createFarmType,
 			});
+			console.log(res);
 			setCreateFarmName('');
 		} catch (err) {
 			console.log(err);
