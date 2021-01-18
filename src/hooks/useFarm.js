@@ -1,48 +1,45 @@
 import React, { useState, useReducer, useEffect } from 'react';
 import { MdPlaylistAddCheck } from 'react-icons/md';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { CREATE_PLANT_MUTATION, LEAVE_FARM_MUTATION, SEND_FARM_INVITATION_MUTATION, GET_FARM_QUERY } from '../graphql';
+import {
+	CREATE_PLANT_MUTATION,
+	LEAVE_FARM_MUTATION,
+	SEND_FARM_INVITATION_MUTATION,
+	GET_FARM_QUERY,
+} from '../graphql';
 
-const useFarm = (init) => {
+const useFarm = init => {
 	const [test, setTest] = useState(false);
-	let farmId = init.farmId
+	let farmId = init.farmId;
 	const {
 		loading,
 		error,
-		data:{
-			getFarm:{
-				farmName,
-				farmType,
-				members,
-				chunks,
-				plants
-			}
+		data: {
+			getFarm: { farmName, farmType, members, chunks, plants },
 		},
-	} = useQuery(GET_FARM_QUERY,{
-		 variables:{
-			 farmId
-		 }
+	} = useQuery(GET_FARM_QUERY, {
+		variables: {
+			farmId,
+		},
 	});
 
 	const [createPlant] = useMutation(CREATE_PLANT_MUTATION);
 	const [leaveFarm] = useMutation(LEAVE_FARM_MUTATION, {
-		variables:{
-			farmId
-		}
+		variables: {
+			farmId,
+		},
 	});
 	const [sendFarmInvitation] = useMutation(SEND_FARM_INVITATION_MUTATION);
-	useEffect(()=>{
-		if(!test){
-			console.log("farmName:", farmName);
-			console.log("farmType:", farmType);
-			console.log("members:", members);
-			console.log("chunks:", chunks);
-			console.log("plants:", plants);
-			setTest(true);
-		}
-	})
-
-	
+	// useEffect(() => {
+	// 	if (!test) {
+	// 		console.log('farmName:', farmName);
+	// 		console.log('farmType:', farmType);
+	// 		console.log('members:', members);
+	// 		console.log('chunks:', chunks);
+	// 		console.log('plants:', plants);
+	// 		setTest(true);
+	// 	}
+	// }, [test]);
 
 	// const [members, membersDispatch] = useReducer(
 	// 	(members, { type, value }) => {
@@ -98,7 +95,7 @@ const useFarm = (init) => {
 		farmName,
 		farmType,
 		members,
-		leaveFarm
+		leaveFarm,
 		// chunks,
 		// setFarmName,
 		// setType,
@@ -107,6 +104,6 @@ const useFarm = (init) => {
 		// addChunk,
 		// modifyChunk,
 	];
-}
+};
 
 export default useFarm;

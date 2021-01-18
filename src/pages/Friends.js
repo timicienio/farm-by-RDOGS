@@ -148,16 +148,18 @@ const Friends = ({}) => {
 								invitation.map((friend, key) => {
 									return (
 										<div className='friendList' key={key}>
-											<FriendInfo id={key} info={friend}>
-												<Button
-													onClick={() => {
-														acceptInv(friend.id);
-													}}
-													variation='secondary'
-												>
-													Accept
-												</Button>
-											</FriendInfo>
+											<FriendInfo
+												id={key}
+												info={friend}
+											></FriendInfo>
+											<Button
+												onClick={() => {
+													acceptInv(friend.id);
+												}}
+												variation='secondary'
+											>
+												Accept
+											</Button>
 										</div>
 									);
 								})

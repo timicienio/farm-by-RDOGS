@@ -231,10 +231,10 @@ function App() {
 								<Home userData={userData}></Home>
 							</Route> */}
 							<Route path='/friends'>
-								<Friends userData={userData}></Friends>
+								<Friends />
 							</Route>
 							<Route path='/farms'>
-								<Farms userData={userData} />
+								<Farms />
 							</Route>
 							{/* <Route path='/farms/:farmname?'>
 								<FarmOfClub userData={userData} />
