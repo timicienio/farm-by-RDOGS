@@ -351,7 +351,6 @@ module.exports = {
         async sendInvitation(_, { friendName }, context)
         {
             const user = checkAuth(context);
-            console.log(user);
             try {
                 let friend = await User.findOne({username: friendName});
                 let dbUser = await User.findById(user.id);
@@ -367,7 +366,7 @@ module.exports = {
                 {
                     throw new Error('Already invited');
                 }
-                if(friend.friends.find(fr => fr.username === friendName))
+                if(friend.friends.find(fr => fr.username === user.username))
                 {
                     throw new Error('Already friends');
                 }
