@@ -114,7 +114,7 @@ module.exports = {
                 {
                     throw new Error('Farm not found');
                 }
-                else if(farm.members.find(mem => mem.username === user.username) === -1)
+                else if(!farm.members.find(mem => mem.username === user.username))
                 {
                     throw new Error('Action not allowed');
                 }
@@ -131,7 +131,7 @@ module.exports = {
                         createdAt: new Date().toISOString()
                     }
                     await Farm.findByIdAndUpdate(farmId, 
-                        {
+                    {
                             $push: 
                             {
                                 plants: plant
@@ -139,7 +139,7 @@ module.exports = {
                         })
                     farm = await Farm.findById(farmId);
                     const plantIndex = farm.plants.find(plt => plt._id === plant._id);
-                    if(plantIndex !== -1)
+                    if(plantIndex)
                     {
                         return {
                             id: plant._id,
@@ -275,7 +275,7 @@ module.exports = {
                     farm.delete();
                     return 'No members left, farm deleted';
                 }
-                else if(farm.members.find(mem => mem.username === user.username) === -1)
+                else if(!farm.members.find(mem => mem.username === user.username))
                 {
                     return 'Farm left successfully';
                 }
@@ -303,7 +303,7 @@ module.exports = {
                     throw new UserInputError('Friend user not found');
                 }
                 const invIndex = dbUser.invitations.find(inv => inv._id === friendId);
-                if(invIndex === -1)
+                if(!invIndex)
                 {
                     throw new UserInputError('Invitation not found');
                 }
@@ -339,6 +339,7 @@ module.exports = {
             console.log(user);
             try {
                 let friend = await User.findById(friendId);
+                console.log(friend.invitations.find(inv => inv._id === friendId));
                 if(!friend)
                 {
                     throw new UserInputError('User not found');
@@ -347,7 +348,7 @@ module.exports = {
                 {
                     throw new UserInputError('You cannot be friends with yourself');
                 }
-                if(friend.invitations.find(inv => inv._id === friendId) !== -1)
+                if(!friend.invitations.find(inv => inv._id === friendId))
                 {
                     throw new Error('Already invited');
                 }
@@ -357,6 +358,7 @@ module.exports = {
                     email: user.email,
                     createdAt: new Date().toISOString()
                 }
+                friend.invitations.push(inv);
                 await friend.save();
                 return {
                     id: inv._id,
@@ -416,12 +418,12 @@ module.exports = {
                     throw new UserInputError('User not found');
                 }
                 //check if already a member
-                if(farm.members.find(mem => mem._id === friendId) === -1)
+                if(!farm.members.find(mem => mem._id === friendId))
                 {
                     throw new Error('User already a member');
                 }
                 //check if already invited
-                if(farm.invited.find(inv => inv._id === friendId) === -1)
+                if(farm.invited.find(inv => inv._id === friendId))
                 {
                     throw new Error('User already invited');
                 }
