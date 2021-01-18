@@ -6,8 +6,8 @@ import { CREATE_FARM_MUTATION, GET_FARMS_QUERY } from '../graphql';
 
 const useFarms = () => {
 	const {
-		loading,
-		error,
+		loading: farmListLoading,
+		error: farmListError,
 		data: { getFarms },
 	} = useQuery(GET_FARMS_QUERY);
 	const [showCreateFarmPopUp, setShowCreateFarmPopUp] = useState(false);
@@ -53,6 +53,8 @@ const useFarms = () => {
 	return {
 		handleNewFarmChange,
 		createNewFarm,
+		farmListLoading,
+		farmListError,
 		getFarms, // List of farms fetched
 		onSelectFarm,
 		createFarmName,

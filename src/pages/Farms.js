@@ -390,6 +390,8 @@ const Farms = ({}) => {
 	const {
 		handleNewFarmChange,
 		createNewFarm,
+		farmListLoading,
+		farmListError,
 		getFarms, // List of farms fetched
 		onSelectFarm,
 		createFarmName,
@@ -406,25 +408,33 @@ const Farms = ({}) => {
 					<Route exact path='/farms'>
 						Select a farm
 					</Route>
-					{getFarms.map((farm, index) => (
-						<Route path={'/farms/' + String(index)}>
-							<Farm data={farm} />
-						</Route>
-					))}
+					{farmListLoading ? (
+						<></>
+					) : (
+						getFarms.map((farm, index) => (
+							<Route path={'/farms/' + String(index)}>
+								<Farm data={farm} />
+							</Route>
+						))
+					)}
 				</Switch>
 				<FarmToolbox title='Farms'>
 					{!getFarms.length ? (
 						<span>Create your first farm!</span>
 					) : (
 						<ListGroup>
-							{getFarms.map((farm, key) => (
-								<ListGroup.Item
-									eventKey={key}
-									onClick={() => onSelectFarm(key)}
-								>
-									{farm.farmName}
-								</ListGroup.Item>
-							))}
+							{farmListLoading ? (
+								<></>
+							) : (
+								getFarms.map((farm, key) => (
+									<ListGroup.Item
+										eventKey={key}
+										onClick={() => onSelectFarm(key)}
+									>
+										{farm.farmName}
+									</ListGroup.Item>
+								))
+							)}
 						</ListGroup>
 					)}
 					<Button
