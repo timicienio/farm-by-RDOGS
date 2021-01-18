@@ -59,8 +59,8 @@ export const GET_INVITATIONS_MUTATION = gql`
 	}
 `;
 export const ACCEPT_INVITATION_MUTATION = gql`
-	mutation acceptInvitation($friendId: ID!) {
-		acceptInvitation(friendId: $friendId) {
+	mutation acceptInvitation($friendName: String!) {
+		acceptInvitation(friendName: $friendName) {
 			id
 			username
 			email

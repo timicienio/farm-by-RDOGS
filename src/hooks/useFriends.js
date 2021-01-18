@@ -57,11 +57,11 @@ const useFriends = () => {
 		}
 	};
 
-	const acceptInv = async friendId => {
+	const acceptInv = async friendName => {
 		try {
 			const res = await acceptInvitation({
 				variables: {
-					friendId: friendId,
+					friendName: friendName,
 				},
 			});
 			setHasGetFriend(false);
