@@ -2,13 +2,14 @@ import './Farms.css';
 
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Button } from 'react-bootstrap';
 // import Container from 'react-bootstrap/Container';
 // import Row from 'react-bootstrap/Row';
 // import Col from 'react-bootstrap/Col';
 
 import Farm from '../components/Farm';
 import FarmToolbox from '../components/FarmToolbox';
+import CreateNewFarmPopUp from '../components/CreateNewFarmPopUp';
 import useFarms from '../hooks/useFarms';
 import useFarm from '../hooks/useFarm';
 
@@ -392,7 +393,10 @@ const Farms = ({ userData }) => {
 		getFarms, // List of farms fetched
 		onSelectFarm,
 		createFarmName,
+		createFarmType,
 		history,
+		showCreateFarmPopUp,
+		setShowCreateFarmPopUp,
 	} = useFarms();
 
 	return (
@@ -423,7 +427,21 @@ const Farms = ({ userData }) => {
 							))}
 						</ListGroup>
 					)}
+					<Button
+						variant='secondary'
+						onClick={setShowCreateFarmPopUp(true)}
+					>
+						Create...
+					</Button>
 				</FarmToolbox>
+				<CreateNewFarmPopUp
+					show={showCreateFarmPopUp}
+					setShow={setShowCreateFarmPopUp}
+					handleNewFarmChange={handleNewFarmChange}
+					createNewFarm={createNewFarm}
+					createFarmName={createFarmName}
+					createFarmType={createFarmType}
+				/>
 			</div>
 		</>
 	);
