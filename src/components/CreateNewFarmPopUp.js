@@ -28,9 +28,10 @@ function CreateNewFarmPopUp({
 							onChange={e => handleNewFarmChange(e)}
 							value={createFarmName}
 						/>
-						<Form.Text className='text-muted'>
+						{/* <Form.Text className='text-muted'>
 							Please do not use explicit language.
-						</Form.Text>
+						</Form.Text> */}
+						<Form.Label>Farm Type</Form.Label>
 						<Form.Control
 							controlId=''
 							as='select'

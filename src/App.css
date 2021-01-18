@@ -39,7 +39,7 @@ body,
 	margin: 1rem;
 	border-radius: 12px;
 	padding: 0.5rem;
-	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 5px 7px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.15);
 }
 
 .std-box.light {

@@ -64,7 +64,13 @@ function App() {
 					}
 					.list-group-item {
     					background-color: #faebd7;
-    					color: #1c3532;
+						color: #1c3532;
+						transition-duration: 0.15s;
+					}
+					.list-group-item:hover{
+						background-color:#ff6169;
+						color: #faebd7;
+
 					}
 					.list-group-item.active {
 						background-color: #ff6169;

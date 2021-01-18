@@ -8,22 +8,18 @@ import {
 	GET_FARM_QUERY,
 } from '../graphql';
 
-const useFarm = farmId => {
+const useFarm = init => {
 	const [test, setTest] = useState(false);
-	const {
-		loading,
-		error,
-		data
-	} = useQuery(GET_FARM_QUERY, {
+	const { loading, error, data } = useQuery(GET_FARM_QUERY, {
 		variables: {
-			init
+			init,
 		},
 	});
 
 	const [createPlant] = useMutation(CREATE_PLANT_MUTATION);
 	const [leaveFarm] = useMutation(LEAVE_FARM_MUTATION, {
 		variables: {
-			init
+			init,
 		},
 	});
 	const [sendFarmInvitation] = useMutation(SEND_FARM_INVITATION_MUTATION);
