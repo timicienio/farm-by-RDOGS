@@ -4,8 +4,10 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { CREATE_FARM_MUTATION, GET_FARMS_QUERY } from '../graphql';
 
 const useFarms = () => {
-	const [hasSetFarmList, setHasSetFarmList] = useState(false);
-	const [farmList, setFarmList] = useState([]);
+    
+    //const [hasSetFarmList, setHasSetFarmList] = useState(false);
+    const { data:{ getFarms } } = useQuery(GET_FARMS_QUERY);
+	//const [farmList, setFarmList] = useState([]);
 	// record the farm name which will be created
 	const [createFarmName, setCreateFarmName] = useState(false);
 
@@ -27,15 +29,15 @@ const useFarms = () => {
 		setCreateFarmName(e.target.value);
 	};
 
-	useEffect(() => {
-		if (!hasSetFarmList) {
-			const { data } = useQuery(GET_FARMS_QUERY);
-			setFarmList(data.getFarms);
-			setHasSetFarmList(true);
-		}
-	}, [hasSetFarmList]);
+	// useEffect(() => {
+	// 	if (!hasSetFarmList) {
+	// 		const { data } = useQuery(GET_FARMS_QUERY);
+	// 		setFarmList(data.getFarms);
+	// 		setHasSetFarmList(true);
+	// 	}
+	// }, [hasSetFarmList]);
 
-	return { handleChange, createNewFarm, farmList, createFarmName };
+	return { handleChange, createNewFarm, getFarms, createFarmName };
 };
 
 export default { useFarms };
