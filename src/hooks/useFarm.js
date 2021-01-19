@@ -77,9 +77,28 @@ const useFarm = farmId => {
 		plantX,
 		plantY
 	) => {
-		// author = user.username
 		try {
-		} catch (err) {}
+			const res = await createPlant({
+				plantInput: {
+					farmId: farmId,
+					plantType: plantType,
+					title: title,
+					body: body,
+					chunkCoordinates:{
+						x: chunkX,
+						y: chunkY, 
+					},
+					plantCoordinates:{
+						x: plantX,
+						y: plantY,
+					},
+					author: user.username,
+				},
+			});
+			console.log(res);
+		} catch (err) {
+			alert("createPlant Error: ", err)
+		}
 	};
 
 	// test
