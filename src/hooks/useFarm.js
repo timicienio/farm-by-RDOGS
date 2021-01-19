@@ -105,6 +105,10 @@ const useFarm = farmId => {
 		//TODO
 	};
 
+	const handleChunkCellClicked = ({ chunkCoordinates, cellCoordinates }) => {
+		console.log('click', chunkCoordinates, cellCoordinates);
+	};
+
 	// test
 	useEffect(() => {
 		if (!test && !getFarmLoading) {
@@ -131,6 +135,7 @@ const useFarm = farmId => {
 		createNewPlant,
 		deletePlant,
 		addNewMember,
+		handleChunkCellClicked,
 	];
 };
 

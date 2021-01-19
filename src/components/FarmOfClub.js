@@ -6,7 +6,13 @@ import Chunk from './Chunk';
 import './Farm.css';
 import { Modal, Spinner } from 'react-bootstrap';
 
-function FarmOfClub({ data, loading, selectedTool, selectedPlant }) {
+function FarmOfClub({
+	data,
+	loading,
+	selectedTool,
+	selectedPlant,
+	handleChunkCellClicked,
+}) {
 	console.log(data);
 
 	return loading ? (
@@ -25,6 +31,13 @@ function FarmOfClub({ data, loading, selectedTool, selectedPlant }) {
 								plant =>
 									plant.chunkCoordinates === chunk.coordinates
 							)}
+							handleCellClicked={cellCoordinates => {
+								handleChunkCellClicked({
+									chunkCoordinates: chunk.coordinates,
+									cellCoordinates: cellCoordinates,
+								});
+							}}
+							created
 						/>
 					))}
 				</div>
