@@ -19,7 +19,6 @@ const useLogInForm = (callback, validate) => {
 	const handleLogin = async values => {
 		//console.log(errors);
 		if (values.username !== '') {
-			//console.log(values);
 			try {
 				const res = await login({
 					variables: {
@@ -28,9 +27,7 @@ const useLogInForm = (callback, validate) => {
 					},
 				});
 				context.login(res.data.login);
-				console.log(res.data.login);
-				//console.log(res.data.login.token);
-				//console.log(res.data.login.token);
+				//console.log(res.data.login);
 				setToken(res.data.login.token);
 				setIsSubmitted(true);
 			} catch (err) {

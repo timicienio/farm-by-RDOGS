@@ -42,24 +42,7 @@ const useFriends = () => {
 			console.log(res);
 			setInviteFriendName('');
 		} catch (err) {
-			alert(err);
-			console.log(err);
-			if (err.message === 'GraphQL error: User not found') {
-				console.log('User not found');
-				setInvitationAlert('User not found!');
-			} else if (
-				err.message ===
-				'GraphQL error: UserInputError: You cannot be friends with yourself'
-			) {
-				console.log('You cannot be friends with yourself');
-				setInvitationAlert('You cannot be friends with yourself :(');
-			} else if (err.message === 'GraphQL error: Already invited') {
-				console.log('Already invited');
-				setInvitationAlert('Already invited.');
-			} else {
-				console.log(err.message);
-				setInvitationAlert('An unknown error occurred.');
-			}
+			setInvitationAlert(err.graphQLErrors[0].message);
 			setShowInvitationAlert(true);
 		}
 	};
@@ -74,16 +57,7 @@ const useFriends = () => {
 			setHasGetFriend(false);
 			setHasGetInv(false);
 		} catch (err) {
-			alert(err);
-			if (err.message === 'GraphQL error: Friend user not found') {
-				console.log('Friend user not found');
-				setAcceptInvitationAlert('User not found.');
-			} else if (err.message === 'GraphQL error: Invitation not found') {
-				console.log('Invitation not found');
-				setAcceptInvitationAlert('Invitation not found.');
-			} else {
-				setAcceptInvitationAlert('An unknown error occurred.');
-			}
+			setAcceptInvitationAlert(err.graphQLErrors[0].message);
 			setShowAcceptInvitationAlert(true);
 		}
 	};

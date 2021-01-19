@@ -18,30 +18,7 @@ import useFriends from '../hooks/useFriends';
 import './Friends.css';
 
 const Friends = ({userData, setUserData}) => {
-	// const [friendList, setFriendList] = useState([
-	// 	{
-	// 		username: 'rdogs1',
-	// 		email: 'rdogs1@rdogs.com',
-	// 		createdAt: '2021/1/2',
-	// 	},
-	// 	{
-	// 		username: 'timicienio',
-	// 		email: 'rdogs2@rdogs.com',
-	// 		createdAt: '2021/1/2',
-	// 	},
-	// 	{
-	// 		username: 'fredred',
-	// 		email: 'rdogs3@rdogs.com',
-	// 		createdAt: '2021/1/2',
-	// 	},
-	// 	{
-	// 		username: 'gary',
-	// 		email: 'rdogs4@rdogs.com',
-	// 		createdAt: '2021/1/2',
-	// 	},
-	// ]);
-
-	const { user } = useContext(AuthContext);
+	const { user, logout } = useContext(AuthContext);
 
 	const {
 		handleChange,
@@ -62,6 +39,14 @@ const Friends = ({userData, setUserData}) => {
 		friends,
 	} = useFriends();
 
+	const logOut = () => {
+		setUserData({
+			loggedIn: false,
+		})
+		//console.log(userData);
+		logout();
+	}
+
 	// useEffect(() => {
 	// });
 
@@ -77,7 +62,7 @@ const Friends = ({userData, setUserData}) => {
 								large
 							></FriendInfo>
 							<div className='request-list-buttons'>
-								<Button variant='secondary'>Log out</Button>
+								<Button variant='secondary' onClick={()=>logOut()}>Log out</Button>
 							</div>
 						</StdBox>
 					</Col>
@@ -180,7 +165,14 @@ const Friends = ({userData, setUserData}) => {
 													>
 														Accept
 													</Button>
-													<Button variant='secondary'>
+													<Button 
+														onClick={() => {
+															declineInv(
+																friend.username
+															);
+														}}
+														variant='secondary'
+													>
 														Decline
 													</Button>
 												</ButtonGroup>

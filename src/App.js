@@ -13,7 +13,7 @@ import Friends from './pages/Friends';
 import Farms from './pages/Farms';
 import Preferences from './pages/Preferences';
 import About from './pages/About';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { AuthContext } from './context/auth';
