@@ -23,7 +23,7 @@ function AddCommentPopUp({ show, setShow, handlePopUpSubmit }) {
 			}}
 			centered
 		>
-			<Modal.Header closeButton>Grow a new comment...</Modal.Header>
+			<Modal.Header closeButton>New Comment</Modal.Header>
 			<Modal.Body>
 				<Form>
 					<Form.Group controlId='newFarmForm'>

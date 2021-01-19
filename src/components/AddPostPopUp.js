@@ -23,7 +23,7 @@ function AddPostPopUp({ show, setShow, handlePopUpSubmit }) {
 			}}
 			centered
 		>
-			<Modal.Header closeButton>Grow a new post...</Modal.Header>
+			<Modal.Header closeButton>New Post</Modal.Header>
 			<Modal.Body>
 				<Form>
 					<Form.Group controlId='newFarmForm'>

@@ -5,6 +5,7 @@ import useFarm from '../hooks/useFarm';
 import ManageFarmPopUp from '../components/ManageFarmPopUp';
 import AddPostPopUp from './AddPostPopUp';
 import AddCommentPopUp from './AddCommentPopUp';
+import AddReactionPopUp from './AddReactionPopUp';
 import './Farm.css';
 
 function Farm({
@@ -51,6 +52,11 @@ function Farm({
 					/>
 					<AddCommentPopUp
 						show={showAddPlantPopUp && selectedPlant === 'COMMENT'}
+						setShow={setShowAddPlantPopUp}
+						handlePopUpSubmit={handleAddPlantSubmit}
+					/>
+					<AddReactionPopUp
+						show={showAddPlantPopUp && selectedPlant === 'REACTION'}
 						setShow={setShowAddPlantPopUp}
 						handlePopUpSubmit={handleAddPlantSubmit}
 					/>
