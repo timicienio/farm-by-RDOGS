@@ -241,7 +241,7 @@ module.exports = {
             console.log("userid:", user.id)
             try{
                 let dbUser = await User.findById(user.id);
-                console.log("createFarm", dbuser)
+                console.log("createFarm", dbUser)
                 dbUser.farms.push({
                     _id: res._id,
                     farmName: res.farmName,

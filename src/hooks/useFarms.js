@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { AuthContext } from '../context/auth';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
-import { CREATE_FARM_MUTATION, GET_FARMS_QUERY } from '../graphql';
+import { CREATE_FARM_MUTATION, GET_USER_DATA_QUERY } from '../graphql';
 import { Alert } from 'react-bootstrap';
 
 const useFarms = () => {
@@ -10,7 +10,7 @@ const useFarms = () => {
 		loading: farmListLoading,
 		error: farmListError,
 		data: data,
-	} = useQuery(GET_FARMS_QUERY);
+	} = useQuery(GET_USER_DATA_QUERY);
 
 	const [showCreateFarmPopUp, setShowCreateFarmPopUp] = useState(false);
 	const [createFarmName, setCreateFarmName] = useState('');
@@ -21,7 +21,7 @@ const useFarms = () => {
 	const [createFarm] = useMutation(CREATE_FARM_MUTATION);
 
 	const createNewFarm = async () => {
-        alert(createFarmName, "  ", createFarmType);
+		alert(createFarmName, "  ", createFarmType);
         try {
 			alert('create farm');
 			const res = await createFarm({

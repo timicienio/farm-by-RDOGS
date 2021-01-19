@@ -73,3 +73,28 @@ export const GET_FARMS_QUERY = gql`
 		}
 	}
 `;
+export const GET_USER_DATA_QUERY = gql`
+	query getUserData($userId: ID!){
+		getUserData(userId: $userId){
+			email
+			profile
+			token
+			username
+			farms{
+				id
+				farmName
+				farmType
+			}
+			invitations {
+				id
+				username
+				email
+			}
+			friends {
+				id
+				username
+				email			
+			}
+		}
+	}
+`

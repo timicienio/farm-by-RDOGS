@@ -137,7 +137,10 @@ function App() {
 								<Home userData={userData}></Home>
 							</Route> */}
 							<Route path='/friends'>
-								<Friends />
+								<Friends 
+									userData={userData}
+									setUserData={setUserData}
+								/>
 							</Route>
 							<Route path='/farms'>
 								<Farms />

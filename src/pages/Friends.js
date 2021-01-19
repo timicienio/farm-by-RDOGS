@@ -17,7 +17,7 @@ import FriendInfo from '../components/FriendInfo';
 import useFriends from '../hooks/useFriends';
 import './Friends.css';
 
-const Friends = ({}) => {
+const Friends = ({userData, setUserData}) => {
 	// const [friendList, setFriendList] = useState([
 	// 	{
 	// 		username: 'rdogs1',
@@ -47,12 +47,16 @@ const Friends = ({}) => {
 		handleChange,
 		inviteFriend,
 		acceptInv,
+		declineInv,
 		invitationAlert,
 		acceptInvitationAlert,
+		declineInvitationAlert,
 		showInvitationAlert,
 		showAcceptInvitationAlert,
+		showDeclineInvitationAlert,
 		dismissInvitationAlert,
 		dismissAcceptInvitationAlert,
+		dismissDeclineInvitationAlert,
 		inviteFriendName,
 		invitation,
 		friends,
