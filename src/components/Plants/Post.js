@@ -1,6 +1,7 @@
 import React from 'react';
+import './Plant.css';
 
-function Post(data) {
+function Post({ title, body }) {
 	return (
 		<div className='plant post'>
 			<h1 className='post-title'>{data.title}</h1>

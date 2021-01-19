@@ -101,6 +101,10 @@ const useFarm = farmId => {
 		}
 	};
 
+	const deletePlant = plantId => {
+		//TODO
+	};
+
 	// test
 	useEffect(() => {
 		if (!test && !getFarmLoading) {
@@ -125,8 +129,8 @@ const useFarm = farmId => {
 		getFarmLoading,
 		leaveFarm,
 		createNewPlant,
+		deletePlant,
 		addNewMember,
-		// addNewMemberAlert, // TODO
 	];
 };
 

@@ -19,8 +19,13 @@ function FarmOfClub({ data, loading, selectedTool, selectedPlant }) {
 				position={null}
 			>
 				<div className='farm'>
-					{data.getFarm.chunks.map(item => (
-						<Chunk data={item} modifier={{}} />
+					{data.getFarm.chunks.map(chunk => (
+						<Chunk
+							plants={data.getFarm.plants.filter(
+								plant =>
+									plant.chunkCoordinates === chunk.coordinates
+							)}
+						/>
 					))}
 				</div>
 			</Draggable>

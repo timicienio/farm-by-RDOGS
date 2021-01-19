@@ -13,10 +13,7 @@ import { VscReactions } from 'react-icons/vsc';
 import Farm from '../components/Farm';
 import FarmToolbox from '../components/FarmToolbox';
 import CreateNewFarmPopUp from '../components/CreateNewFarmPopUp';
-import ManageFarmPopUp from '../components/ManageFarmPopUp';
 import useFarms from '../hooks/useFarms';
-import useFarm from '../hooks/useFarm';
-import { unset } from 'lodash';
 
 const Farms = ({}) => {
 	const {

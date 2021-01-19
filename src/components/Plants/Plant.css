@@ -1,0 +1,19 @@
+.plant {
+	background-color: rgb(150, 191, 170);
+	border-radius: 12px;
+	padding: 0.5rem;
+	box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.15);
+}
+
+.post {
+	height: 276px;
+	width: 276px;
+}
+.comment {
+	height: 132px;
+	width: 132px;
+}
+.reaction {
+	height: 60px;
+	width: 60px;
+}

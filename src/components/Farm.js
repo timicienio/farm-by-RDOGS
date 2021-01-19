@@ -13,6 +13,7 @@ function Farm({ data, showManageFarmPopUp, setShowManageFarmPopUp }) {
 		getFarmLoading,
 		leaveFarm,
 		createNewPlant,
+		deletePlant,
 		addNewMember,
 	] = useFarm(data.id);
 
@@ -26,7 +27,12 @@ function Farm({ data, showManageFarmPopUp, setShowManageFarmPopUp }) {
 						addNewMember={addNewMember}
 						leaveFarm={leaveFarm}
 					/>
-					<FarmOfClub data={farmData} loading={getFarmLoading} />
+					<FarmOfClub
+						data={farmData}
+						loading={getFarmLoading}
+						createPlant={createNewPlant}
+						deletePlant={deletePlant}
+					/>
 				</>
 			);
 		case 'Timeline':

@@ -157,9 +157,6 @@ function App() {
 							<Route exact path='/'>
 								<Redirect to='/friends' />
 							</Route>
-							{/* <Route path='/home'>
-								<Home userData={userData}></Home>
-							</Route> */}
 							<Route path='/friends'>
 								<Friends
 									userData={userData}
@@ -169,9 +166,6 @@ function App() {
 							<Route path='/farms'>
 								<Farms />
 							</Route>
-							{/* <Route path='/farms/:farmname?'>
-								<FarmOfClub userData={userData} />
-							</Route> */}
 							<Route
 								path='/preferences'
 								component={Preferences}
