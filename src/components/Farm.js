@@ -5,19 +5,33 @@ import useFarm from '../hooks/useFarm';
 import ManageFarmPopUp from '../components/ManageFarmPopUp';
 import './Farm.css';
 
-function Farm({ data, showManageFarmPopUp, setShowManageFarmPopUp }) {
+function Farm({
+	data,
+	selectedTool,
+	selectedPlant,
+	showManageFarmPopUp,
+	setShowManageFarmPopUp,
+}) {
 	// console.log(data.farmType);
 	const [
 		farmData, //include id, farmName, farmType, members, chunks, plants
-		friends, // this user's friends
+		friends, //this user's all friends
 		getFarmLoading,
 		leaveFarm,
 		createNewPlant,
 		deletePlant,
 		addNewMember,
 		handleChunkCellClicked,
-	] = useFarm(data.id);
+		handleChunkCellHover,
+		handlePostClicked,
+		handlePostHover,
 
+		showPositionCue,
+		setShowPositionCue,
+		positionCueValidity,
+		positionCueType,
+	] = useFarm(data.id, selectedTool, selectedPlant);
+	console.log(showPositionCue);
 	switch (data.farmType) {
 		case 'Club':
 			return (
@@ -34,6 +48,13 @@ function Farm({ data, showManageFarmPopUp, setShowManageFarmPopUp }) {
 						createPlant={createNewPlant}
 						deletePlant={deletePlant}
 						handleChunkCellClicked={handleChunkCellClicked}
+						handleChunkCellHover={handleChunkCellHover}
+						handlePostClicked={handlePostClicked}
+						handlePostHover={handlePostHover}
+						showPositionCue={showPositionCue}
+						setShowPositionCue={setShowPositionCue}
+						positionCueValidity={positionCueValidity}
+						positionCueType={positionCueType}
 					/>
 				</>
 			);

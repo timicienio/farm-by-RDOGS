@@ -12,8 +12,16 @@ function FarmOfClub({
 	selectedTool,
 	selectedPlant,
 	handleChunkCellClicked,
+	handleChunkCellHover,
+	handleChunkCellHoverOut,
+	handlePlantClicked,
+	handlePlantHover,
+	showPositionCue,
+	setShowPositionCue,
+	positionCueValidity,
+	positionCueType,
 }) {
-	console.log(data);
+	console.log(showPositionCue);
 
 	return loading ? (
 		<Spinner animation='grow' id='farm-loading-spinner' />
@@ -40,6 +48,18 @@ function FarmOfClub({
 									cellCoordinates: cellCoordinates,
 								});
 							}}
+							handleCellHover={cellCoordinates => {
+								handleChunkCellHover({
+									chunkCoordinates: chunk.coordinates,
+									cellCoordinates: cellCoordinates,
+								});
+							}}
+							handleCellHoverOut={() => {}}
+							handlePlantClicked={handlePlantClicked}
+							handlePlantHover={handlePlantHover}
+							showPositionCue={showPositionCue}
+							positionCueValidity={positionCueValidity}
+							positionCueType={positionCueType}
 							created
 						/>
 					))}

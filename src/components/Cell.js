@@ -1,7 +1,14 @@
 import React from 'react';
 
-function Cell({ coor, onClick }) {
-	return <div className='cell' onClick={() => onClick()}></div>;
+function Cell({ onClick, onHover, onLeave }) {
+	return (
+		<div
+			className='cell'
+			onClick={() => onClick()}
+			onMouseEnter={() => onHover()}
+			onMouseOut={() => onLeave()}
+		></div>
+	);
 }
 
 export default Cell;

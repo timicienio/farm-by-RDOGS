@@ -24,3 +24,9 @@
 	height: 60px;
 	width: 60px;
 }
+.cue {
+	opacity: 40%;
+}
+.cue-invalid {
+	background-color: rgb(237, 109, 87);
+}

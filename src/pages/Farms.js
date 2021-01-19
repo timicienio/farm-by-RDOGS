@@ -122,7 +122,7 @@ const Farms = ({}) => {
 						onMouseUp={() => setShowCreateFarmPopUp(true)}
 					>
 						<BiPlus />
-						New Farm ...
+						New Farm
 					</Button>
 				</FarmToolbox>
 
@@ -139,7 +139,9 @@ const Farms = ({}) => {
 
 							<ListGroup.Item active={selectedTool === 'PLANT'}>
 								<RiPlantLine />
-								<span className='tool-name'>Plant</span>
+								<span className='tool-name' id='grow-tool-text'>
+									Grow
+								</span>
 								<ListGroup id='plant-type-switch' horizontal>
 									<ListGroup.Item
 										style={{ padding: 0 }}

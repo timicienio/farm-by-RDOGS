@@ -1,10 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import useChunk from '../hooks/useChunk';
 import Cell from './Cell';
 import Post from './Plants/Post';
+import Comment from './Plants/Comment';
+import Reaction from './Plants/Reaction';
+import PositionCue from './Plants/PositionCue';
 
-function Chunk({ plants, created, handleCellClicked }) {
+function Chunk({
+	plants,
+	created,
+	handleCellClicked,
+	handleCellHover,
+	handleCellHoverOut,
+	handlePlantClicked,
+	handlePlantHover,
+	showPositionCue,
+	positionCueValidity,
+	positionCueType,
+}) {
+	const [hoveringCellCoordinates, setHoveringCellCoordinates] = useState({});
 	const grid = new Array(32).fill(new Array(32).fill({ type: 'Empty' }));
+	console.log(positionCueType);
 
 	return (
 		<div className={'chunk ' + (created ? '' : 'not-created')}>
@@ -14,11 +30,16 @@ function Chunk({ plants, created, handleCellClicked }) {
 						<Cell
 							coor={{ x: i, y: j }}
 							onClick={() => handleCellClicked({ x: i, y: j })}
+							onHover={() => {
+								handleCellHover({ x: i, y: j });
+								setHoveringCellCoordinates({ x: i, y: j });
+							}}
+							onLeave={() => handleCellHoverOut()}
 						/>
 					))}
 				</div>
 			))}
-			{plants.map(plant => {
+			{plants.map((plant, i) => {
 				switch (plant.plantType) {
 					case 'Post':
 						return (
@@ -27,10 +48,44 @@ function Chunk({ plants, created, handleCellClicked }) {
 								title={plant.title}
 								body={plant.body}
 								author={plant.author}
+								onClick={() => handlePlantClicked(i)}
+								onHover={() => handlePlantHover(i)}
 							></Post>
+						);
+
+					case 'Comment':
+						return (
+							<Comment
+								coordinates={plant.plantCoordinates}
+								title={plant.title}
+								body={plant.body}
+								author={plant.author}
+								onClick={() => handlePlantClicked(i)}
+								onHover={() => handlePlantHover(i)}
+							></Comment>
+						);
+
+					case 'Reaction':
+						return (
+							<Reaction
+								coordinates={plant.plantCoordinates}
+								title={plant.title}
+								author={plant.author}
+								onClick={() => handlePlantClicked(i)}
+								onHover={() => handlePlantHover(i)}
+							></Reaction>
 						);
 				}
 			})}
+			{showPositionCue ? (
+				<PositionCue
+					coordinates={hoveringCellCoordinates}
+					validity={positionCueValidity}
+					type={positionCueType}
+				/>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 }
