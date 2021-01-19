@@ -4,7 +4,6 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../context/auth';
 import { CREATE_FARM_MUTATION, GET_USER_DATA_QUERY } from '../graphql';
-import { Alert } from 'react-bootstrap';
 
 const useFarms = () => {
 	const { user } = useContext(AuthContext);
@@ -24,24 +23,33 @@ const useFarms = () => {
 	const [selectedFarm, setSelectedFarm] = useState(0);
 	const [selectedTool, setSelectedTool] = useState('DRAG'); // DRAG, PLANT, MODIFY, HARVEST
 	const [selectedPlant, setSelectedPlant] = useState('POST');
+	const [createFarmAlert, setCreateFarmAlert] = useState('');
+	const [showCreateFarmAlert, setShowCreateFarmAlert] = useState(false);
 
 	const [createFarm] = useMutation(CREATE_FARM_MUTATION);
 
 	const createNewFarm = async () => {
-		alert(createFarmName, "  ", createFarmType);
-        try {
-
-			alert('create farm');
-			const res = await createFarm({
-				variables: {
-					farmName: createFarmName,
-					farmType: createFarmType,
-				},
-			});
-			alert('res', res);
-			setCreateFarmName('');
-		} catch (err) {
-			alert('error', err);
+		//alert(createFarmName, "  ", createFarmType);
+		if(createFarmName === ''){
+			setCreateFarmAlert("Please enter a name.");
+			setShowCreateFarmAlert(true);
+		}
+		else{
+			setCreateFarmAlert('');
+			setShowCreateFarmAlert(false);
+			try {
+				alert('create farm');
+				const res = await createFarm({
+					variables: {
+						farmName: createFarmName,
+						farmType: createFarmType,
+					},
+				});
+				alert('res', res);
+				setCreateFarmName('');
+			} catch (err) {
+				alert('error', err);
+			}
 		}
 	};
 
@@ -87,6 +95,8 @@ const useFarms = () => {
 		onSelectPlant,
 		createFarmName,
 		createFarmType,
+		createFarmAlert,
+		showCreateFarmAlert,
 		history,
 		showCreateFarmPopUp,
 		setShowCreateFarmPopUp,
