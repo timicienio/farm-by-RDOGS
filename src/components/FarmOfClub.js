@@ -6,7 +6,7 @@ import Chunk from './Chunk';
 import './Farm.css';
 import Spinner from 'react-bootstrap/Spinner';
 
-function FarmOfClub({ data }) {
+function FarmOfClub({ data, selectedTool, selectedPlant }) {
 	const [
 		farmData, //include id, farmName, farmType, members, chunks, plants
 		friends, // this user's friends

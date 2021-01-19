@@ -32,6 +32,7 @@
 
 .farm-list-content {
 	width: auto;
+	max-height: 80%;
 }
 
 .tool-name {
@@ -40,6 +41,10 @@
 
 #farm-list-switch {
 	margin-bottom: 15px;
+}
+
+#farm-list-body {
+	overflow-y: auto;
 }
 
 #farm-loading-spinner {

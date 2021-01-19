@@ -421,7 +421,11 @@ const Farms = ({}) => {
 					) : (
 						data.getFarms.map((farm, index) => (
 							<Route path={'/farms/' + String(index)}>
-								<Farm data={farm} />
+								<Farm
+									data={farm}
+									selectedTool={selectedTool}
+									selectedPlant={selectedPlant}
+								/>
 							</Route>
 						))
 					)}
