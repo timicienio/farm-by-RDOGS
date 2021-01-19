@@ -66,6 +66,8 @@ function App() {
 						border-width: 0px;
 						color: #1c3532;
 						border-radius: 30px;
+						padding-top: 0px;
+						padding-bottom: 0px;
 					}
 					.btn-info:hover{
 						background-color:#c8f0ef

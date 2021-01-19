@@ -458,6 +458,7 @@ const Farms = ({}) => {
 												<Button
 													variant='info'
 													id='manage-farm-button'
+													size='sm'
 												>
 													<RiMoreLine
 														size='0.7em'
