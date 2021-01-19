@@ -430,7 +430,8 @@ const Farms = ({}) => {
 						))
 					)}
 				</Switch>
-				<FarmToolbox title='Farms'>
+
+				<FarmToolbox title='Farms' id='farm-list'>
 					{farmListLoading ? (
 						<></>
 					) : !data.getFarms.length ? (
@@ -538,6 +539,7 @@ const Farms = ({}) => {
 						</ListGroup>
 					</div>
 				</FarmToolbox>
+
 				<CreateNewFarmPopUp
 					show={showCreateFarmPopUp}
 					setShow={setShowCreateFarmPopUp}

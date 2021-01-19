@@ -18,9 +18,11 @@ function FarmToolbox({ title, children, id }) {
 						<MdIcons.MdDragHandle />
 					</IconContext.Provider>
 				</div>
-				<div className='farm-list-content' id={id + '-body'}>
+				<div className='farm-list-content'>
 					<div className='std-box-title'>{title}</div>
-					<div className='std-box-content'>{children}</div>
+					<div className='std-box-content' id={id + '-body'}>
+						{children}
+					</div>
 				</div>
 			</div>
 		</Draggable>
