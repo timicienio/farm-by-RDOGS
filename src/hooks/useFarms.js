@@ -41,17 +41,15 @@ const useFarms = () => {
 			setCreateFarmAlert('');
 			setShowCreateFarmAlert(false);
 			try {
-				alert('create farm');
 				const res = await createFarm({
 					variables: {
 						farmName: createFarmName,
 						farmType: createFarmType,
 					},
 				});
-				alert('res', res);
 				setCreateFarmName('');
 			} catch (err) {
-				alert('error', err);
+				console.log(err);
 			}
 		}
 	};

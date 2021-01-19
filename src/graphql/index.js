@@ -18,4 +18,4 @@ export {
     SEND_FARM_INVITATION_MUTATION,
     EDIT_PROFILE_MUTATION
 } from './mutations';
-//export { } from './subscriptions'
+export { FARM_SUBSCRIPTION } from './subscriptions'
