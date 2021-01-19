@@ -10,6 +10,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 //import { onError } from 'apollo-link-error'
 import { setContext } from 'apollo-link-context';
+import { AuthProvider } from './context/auth';
 
 
 import * as serviceWorker from './serviceWorker';
@@ -61,7 +62,9 @@ const client = new ApolloClient({
 
 const wrappedApp = (
 	<ApolloProvider client={client}>
-		<App />
+		<AuthProvider>
+			<App />
+		</AuthProvider>
 	</ApolloProvider>
 );
 

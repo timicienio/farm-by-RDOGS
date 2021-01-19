@@ -24,6 +24,8 @@ const AuthContext = createContext({
 function authReducer(state, action) {
     switch (action.type) {
       case 'LOGIN':
+        console.log("login procedure")
+        //console.log(action);
         return {
           ...state,
           user: action.payload
@@ -47,6 +49,7 @@ function AuthProvider(props) {
         type: 'LOGIN',
         payload: userData
       });
+      //console.log("state:", state);
     }
   
     function logout() {

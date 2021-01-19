@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './EntranceForm.css';
 import FormSignup from './FormSignup';
 import FormSuccess from './FormSuccess';
 import FormLogIn from './FormLogIn';
+import { AuthContext } from '../context/auth';
 
 const EntranceForm = ({ userData, setUserData }) => {
 	const [isSubmitted, setIsSubmitted] = useState(false);
+	const { user } = useContext(AuthContext);
 
 	function submitSignUpForm() {
 		setIsSubmitted(true);
@@ -15,8 +17,6 @@ const EntranceForm = ({ userData, setUserData }) => {
 	}
 
 	function submitLogInForm(values, token) {
-		//TODO: callbacks for log in (optional)
-		//console.log(values);
 		setUserData({
 			loggedIn: true,
 			name: values.username,
@@ -33,7 +33,7 @@ const EntranceForm = ({ userData, setUserData }) => {
 				</div>
 				<Switch>
 					{userData.loggedIn ? (
-						<Redirect to='/friends' />
+						<Redirect to='/' />
 					) : (
 						<>
 							<Route exact path='/entrance'>
