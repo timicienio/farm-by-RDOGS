@@ -146,3 +146,8 @@ export const SEND_FARM_INVITATION_MUTATION = gql`
 		sendFarmInvitation(farmId: $farmId, friendId: $friendId)
 	}
 `;
+export const EDIT_PROFILE_MUTATION = gql`
+	mutation editProfile($newProfile: String!){
+		editProfile(newProfile: $newProfile)
+	}
+`

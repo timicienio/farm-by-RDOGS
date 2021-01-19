@@ -14,6 +14,7 @@ export {
     CREATE_FARM_MUTATION,
     CREATE_PLANT_MUTATION,
     LEAVE_FARM_MUTATION,
-    SEND_FARM_INVITATION_MUTATION
+    SEND_FARM_INVITATION_MUTATION,
+    EDIT_PROFILE_MUTATION
 } from './mutations';
 //export { } from './subscriptions'
