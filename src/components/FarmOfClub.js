@@ -29,7 +29,10 @@ function FarmOfClub({
 						<Chunk
 							plants={data.getFarm.plants.filter(
 								plant =>
-									plant.chunkCoordinates === chunk.coordinates
+									plant.chunkCoordinates.x ===
+										chunk.coordinates.x &&
+									plant.chunkCoordinates.y ===
+										chunk.coordinates.y
 							)}
 							handleCellClicked={cellCoordinates => {
 								handleChunkCellClicked({

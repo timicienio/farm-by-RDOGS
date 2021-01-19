@@ -6,7 +6,7 @@
 }
 
 .chunk {
-	/* position: absolute; */
+	position: relative;
 	background-color: #faebd7;
 	display: flex;
 	flex-direction: column;
