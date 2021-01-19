@@ -9,6 +9,7 @@ import {
 	GET_FARM_QUERY,
 	GET_FRIENDS_MUTATION,
 	FARM_SUBSCRIPTION,
+	EDIT_PLANT_MUTATION,
 } from '../graphql';
 
 const useFarm = farmId => {
@@ -29,6 +30,7 @@ const useFarm = farmId => {
 
 	const [getFriends] = useMutation(GET_FRIENDS_MUTATION);
 	const [createPlant] = useMutation(CREATE_PLANT_MUTATION);
+	const [editOldPlant] = useMutation(EDIT_PLANT_MUTATION);
 	const [deleteOldPlant] = useMutation(DELETE_PLANT_MUTATION);
 	const [leaveCurrentFarm] = useMutation(LEAVE_FARM_MUTATION);
 
@@ -149,6 +151,40 @@ const useFarm = farmId => {
 		}
 	};
 
+	const editPlant = async (
+		plantId,
+		plantType, 
+		title,
+		body,
+		chunkX,
+		chunkY,
+		plantX,
+		plantY 
+	) => {
+		try {
+			const res = await editOldPlant({
+				plantInput: {
+					farmId: farmId,
+					plantId: plantId,
+					plantType: plantType,
+					title: title,
+					body: body,
+					chunkCoordinates: {
+						x: chunkX,
+						y: chunkY,
+					},
+					plantCoordinates: {
+						x: plantX,
+						y: plantY,
+					},
+				},
+			});
+			console.log(res);
+		} catch (err) {
+			alert('editPlant Error: ', err.graphQLErrors[0].message);
+		}
+	}
+
 	const deletePlant = async plantId => {
 		try{
 			const res = await deleteOldPlant({
@@ -192,6 +228,7 @@ const useFarm = farmId => {
 		getFarmLoading,
 		leaveFarm,
 		createNewPlant,
+		editPlant,
 		deletePlant,
 		addNewMember,
 		handleChunkCellClicked,

@@ -13,6 +13,7 @@ function Farm({ data, showManageFarmPopUp, setShowManageFarmPopUp }) {
 		getFarmLoading,
 		leaveFarm,
 		createNewPlant,
+		editPlant,
 		deletePlant,
 		addNewMember,
 		handleChunkCellClicked,

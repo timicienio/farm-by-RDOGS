@@ -136,11 +136,48 @@ export const CREATE_PLANT_MUTATION = gql`
 		}
 	}
 `;
+export const EDIT_PLANT_MUTATION = gql`
+	mutation editPlant(
+		$farmId: ID!
+		$plantId: ID
+		$plantType: String
+		$title: String
+		$body: String
+		$chunkCoordinates: CoordinateInput
+		$plantCoordinates: CoordinateInput
+	) {
+		editPlant(
+			plantInput: {
+				farmId: $farmId
+				plantId: $plantId
+				plantType: $plantType
+				title: $title
+				body: $body
+				chunkCoordinates: $chunkCoordinates
+				plantCoordinates: $plantCoordinates
+			}
+		) {
+			id
+			plantType
+			title
+			body
+			chunkCoordinates {
+				x
+				y
+			}
+			plantCoordinates {
+				x
+				y
+			}
+			author
+		}
+	}
+`;
 export const DELETE_PLANT_MUTATION = gql`
 	mutation deletePlant($farmId: ID!, $plantId: ID!){
 		deletePlant(farmId: $farmId, plantId: $plantId)
 	}
-`
+`;
 export const LEAVE_FARM_MUTATION = gql`
 	mutation leaveFarm($farmId: ID!) {
 		leaveFarm(farmId: $farmId)
