@@ -21,7 +21,7 @@ function FarmOfClub({
 	positionCueValidity,
 	positionCueType,
 }) {
-	console.log(showPositionCue);
+	console.log(selectedTool);
 
 	return loading ? (
 		<Spinner animation='grow' id='farm-loading-spinner' />
@@ -31,6 +31,7 @@ function FarmOfClub({
 				axis='both'
 				defaultPosition={{ x: 0, y: 0 }}
 				position={null}
+				disabled={selectedTool !== 'DRAG'}
 			>
 				<div className='farm'>
 					{data.getFarm.chunks.map(chunk => (

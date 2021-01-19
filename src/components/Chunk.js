@@ -39,6 +39,15 @@ function Chunk({
 					))}
 				</div>
 			))}
+			{showPositionCue ? (
+				<PositionCue
+					coordinates={hoveringCellCoordinates}
+					validity={positionCueValidity}
+					type={positionCueType}
+				/>
+			) : (
+				<></>
+			)}
 			{plants.map((plant, i) => {
 				switch (plant.plantType) {
 					case 'Post':
@@ -77,15 +86,6 @@ function Chunk({
 						);
 				}
 			})}
-			{showPositionCue ? (
-				<PositionCue
-					coordinates={hoveringCellCoordinates}
-					validity={positionCueValidity}
-					type={positionCueType}
-				/>
-			) : (
-				<></>
-			)}
 		</div>
 	);
 }

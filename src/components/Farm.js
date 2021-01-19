@@ -52,6 +52,8 @@ function Farm({
 						handleChunkCellHover={handleChunkCellHover}
 						handlePostClicked={handlePostClicked}
 						handlePostHover={handlePostHover}
+						selectedTool={selectedTool}
+						selectedPlant={selectedPlant}
 						showPositionCue={showPositionCue}
 						setShowPositionCue={setShowPositionCue}
 						positionCueValidity={positionCueValidity}

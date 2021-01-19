@@ -30,6 +30,7 @@
 	background-color: #fbe5c8;
 	border-radius: 20px;
 	margin: 6px;
+	z-index: 500;
 }
 
 .cell:hover {
