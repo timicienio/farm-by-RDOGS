@@ -15,6 +15,7 @@ function Farm({ data, showManageFarmPopUp, setShowManageFarmPopUp }) {
 		createNewPlant,
 		deletePlant,
 		addNewMember,
+		handleChunkCellClicked,
 	] = useFarm(data.id);
 
 	switch (data.farmType) {
@@ -32,6 +33,7 @@ function Farm({ data, showManageFarmPopUp, setShowManageFarmPopUp }) {
 						loading={getFarmLoading}
 						createPlant={createNewPlant}
 						deletePlant={deletePlant}
+						handleChunkCellClicked={handleChunkCellClicked}
 					/>
 				</>
 			);

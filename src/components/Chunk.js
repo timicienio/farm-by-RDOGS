@@ -2,35 +2,17 @@ import React, { useEffect } from 'react';
 import useChunk from '../hooks/useChunk';
 import Cell from './Cell';
 
-function Chunk({ data, modifier }) {
-	const [{ plants }, addPlant, modifyPlant, created, setCreated] = useChunk(
-		data,
-		modifier
-	);
-
+function Chunk({ plants, created, handleCellClicked }) {
 	const grid = new Array(32).fill(new Array(32).fill({ type: 'Empty' }));
-
-	// useEffect(() => {
-	// 	for (item in plants) {
-	// 		switch (item.type){
-	// 			case 'Post':
-
-	// 		}
-	// 	}
-
-	// 	return () => {
-	// 		cleanup;
-	// 	};
-	// }, [input]);
 
 	return (
 		<div className={'chunk ' + (created ? '' : 'not-created')}>
-			{grid.map(y => (
+			{grid.map((y, j) => (
 				<div className='cell-row'>
-					{grid.map(x => (
+					{grid.map((x, i) => (
 						<Cell
-							coor={{ x: x, y: y }}
-							onClick={() => console.log('clicked')}
+							coor={{ x: i, y: j }}
+							onClick={() => handleCellClicked({ x: i, y: j })}
 						/>
 					))}
 				</div>
