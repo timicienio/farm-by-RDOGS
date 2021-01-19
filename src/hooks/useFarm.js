@@ -28,11 +28,24 @@ const useFarm = farmId => {
 	const [getFriends] = useMutation(GET_FRIENDS_MUTATION);
 	const [createPlant] = useMutation(CREATE_PLANT_MUTATION);
 	const [deleteOldPlant] = useMutation(DELETE_PLANT_MUTATION);
-	const [leaveFarm] = useMutation(LEAVE_FARM_MUTATION, {
-		variables: {
-			farmId: farmId,
-		},
-	});
+	const [leaveCurrentFarm] = useMutation(LEAVE_FARM_MUTATION);
+
+
+	const leaveFarm = async () => {
+		try{
+			const res = await leaveCurrentFarm({
+				variables: {
+					farmId: farmId
+				}
+			})
+			console.log(res);
+		}
+		catch(err){
+			alert(err.graphQLErrors[0].message)
+			console.log(err.graphQLErrors[0].message);
+		}
+	}
+
 	const [sendFarmInvitation] = useMutation(SEND_FARM_INVITATION_MUTATION);
 	const [friends, setFriends] = useState([]);
 	const [hasGetFriend, setHasGetFriend] = useState(false);
@@ -66,7 +79,7 @@ const useFarm = farmId => {
 			console.log(res);
 		} catch (err) {
 			console.log(err);
-			alert(err);
+			alert(err.graphQLErrors[0].message);
 		}
 	};
 
