@@ -1,15 +1,15 @@
 import React from 'react';
 import { Modal, InputGroup, Form, FormControl, Button } from 'react-bootstrap';
-function ManageFarmPopUp({
-	show,
-	setShow,
-	handleChange,
-	createNewFarm,
-	createFarmName,
-	createFarmType,
-	alert,
-	showAlert,
-}) {
+import useManageFarmPopUp from '../hooks/useManageFarmPopup';
+function ManageFarmPopUp({ show, setShow, addNewMember, leaveFarm }) {
+	const {
+		addNewMemberName,
+		handleAddNewMemberNameChange,
+		handleSubmitAddNewMember,
+		alert,
+		showAlert,
+		dismissAlert,
+	} = useManageFarmPopUp(addNewMember);
 	return (
 		<Modal
 			size='lg'
@@ -26,19 +26,28 @@ function ManageFarmPopUp({
 					// onSubmit={() => inviteFriend()}
 				>
 					<FormControl
-						placeholder='Add friend ...'
-						aria-label="Recipient's username"
-						aria-describedby='basic-addon2'
-						onChange={e => handleChange(e)}
-						id='body'
-						value={{}}
+						placeholder='Add farm member ...'
+						onChange={e => handleAddNewMemberNameChange(e)}
+						id='add-new-member-input'
+						value={addNewMemberName}
 					/>
 					<InputGroup.Append>
-						<Button variant='secondary' onClick={() => {}}>
-							Find
+						<Button
+							variant='secondary'
+							onClick={() => handleSubmitAddNewMember()}
+						>
+							Add
 						</Button>
 					</InputGroup.Append>
 				</InputGroup>
+				<Button
+					variant='secondary'
+					onClick={async () => {
+						await leaveFarm();
+					}}
+				>
+					Leave Farm
+				</Button>
 			</Modal.Body>
 		</Modal>
 	);

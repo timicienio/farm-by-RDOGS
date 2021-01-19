@@ -137,17 +137,17 @@ export const CREATE_PLANT_MUTATION = gql`
 	}
 `;
 export const LEAVE_FARM_MUTATION = gql`
-	mutation leaveFarm($farmId: String!) {
+	mutation leaveFarm($farmId: ID!) {
 		leaveFarm(farmId: $farmId)
 	}
 `;
 export const SEND_FARM_INVITATION_MUTATION = gql`
-	mutation sendFarmInvitation($farmId: String!, $friendId: ID!) {
+	mutation sendFarmInvitation($farmId: ID!, $friendId: ID!) {
 		sendFarmInvitation(farmId: $farmId, friendId: $friendId)
 	}
 `;
 export const EDIT_PROFILE_MUTATION = gql`
-	mutation editProfile($newProfile: String!){
+	mutation editProfile($newProfile: String!) {
 		editProfile(newProfile: $newProfile)
 	}
-`
+`;

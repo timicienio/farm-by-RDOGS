@@ -23,6 +23,8 @@ function Farm({ data, showManageFarmPopUp, setShowManageFarmPopUp }) {
 					<ManageFarmPopUp
 						show={showManageFarmPopUp}
 						setShow={setShowManageFarmPopUp}
+						addNewMember={addNewMember}
+						leaveFarm={leaveFarm}
 					/>
 					<FarmOfClub data={farmData} loading={getFarmLoading} />
 				</>
