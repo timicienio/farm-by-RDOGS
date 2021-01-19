@@ -63,3 +63,7 @@
 /* #manage-farm-button {
 	margin-left: 1vh;
 } */
+
+.drag {
+	cursor: grab;
+}
