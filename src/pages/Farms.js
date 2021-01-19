@@ -7,7 +7,7 @@ import { IconContext } from 'react-icons';
 import { BsFilePost } from 'react-icons/bs';
 import { BiPlus, BiCommentDetail } from 'react-icons/bi';
 import { FaRegHandPaper } from 'react-icons/fa';
-import { RiPlantLine } from 'react-icons/ri';
+import { RiPlantLine, RiMoreLine } from 'react-icons/ri';
 import { GiDigDug, GiWheat } from 'react-icons/gi';
 import { VscReactions } from 'react-icons/vsc';
 import Farm from '../components/Farm';
@@ -397,6 +397,7 @@ const Farms = ({}) => {
 		farmListLoading,
 		farmListError,
 		data, // List of farms fetched
+		selectedFarm,
 		onSelectFarm,
 		selectedTool,
 		onSelectTool,
@@ -431,7 +432,11 @@ const Farms = ({}) => {
 					)}
 				</Switch>
 
-				<FarmToolbox title='Farms' id='farm-list'>
+				<FarmToolbox
+					title='Farms'
+					id='farm-list'
+					defaultPosition={{ x: 0, y: 0 }}
+				>
 					{farmListLoading ? (
 						<></>
 					) : !data.getFarms.length ? (
@@ -440,12 +445,31 @@ const Farms = ({}) => {
 						<div id='farm-list-switch'>
 							<ListGroup>
 								{data.getFarms.map((farm, key) => (
-									<ListGroup.Item
-										eventKey={key}
-										onClick={() => onSelectFarm(key)}
-									>
-										{farm.farmName}
-									</ListGroup.Item>
+									<>
+										<ListGroup.Item
+											eventKey={key}
+											onClick={() => onSelectFarm(key)}
+											active={selectedFarm === key}
+											className='farm-list-item'
+										>
+											<span>{farm.farmName}</span>
+
+											{selectedFarm === key ? (
+												<Button
+													variant='info'
+													id='manage-farm-button'
+													size='sm'
+												>
+													<RiMoreLine
+														size='0.7em'
+														id='manage-farm-button'
+													/>
+												</Button>
+											) : (
+												<></>
+											)}
+										</ListGroup.Item>
+									</>
 								))}
 							</ListGroup>
 						</div>
@@ -459,7 +483,7 @@ const Farms = ({}) => {
 					</Button>
 				</FarmToolbox>
 
-				<FarmToolbox title='Tools'>
+				<FarmToolbox title='Tools' defaultPosition={{ x: 220, y: 0 }}>
 					<div id='farm-list-switch'>
 						<ListGroup>
 							<ListGroup.Item

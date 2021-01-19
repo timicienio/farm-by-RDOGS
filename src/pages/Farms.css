@@ -34,6 +34,10 @@
 	width: auto;
 }
 
+.farm-list-item > * {
+	margin-right: 1vh;
+}
+
 .tool-name {
 	margin-left: 10px;
 }
@@ -43,10 +47,6 @@
 	max-height: 60vh;
 	overflow-y: auto;
 }
-
-/* #farm-list-body {
-
-} */
 
 #farm-loading-spinner {
 	position: absolute;
@@ -59,3 +59,7 @@
 #plant-type-switch {
 	margin-top: 5px;
 }
+
+/* #manage-farm-button {
+	margin-left: 1vh;
+} */

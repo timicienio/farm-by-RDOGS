@@ -15,6 +15,7 @@ const useFarms = () => {
 	const [showCreateFarmPopUp, setShowCreateFarmPopUp] = useState(false);
 	const [createFarmName, setCreateFarmName] = useState('');
 	const [createFarmType, setCreateFarmType] = useState('Club');
+	const [selectedFarm, setSelectedFarm] = useState(0);
 	const [selectedTool, setSelectedTool] = useState('DRAG'); // DRAG, PLANT, MODIFY, HARVEST
 	const [selectedPlant, setSelectedPlant] = useState('POST');
 
@@ -23,17 +24,18 @@ const useFarms = () => {
 	const createNewFarm = async () => {
 		alert(createFarmName, "  ", createFarmType);
         try {
+
 			alert('create farm');
 			const res = await createFarm({
-				variables:{
+				variables: {
 					farmName: createFarmName,
 					farmType: createFarmType,
-				}
+				},
 			});
-			alert("res", res);
+			alert('res', res);
 			setCreateFarmName('');
 		} catch (err) {
-			alert("error", err);
+			alert('error', err);
 		}
 	};
 
@@ -44,10 +46,8 @@ const useFarms = () => {
 
 	const history = useHistory();
 
-	const [farmSelected, setFarmSelected] = useState(-1);
-
 	const onSelectFarm = key => {
-		setFarmSelected(key);
+		setSelectedFarm(key);
 		history.push('/farms/' + String(key));
 	};
 
@@ -73,6 +73,7 @@ const useFarms = () => {
 		farmListLoading,
 		farmListError,
 		data, // List of farms fetched
+		selectedFarm,
 		onSelectFarm,
 		selectedTool,
 		onSelectTool,
