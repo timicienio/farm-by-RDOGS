@@ -13,7 +13,7 @@ function FormLogIn({ submitForm, userData, setUserData }) {
 	return (
 		<>
 			{userData.loggedIn ? (
-				<Redirect to='/home' />
+				<Redirect to='/friends' />
 			) : (
 				<div className='form-content-right'>
 					<form className='form' noValidate>
