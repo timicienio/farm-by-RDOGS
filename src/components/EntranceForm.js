@@ -5,9 +5,6 @@ import FormSignup from './FormSignup';
 import FormSuccess from './FormSuccess';
 import FormLogIn from './FormLogIn';
 
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { REGISTER_MUTATION } from '../graphql';
-
 const EntranceForm = ({ userData, setUserData }) => {
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -36,7 +33,7 @@ const EntranceForm = ({ userData, setUserData }) => {
 				</div>
 				<Switch>
 					{userData.loggedIn ? (
-						<Redirect to='/home' />
+						<Redirect to='/friends' />
 					) : (
 						<>
 							<Route exact path='/entrance'>

@@ -18,7 +18,8 @@ const useFarms = () => {
 	const [createFarm] = useMutation(CREATE_FARM_MUTATION);
 
 	const createNewFarm = async () => {
-		try {
+        console.log(createFarmName);
+        try {
 			console.log('create farm');
 			const res = await createFarm({
 				farmName: createFarmName,
