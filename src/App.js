@@ -43,6 +43,11 @@ function App() {
 			/>
 			<style type='text/css'>
 				{`
+					.btn:focus {
+						outline: none;
+						box-shadow: none;
+						color: #1c3532; 
+					}
 					.btn-primary {
 						background-color: #c8f0ef;
 						border-width: 0px;
@@ -52,6 +57,9 @@ function App() {
 					.btn-primary:hover{
 						background-color:#ff6169
 					}
+					.btn-primary:focus{
+						background-color:#c8f0ef
+					}
 					.btn-secondary {
 						background-color: #faebd7;
 						border-width: 0px;
@@ -60,6 +68,10 @@ function App() {
 					}
 					.btn-secondary:hover{
 						background-color:#ff6169
+					}
+					.btn-secondary:focus{
+						background-color: #faebd7;
+						color: #1c3532;
 					}
 					.btn-info {
 						background-color: #c8f0ef;
@@ -149,7 +161,7 @@ function App() {
 								<Home userData={userData}></Home>
 							</Route> */}
 							<Route path='/friends'>
-								<Friends 
+								<Friends
 									userData={userData}
 									setUserData={setUserData}
 								/>
