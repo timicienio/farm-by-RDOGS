@@ -3,6 +3,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { AuthContext } from '../context/auth';
 import {
 	CREATE_PLANT_MUTATION,
+	DELETE_PLANT_MUTATION,
 	LEAVE_FARM_MUTATION,
 	SEND_FARM_INVITATION_MUTATION,
 	GET_FARM_QUERY,
@@ -25,6 +26,7 @@ const useFarm = farmId => {
 
 	const [getFriends] = useMutation(GET_FRIENDS_MUTATION);
 	const [createPlant] = useMutation(CREATE_PLANT_MUTATION);
+	const [deleteOldPlant] = useMutation(DELETE_PLANT_MUTATION);
 	const [leaveFarm] = useMutation(LEAVE_FARM_MUTATION, {
 		variables: {
 			farmId: farmId,
@@ -97,12 +99,23 @@ const useFarm = farmId => {
 			});
 			console.log(res);
 		} catch (err) {
-			alert('createPlant Error: ', err);
+			alert('createPlant Error: ', err.graphQLErrors[0].message);
 		}
 	};
 
-	const deletePlant = plantId => {
-		//TODO
+	const deletePlant = async plantId => {
+		try{
+			const res = await deleteOldPlant({
+				variables: {
+					farmId: farmId,
+					plantId: plantId
+				}
+			})
+			console.log("deletePlant result: ", res);
+		}
+		catch(err){
+			alert('createPlant Error: ', err.graphQLErrors[0].message);
+		}
 	};
 
 	// test
