@@ -17,10 +17,8 @@ import { useState, useContext, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { AuthContext } from './context/auth';
-import { AuthProvider } from './context/auth';
 
 function App() {
-	const { user } = useContext(AuthContext);
 	const adminUser = {
 		email: 'admin@admin.com',
 		password: 'admin',
@@ -34,7 +32,7 @@ function App() {
 	});
 
 	return (
-		<AuthProvider>
+		<>
 			<link
 				rel='stylesheet'
 				href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
@@ -140,7 +138,7 @@ function App() {
 				`}
 			</style>
 			<Router>
-				{!userData.loggedIn ? (
+				{!useContext(AuthContext).user ? (
 					<>
 						<Route path='/entrance'>
 							<EntranceForm
@@ -182,7 +180,7 @@ function App() {
 					</>
 				)}
 			</Router>
-		</AuthProvider>
+		</>
 	);
 }
 
