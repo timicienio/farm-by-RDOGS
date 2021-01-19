@@ -1,5 +1,6 @@
 const mutationResolvers = require('./mutation.js');
 const queryResolvers = require('./query.js');
+const subscriptionResolvers = require('./subscription.js')
 
 module.exports = {
     Query: {
@@ -7,5 +8,8 @@ module.exports = {
     },
     Mutation: {
         ...mutationResolvers.Mutation,
+    },
+    Subscription: {
+        ...subscriptionResolvers.Subscription,
     }
 };

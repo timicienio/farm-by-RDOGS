@@ -87,7 +87,7 @@ module.exports = gql`
         register(registerInput: RegisterInput!): User!
         login(username: String!, passwordHash: String!): User!
         createPlant(plantInput: PlantInput!): Plant!
-        # deletePlant(plantId: ID!): String!
+        deletePlant(farmId: ID!, plantId: ID!): String!
         createFarm(farmName: String!, farmType: String!): Farm!
         leaveFarm(farmId: ID!): String!
         sendInvitation(friendName: String!): String!
@@ -97,5 +97,21 @@ module.exports = gql`
         getInvitations: [Friend]!
         sendFarmInvitation(farmId: ID!, friendId: ID!): String!
         editProfile(newProfile: String!): String!
+    }
+
+    type Subscription {
+        farm(farmId: ID!): FarmSubscriptionPayload!
+    }
+
+    type FarmSubscriptionPayload {
+        mutation: PlantMutationType!
+        index: Int!
+        plant: Plant!
+    }
+
+    enum PlantMutationType {
+        CREATED_PLANT
+        EDITED_PLANT
+        DELETED_PLANT
     }
 `;
