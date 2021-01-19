@@ -6,102 +6,109 @@ const mongodb = require('mongodb');
 
 const User = require('../../models/User');
 const Farm = require('../../models/Farm');
-const { validateRegisterInput, validateLoginInput } = require('../../util/validators');
+const {
+	validateRegisterInput,
+	validateLoginInput,
+} = require('../../util/validators');
 const checkAuth = require('../../util/check-auth');
 const { mongo } = require('mongoose');
 const { resetApolloContext } = require('react-apollo');
 
-function genToken(user)
-{
-    return jwt.sign({
-        id: user.id,
-        email: user.email,
-        username: user.username
-    }, process.env.SECRET_KEY, { expiresIn: '1h' });
+function genToken(user) {
+	return jwt.sign(
+		{
+			id: user.id,
+			email: user.email,
+			username: user.username,
+		},
+		process.env.SECRET_KEY,
+		{ expiresIn: '1h' }
+	);
 }
 
 module.exports = {
-    Mutation: {
-        async login(_, { username, passwordHash }){
-            const { valid, errors } = validateLoginInput(username, passwordHash);
-            if(!valid)
-            {
-                throw new UserInputError('Errors', { errors });
-            }
-            const user = await User.findOne({ username: username });
-            if(!user)
-            {
-                errors.general = 'User not found';
-                throw new UserInputError('User not found', { errors });
-            }
+	Mutation: {
+		async login(_, { username, passwordHash }) {
+			const { valid, errors } = validateLoginInput(
+				username,
+				passwordHash
+			);
+			if (!valid) {
+				throw new UserInputError('Errors', { errors });
+			}
+			const user = await User.findOne({ username: username });
+			if (!user) {
+				errors.general = 'User not found';
+				throw new UserInputError('User not found', { errors });
+			}
 
-            const match = await bcrypt.compare(passwordHash, user.passwordHash);
-            if(!match)
-            {
-                errors.general = 'Wrong credentials';
-                throw new UserInputError('Wrong credentials', { errors });
-            }
-            const token = genToken(user);
-            return {
-                ...user._doc,
-                id: user._id,
-                token
-            }
-        },
+			const match = await bcrypt.compare(passwordHash, user.passwordHash);
+			if (!match) {
+				errors.general = 'Wrong credentials';
+				throw new UserInputError('Wrong credentials', { errors });
+			}
+			const token = genToken(user);
+			return {
+				...user._doc,
+				id: user._id,
+				token,
+			};
+		},
 
-        async register(
-            _, 
-            { 
-                registerInput: { username, email, passwordHash, confirmHash }
-            }
-        ){
-            //Validate user data
-            //console.log(username, email, passwordHash)
-            const { valid, errors } = validateRegisterInput(username, email, passwordHash, confirmHash);
-            if(!valid)
-            {
-                throw new UserInputError('Errors', { errors });
-            }
-            //User and email doesn't already exist
-            const user = await User.findOne({ username: username });
-            if(user){
-                throw new UserInputError('Username is taken', {
-                    errors: {
-                        username: 'This username is taken'
-                    }
-                })
-            }
-            const mail = await User.findOne({ email: email });
-            if(mail)
-            {
-                throw new UserInputError('Email already registered', {
-                    errors: {
-                        email: 'This email has already registered'
-                    }
-                })
-            }
+		async register(
+			_,
+			{ registerInput: { username, email, passwordHash, confirmHash } }
+		) {
+			//Validate user data
+			//console.log(username, email, passwordHash)
+			const { valid, errors } = validateRegisterInput(
+				username,
+				email,
+				passwordHash,
+				confirmHash
+			);
+			if (!valid) {
+				throw new UserInputError('Errors', { errors });
+			}
+			//User and email doesn't already exist
+			const user = await User.findOne({ username: username });
+			if (user) {
+				throw new UserInputError('Username is taken', {
+					errors: {
+						username: 'This username is taken',
+					},
+				});
+			}
+			const mail = await User.findOne({ email: email });
+			if (mail) {
+				throw new UserInputError('Email already registered', {
+					errors: {
+						email: 'This email has already registered',
+					},
+				});
+			}
 
-            //Create auth token
-            passwordHash = await bcrypt.hash(passwordHash, 5);
-            const newUser = new User({
-                username,
-                passwordHash,
-                email,
-                profile: "",
-                farms: [],
-                invitations: [],
-                friends: [],
-                createdAt: new Date().toISOString()
-            });
-            const res = await newUser.save();
-            const token = genToken(res);
+			//Create auth token
+			passwordHash = await bcrypt.hash(passwordHash, 5);
+			const newUser = new User({
+				username,
+				passwordHash,
+				email,
+				profile: '',
+				farms: [],
+				invitations: [],
+				friends: [],
+				createdAt: new Date().toISOString(),
+			});
+			const res = await newUser.save();
+			const token = genToken(res);
 
-            return {
-                ...res._doc,
-                id: res._id,
-                token
-            };
-        },
+			return {
+				...res._doc,
+				id: res._id,
+				token,
+			};
+		},
 
         async createPlant(_, {
                 plantInput: { farmId, plantType, title, body, chunkCoordinates, plantCoordinates }

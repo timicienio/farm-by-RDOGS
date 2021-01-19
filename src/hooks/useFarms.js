@@ -11,10 +11,10 @@ const useFarms = () => {
 		loading: farmListLoading,
 		error: farmListError,
 		data: data,
-	} = useQuery(GET_USER_DATA_QUERY,{
-		variables:{
+	} = useQuery(GET_USER_DATA_QUERY, {
+		variables: {
 			userId: user.id,
-		}
+		},
 	});
 
 	const [showCreateFarmPopUp, setShowCreateFarmPopUp] = useState(false);
@@ -26,15 +26,18 @@ const useFarms = () => {
 	const [createFarmAlert, setCreateFarmAlert] = useState('');
 	const [showCreateFarmAlert, setShowCreateFarmAlert] = useState(false);
 
+	const [showManageFarmPopUp, setShowManageFarmPopUp] = useState(false);
+
+	// const [addFarmMemberName, setAddFarmMemberName] = useState(initialState)
+
 	const [createFarm] = useMutation(CREATE_FARM_MUTATION);
 
 	const createNewFarm = async () => {
 		//alert(createFarmName, "  ", createFarmType);
-		if(createFarmName === ''){
-			setCreateFarmAlert("Please enter a name.");
+		if (createFarmName === '') {
+			setCreateFarmAlert('Please enter a name.');
 			setShowCreateFarmAlert(true);
-		}
-		else{
+		} else {
 			setCreateFarmAlert('');
 			setShowCreateFarmAlert(false);
 			try {
@@ -84,22 +87,32 @@ const useFarms = () => {
 	return {
 		handleNewFarmChange,
 		createNewFarm,
+
 		farmListLoading,
 		farmListError,
 		data, // List of farms fetched
+
 		selectedFarm,
 		onSelectFarm,
 		selectedTool,
 		onSelectTool,
 		selectedPlant,
 		onSelectPlant,
+
 		createFarmName,
 		createFarmType,
 		createFarmAlert,
+
+		// addFarmMemberName,
+		// handleAddFarmMemberChange,
+		// leaveFarm,
+
 		showCreateFarmAlert,
-		history,
+		// history,
 		showCreateFarmPopUp,
 		setShowCreateFarmPopUp,
+		showManageFarmPopUp,
+		setShowManageFarmPopUp,
 	};
 };
 
