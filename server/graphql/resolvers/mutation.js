@@ -110,7 +110,7 @@ module.exports = {
             const user = checkAuth(context);
             try
             {
-                var farm = await Farm.findById(farmId);
+                let farm = await Farm.findById(farmId);
                 if(!farm)
                 {
                     throw new Error('Farm not found');
@@ -131,17 +131,22 @@ module.exports = {
                         plantCoordinates,
                         createdAt: new Date().toISOString()
                     }
-                    await Farm.findByIdAndUpdate(farmId, 
+                    farm.plants.push(plant);
+                    const res = await farm.save();
+                    console.log(res);
+                    const plantIndex = farm.plants.findIndex(plt => plt._id === plant._id);
+                    if(plantIndex !== -1)
                     {
-                            $push: 
-                            {
-                                plants: plant
+                        context.pubsub.publish(`subscribe farm ${farmId}`, {
+                            farm: {
+                                mutation: 'CREATED_PLANT',
+                                index: plantIndex,
+                                plant: {
+                                    id: plant._id,
+                                    ...plant
+                                }
                             }
-                        })
-                    farm = await Farm.findById(farmId);
-                    const plantIndex = farm.plants.find(plt => plt._id === plant._id);
-                    if(plantIndex)
-                    {
+                        });
                         return {
                             id: plant._id,
                             plantType,
@@ -165,29 +170,56 @@ module.exports = {
             }
         },
 
-        // async deletePlant(_, { plantId }, context)
-        // {
-        //     const user = checkAuth(context);
-        //     try{
-        //         const plant = await Plant.findById(plantId);
-        //         if(user.username === plant.username)
-        //         {
-        //             await plant.delete();
-        //             return 'Plant deleted successfully';
-        //         }
-        //         else
-        //         {
-        //             throw new AuthenticationError('Action not allowed');
-        //         }
-        //     }
-        //     catch(err)
-        //     {
-        //         throw new Error(err);
-        //     }
-        // }
+        async deletePlant(_, { farmId, plantId }, context)
+        {
+            const user = checkAuth(context);
+            try{
+                let farm = await Farm.findById(farmId);
+                let dbUser = await User.findById(user.id);
+                if(!farm)
+                {
+                    throw new Error("Farm not found");
+                }
+                if(!dbUser)
+                {
+                    throw new UserInputError("User not found");
+                }
+                console.log(plantId)
+                console.log(farm.plants)
+                let plantIndex = farm.plants.findIndex(plt => plt._id == plantId);
+                if(plantIndex === -1)
+                {
+                    throw new Error("Plant not found");
+                }
+                let plant = farm.plants[plantIndex];
+                if(plant.author !== user.username)
+                {
+                    throw new Error("Action not allowed")
+                }
+                farm.plants.splice(plantIndex, 1);
+                await farm.save();
+                context.pubsub.publish(`subscribe farm ${farmId}`, {
+                    farm: {
+                        mutation: 'DELETED_PLANT',
+                        index: plantIndex,
+                        plant: {
+                            id: plant._id,
+                            ...plant
+                        }
+                    }
+                })
+                return "Plant deleted successfully";
+
+            }
+            catch(err)
+            {
+                throw new Error(err);
+            }
+        },
         
         async createFarm(_, { farmName, farmType }, context)
         {
+            console.log(farmType)
             const user = checkAuth(context);
             const date = new Date().toISOString();
             const newFarm = new Farm({
@@ -235,13 +267,9 @@ module.exports = {
                 users: [user.id],
                 createdAt: date
             });
-
-            const res = await newFarm.save();
-            console.log("createFarm", res);
-            console.log("userid:", user.id)
             try{
+                const res = await newFarm.save();
                 let dbUser = await User.findById(user.id);
-                console.log("createFarm", dbUser)
                 dbUser.farms.push({
                     _id: res._id,
                     farmName: res.farmName,
@@ -249,10 +277,12 @@ module.exports = {
                     createdAt: res.createdAt
                 });
                 await dbUser.save();
-                return {
+                console.log("No error")
+                let r = {
                     ...res._doc,
                     id: res._id
-                };
+                }
+                return r;
             }
             catch(err){
                 throw new Error(err);
@@ -279,9 +309,9 @@ module.exports = {
                 {
                     throw new Error('Farm not found');
                 }
-                else if(farm.members.length === 0)
+                if(farm.members.length === 0)
                 {
-                    farm.delete();
+                    await farm.delete();
                     return 'No members left, farm deleted';
                 }
                 else if(!farm.members.find(mem => mem.username === user.username))
