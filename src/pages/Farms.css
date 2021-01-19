@@ -64,6 +64,15 @@
 	margin-bottom: 15px;
 }
 
+#leave-farm-button {
+	margin-top: 20px;
+}
+
+#farm-member-list {
+	max-height: 50vh;
+	overflow: auto;
+}
+
 /* #manage-farm-button {
 	margin-left: 1vh;
 } */

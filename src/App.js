@@ -132,6 +132,7 @@ function App() {
 					}
 					.form-control {
 						border-radius: 12px;
+						
 						margin-bottom: 10px;
 					}
 				

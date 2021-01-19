@@ -1,8 +1,10 @@
 import React from 'react';
 import FarmOfClub from './FarmOfClub';
-import Draggable from 'react-draggable';
+// import Draggable from 'react-draggable';
 import useFarm from '../hooks/useFarm';
 import ManageFarmPopUp from '../components/ManageFarmPopUp';
+import AddPostPopUp from './AddPostPopUp';
+import AddCommentPopUp from './AddCommentPopUp';
 import './Farm.css';
 
 function Farm({
@@ -22,6 +24,7 @@ function Farm({
 		editPlant,
 		deletePlant,
 		addNewMember,
+
 		handleChunkCellClicked,
 		handleChunkCellHover,
 		handlePostClicked,
@@ -31,13 +34,29 @@ function Farm({
 		setShowPositionCue,
 		positionCueValidity,
 		positionCueType,
+
+		showAddPlantPopUp,
+		setShowAddPlantPopUp,
+		handleAddPlantSubmit,
 	] = useFarm(data.id, selectedTool, selectedPlant);
 	console.log(showPositionCue);
 	switch (data.farmType) {
 		case 'Club':
 			return (
 				<>
+					<AddPostPopUp
+						show={showAddPlantPopUp && selectedPlant === 'POST'}
+						setShow={setShowAddPlantPopUp}
+						handlePopUpSubmit={handleAddPlantSubmit}
+					/>
+					<AddCommentPopUp
+						show={showAddPlantPopUp && selectedPlant === 'COMMENT'}
+						setShow={setShowAddPlantPopUp}
+						handlePopUpSubmit={handleAddPlantSubmit}
+					/>
 					<ManageFarmPopUp
+						data={farmData}
+						loading={getFarmLoading}
 						show={showManageFarmPopUp}
 						setShow={setShowManageFarmPopUp}
 						addNewMember={addNewMember}

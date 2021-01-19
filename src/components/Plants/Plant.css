@@ -5,7 +5,7 @@
 	padding: 0.5rem;
 	border-radius: 20px;
 	z-index: 1000;
-	box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.15);
+	/* box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.15); */
 }
 
 .plant:hover {
@@ -31,7 +31,7 @@
 	background-color: rgb(206, 228, 190);
 	box-shadow: none;
 }
-.cue-invalid {
+.invalid {
 	background-color: rgb(237, 109, 87);
 }
 .cue:hover {

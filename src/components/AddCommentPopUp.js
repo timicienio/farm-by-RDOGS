@@ -1,0 +1,67 @@
+import React from 'react';
+import useAddNewPlantPopUp from '../hooks/useAddNewPlantPopUp';
+import { Modal, Form, Button } from 'react-bootstrap';
+
+function AddCommentPopUp({ show, setShow, handlePopUpSubmit }) {
+	const [
+		title,
+		showTitleAlert,
+		titleAlert,
+		content,
+		showContentAlert,
+		contentAlert,
+		handleTitleChange,
+		handleContentChange,
+		handleSubmit,
+	] = useAddNewPlantPopUp(handlePopUpSubmit);
+	return (
+		<Modal
+			size='lg'
+			show={show}
+			onHide={() => {
+				setShow(false);
+			}}
+			centered
+		>
+			<Modal.Header closeButton>Grow a new comment...</Modal.Header>
+			<Modal.Body>
+				<Form>
+					<Form.Group controlId='newFarmForm'>
+						{/* <Form.Control
+							type='name'
+							placeholder='Title...'
+							onChange={e => handleTitleChange(e)}
+							value={title}
+						/>
+						<Form.Text
+							className='text-muted'
+							show={showTitleAlert ? 'true' : 'false'}
+						>
+							<span>{titleAlert}</span>
+						</Form.Text> */}
+
+						<Form.Control
+							as='textarea'
+							placeholder='Content...'
+							onChange={e => handleContentChange(e)}
+							value={content}
+						/>
+						<Form.Text show={showContentAlert ? 'true' : 'false'}>
+							<span>{contentAlert}</span>
+						</Form.Text>
+					</Form.Group>
+
+					<Button
+						variant='primary'
+						// type='submit'
+						onClick={() => handleSubmit()}
+					>
+						Grow!
+					</Button>
+				</Form>
+			</Modal.Body>
+		</Modal>
+	);
+}
+
+export default AddCommentPopUp;
