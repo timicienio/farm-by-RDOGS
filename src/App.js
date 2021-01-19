@@ -116,7 +116,7 @@ function App() {
 				`}
 			</style>
 			<Router>
-				{userData.loggedIn ? (
+				{!userData.loggedIn ? (
 					<>
 						<Route path='/entrance'>
 							<EntranceForm
