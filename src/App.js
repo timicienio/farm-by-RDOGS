@@ -13,12 +13,14 @@ import Friends from './pages/Friends';
 import Farms from './pages/Farms';
 import Preferences from './pages/Preferences';
 import About from './pages/About';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { AuthContext } from './context/auth';
 import { AuthProvider } from './context/auth';
 
 function App() {
+	const { user } = useContext(AuthContext);
 	const adminUser = {
 		email: 'admin@admin.com',
 		password: 'admin',
@@ -101,7 +103,7 @@ function App() {
 				`}
 			</style>
 			<Router>
-				{!userData.loggedIn ? (
+				{userData.loggedIn ? (
 					<>
 						<Route path='/entrance'>
 							<EntranceForm

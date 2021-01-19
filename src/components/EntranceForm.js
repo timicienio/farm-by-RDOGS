@@ -35,7 +35,7 @@ const EntranceForm = ({ userData, setUserData }) => {
 					<div className='entrance-title'>Farm by RDOGS</div>
 				</div>
 				<Switch>
-					{userData.isLoggedIn ? (
+					{userData.loggedIn ? (
 						<Redirect to='/home' />
 					) : (
 						<>
