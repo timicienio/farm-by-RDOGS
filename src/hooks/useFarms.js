@@ -33,7 +33,7 @@ const useFarms = () => {
 			alert("res", res);
 			setCreateFarmName('');
 		} catch (err) {
-			alert("err", err);
+			alert("error", err);
 		}
 	};
 
