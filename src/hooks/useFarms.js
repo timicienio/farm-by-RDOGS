@@ -1,16 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // import { AuthContext } from '../context/auth';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../context/auth';
 import { CREATE_FARM_MUTATION, GET_USER_DATA_QUERY } from '../graphql';
 import { Alert } from 'react-bootstrap';
 
 const useFarms = () => {
+	const { user } = useContext(AuthContext);
 	const {
 		loading: farmListLoading,
 		error: farmListError,
 		data: data,
-	} = useQuery(GET_USER_DATA_QUERY);
+	} = useQuery(GET_USER_DATA_QUERY,{
+		variables:{
+			userId: user.id,
+		}
+	});
 
 	const [showCreateFarmPopUp, setShowCreateFarmPopUp] = useState(false);
 	const [createFarmName, setCreateFarmName] = useState('');
