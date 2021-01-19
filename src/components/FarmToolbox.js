@@ -3,12 +3,12 @@ import * as MdIcons from 'react-icons/md';
 import { IconContext } from 'react-icons/lib';
 import Draggable from 'react-draggable';
 
-function FarmToolbox({ title, children, id }) {
+function FarmToolbox({ title, children, id, defaultPosition }) {
 	return (
 		<Draggable
 			axis='both'
 			handle='.farm-list-handle'
-			defaultPosition={{ x: 0, y: 0 }}
+			defaultPosition={defaultPosition}
 			position={null}
 			bounds='parent'
 		>

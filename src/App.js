@@ -61,6 +61,16 @@ function App() {
 					.btn-secondary:hover{
 						background-color:#ff6169
 					}
+					.btn-info {
+						background-color: #c8f0ef;
+						border-width: 0px;
+						color: #1c3532;
+						border-radius: 30px;
+					}
+					.btn-info:hover{
+						background-color:#c8f0ef
+						color: #1c3532;
+					}
 					.list-group {
 						border-radius: 12px;
 					}
