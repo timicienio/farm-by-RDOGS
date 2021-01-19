@@ -15,6 +15,7 @@ const useFarms = () => {
 		variables: {
 			userId: user.id,
 		},
+		pollInterval: 500,
 	});
 
 	const [showCreateFarmPopUp, setShowCreateFarmPopUp] = useState(false);

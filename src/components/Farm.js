@@ -19,6 +19,7 @@ function Farm({
 		getFarmLoading,
 		leaveFarm,
 		createNewPlant,
+		editPlant,
 		deletePlant,
 		addNewMember,
 		handleChunkCellClicked,
