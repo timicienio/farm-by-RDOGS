@@ -59,6 +59,11 @@ export const ACCEPT_INVITATION_MUTATION = gql`
 		acceptInvitation(friendName: $friendName)
 	}
 `;
+export const DECLINE_INVITATION_MUTATION = gql`
+	mutation declineInvitation($friendName: String!) {
+		declineInvitation(friendName: $friendName)
+	}
+`;
 export const CREATE_FARM_MUTATION = gql`
 	mutation createFarm($farmName: String!, $farmType: String!) {
 		createFarm(farmName: $farmName, farmType: $farmType) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { AuthContext } from '../context/auth';
 import {
@@ -6,9 +6,12 @@ import {
 	SEND_INVITATION_MUTATION,
 	GET_INVITATIONS_MUTATION,
 	ACCEPT_INVITATION_MUTATION,
+	DECLINE_INVITATION_MUTATION,
 } from '../graphql';
 
 const useFriends = () => {
+	const { user, logout } = useContext(AuthContext);
+
 	const [inviteFriendName, setInviteFriendName] = useState('');
 	const [invitation, setInvitation] = useState([]);
 	const [friends, setFriends] = useState([]);
@@ -16,16 +19,19 @@ const useFriends = () => {
 	const [hasGetInv, setHasGetInv] = useState(false);
 	const [invitationAlert, setInvitationAlert] = useState('');
 	const [acceptInvitationAlert, setAcceptInvitationAlert] = useState('');
+	const [declineInvitationAlert, setDeclineInvitationAlert] = useState('');
 	const [showInvitationAlert, setShowInvitationAlert] = useState(false);
 	const [showAcceptInvitationAlert, setShowAcceptInvitationAlert] = useState(
 		false
 	);
+	const [showDeclineInvitationAlert, setShowDeclineInvitationAlert] = useState(false);
 
 	const [getFriends] = useMutation(GET_FRIENDS_MUTATION);
 	const [getInvitations] = useMutation(GET_INVITATIONS_MUTATION);
 	const [sendInvitation] = useMutation(SEND_INVITATION_MUTATION);
 	const [acceptInvitation] = useMutation(ACCEPT_INVITATION_MUTATION);
-
+	const [declineInvitation] = useMutation(DECLINE_INVITATION_MUTATION);
+	
 	const inviteFriend = async () => {
 		try {
 			const res = await sendInvitation({
@@ -82,6 +88,22 @@ const useFriends = () => {
 		}
 	};
 
+	const declineInv = async friendName => {
+		try {
+			const res = await declineInvitation({
+				variables: {
+					friendName: friendName,
+				},
+			});
+			setHasGetFriend(false);
+			setHasGetInv(false);
+		} catch (err) {
+			alert(err);
+			setDeclineInvitationAlert(err.message);
+			setShowDeclineInvitationAlert(true);
+		}
+	};
+
 	const getFriendsList = async () => {
 		try {
 			const res = await getFriends();
@@ -114,6 +136,9 @@ const useFriends = () => {
 	const dismissAcceptInvitationAlert = () => {
 		setShowAcceptInvitationAlert(false);
 	};
+	const dismissDeclineInvitationAlert = () => {
+		setShowDeclineInvitationAlert(false);
+	};
 
 	useEffect(() => {
 		if (!hasGetFriend) {
@@ -128,12 +153,16 @@ const useFriends = () => {
 		handleChange,
 		inviteFriend,
 		acceptInv,
+		declineInv,
 		invitationAlert,
 		acceptInvitationAlert,
+		declineInvitationAlert,
 		showInvitationAlert,
 		showAcceptInvitationAlert,
+		showDeclineInvitationAlert,
 		dismissInvitationAlert,
 		dismissAcceptInvitationAlert,
+		dismissDeclineInvitationAlert,
 		inviteFriendName,
 		invitation,
 		friends,
