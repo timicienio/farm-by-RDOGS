@@ -13,6 +13,7 @@ import { VscReactions } from 'react-icons/vsc';
 import Farm from '../components/Farm';
 import FarmToolbox from '../components/FarmToolbox';
 import CreateNewFarmPopUp from '../components/CreateNewFarmPopUp';
+import ManageFarmPopUp from '../components/ManageFarmPopUp';
 import useFarms from '../hooks/useFarms';
 import useFarm from '../hooks/useFarm';
 import { unset } from 'lodash';
@@ -32,9 +33,13 @@ const Farms = ({}) => {
 		onSelectPlant,
 		createFarmName,
 		createFarmType,
-		history,
+		createFarmAlert,
+		showCreateFarmAlert,
+		// history,
 		showCreateFarmPopUp,
 		setShowCreateFarmPopUp,
+		showManageFarmPopUp,
+		setShowManageFarmPopUp,
 	} = useFarms();
 
 	return (
@@ -53,6 +58,10 @@ const Farms = ({}) => {
 									data={farm}
 									selectedTool={selectedTool}
 									selectedPlant={selectedPlant}
+									showManageFarmPopUp={showManageFarmPopUp}
+									setShowManageFarmPopUp={
+										setShowManageFarmPopUp
+									}
 								/>
 							</Route>
 						))
@@ -88,6 +97,14 @@ const Farms = ({}) => {
 													variant='info'
 													id='manage-farm-button'
 													size='sm'
+													onClick={() => {
+														console.log(
+															'show manage'
+														);
+														setShowManageFarmPopUp(
+															true
+														);
+													}}
 												>
 													<RiMoreLine
 														size='0.7em'
@@ -200,6 +217,8 @@ const Farms = ({}) => {
 					createNewFarm={createNewFarm}
 					createFarmName={createFarmName}
 					createFarmType={createFarmType}
+					showAlert={showCreateFarmAlert}
+					alert={createFarmAlert}
 				/>
 			</div>
 		</IconContext.Provider>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
+
 function CreateNewFarmPopUp({
 	show,
 	setShow,
@@ -7,6 +8,8 @@ function CreateNewFarmPopUp({
 	createNewFarm,
 	createFarmName,
 	createFarmType,
+	alert,
+	showAlert,
 }) {
 	return (
 		<Modal
@@ -28,12 +31,14 @@ function CreateNewFarmPopUp({
 							onChange={e => handleNewFarmChange(e)}
 							value={createFarmName}
 						/>
-						{/* <Form.Text className='text-muted'>
-							Please do not use explicit language.
-						</Form.Text> */}
+						<Form.Text
+							className='text-muted'
+							show={showAlert ? 'true' : 'false'}
+						>
+							<span>{alert}</span>
+						</Form.Text>
 						<Form.Label>Farm Type</Form.Label>
 						<Form.Control
-							controlId=''
 							as='select'
 							onChange={e => {
 								handleNewFarmChange(e);

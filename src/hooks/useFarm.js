@@ -84,11 +84,11 @@ const useFarm = farmId => {
 					plantType: plantType,
 					title: title,
 					body: body,
-					chunkCoordinates:{
+					chunkCoordinates: {
 						x: chunkX,
-						y: chunkY, 
+						y: chunkY,
 					},
-					plantCoordinates:{
+					plantCoordinates: {
 						x: plantX,
 						y: plantY,
 					},
@@ -97,7 +97,7 @@ const useFarm = farmId => {
 			});
 			console.log(res);
 		} catch (err) {
-			alert("createPlant Error: ", err)
+			alert('createPlant Error: ', err);
 		}
 	};
 
@@ -126,6 +126,7 @@ const useFarm = farmId => {
 		leaveFarm,
 		createNewPlant,
 		addNewMember,
+		// addNewMemberAlert, // TODO
 	];
 };
 
