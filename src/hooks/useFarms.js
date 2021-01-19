@@ -33,7 +33,6 @@ const useFarms = () => {
 	const [createFarm] = useMutation(CREATE_FARM_MUTATION);
 
 	const createNewFarm = async () => {
-		//alert(createFarmName, "  ", createFarmType);
 		if (createFarmName === '') {
 			setCreateFarmAlert('Please enter a name.');
 			setShowCreateFarmAlert(true);

@@ -7,9 +7,7 @@ export const FARM_SUBSCRIPTION = gql`
     farm(
         farmId: $farmId
     ){
-        mutation{
-            PlantMutationType
-        }
+        mutation
         index
         plant{
             id

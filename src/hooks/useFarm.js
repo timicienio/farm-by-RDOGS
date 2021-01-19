@@ -19,6 +19,7 @@ const useFarm = farmId => {
 		loading: getFarmLoading,
 		error: getFarmError,
 		data: farmData,
+		subscribeToMore,
 	} = useQuery(GET_FARM_QUERY, {
 		variables: {
 			farmId: farmId,
@@ -29,6 +30,37 @@ const useFarm = farmId => {
 	const [createPlant] = useMutation(CREATE_PLANT_MUTATION);
 	const [deleteOldPlant] = useMutation(DELETE_PLANT_MUTATION);
 	const [leaveCurrentFarm] = useMutation(LEAVE_FARM_MUTATION);
+
+	useEffect(()=>{
+		alert("subscription procedure.")
+		if(!getFarmLoading){
+			subscribeToMore({
+				document: FARM_SUBSCRIPTION,
+				variables: {farmId: farmId},
+				updateQuery: (prev, { subscriptionData }) => {
+					if (!subscriptionData.data) return prev
+					alert("sth change");
+					console.log("subscriptionData: ", subscriptionData);
+					let plants = prev.getFarm.plants;
+					let changePlant = subscriptionData.data.farm.plant;
+					switch(subscriptionData.data.mutation){
+						case 'CREATED_PLANT':
+							return { plants: [plants, changePlant]};
+						case 'EDITED_PLANT':
+							let newPlants = plants.splice(subscriptionData.data.farm.index, 1);
+							newPlants = newPlants.splice(subscriptionData.data.farm.index, 1, changePlant);
+							return {plants: [newPlants]};
+						case 'DELETED_PLANT':
+							const newPlants2 = plants.splice(subscriptionData.data.farm.index, 1);
+							return {plants: [newPlants2]};
+						default:
+							return {plants:[plants]};
+					}
+				},
+				onError: err => console.error(err)
+			})
+		}
+	}, [subscribeToMore, getFarmLoading])
 
 
 	const leaveFarm = async () => {
@@ -108,7 +140,6 @@ const useFarm = farmId => {
 						x: plantX,
 						y: plantY,
 					},
-					author: user.username,
 				},
 			});
 			console.log(res);
@@ -128,7 +159,7 @@ const useFarm = farmId => {
 			console.log("deletePlant result: ", res);
 		}
 		catch(err){
-			alert('createPlant Error: ', err.graphQLErrors[0].message);
+			alert('deletePlant Error: ', err.graphQLErrors[0].message);
 		}
 	};
 
