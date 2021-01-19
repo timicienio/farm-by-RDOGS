@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { CREATE_FARM_MUTATION, GET_FARMS_QUERY } from '../graphql';
+import { Alert } from 'react-bootstrap';
 
 const useFarms = () => {
 	const {
@@ -20,17 +21,19 @@ const useFarms = () => {
 	const [createFarm] = useMutation(CREATE_FARM_MUTATION);
 
 	const createNewFarm = async () => {
-        console.log(createFarmName);
+        alert(createFarmName, "  ", createFarmType);
         try {
-			console.log('create farm');
+			alert('create farm');
 			const res = await createFarm({
-				farmName: createFarmName,
-				farmType: createFarmType,
+				variables:{
+					farmName: createFarmName,
+					farmType: createFarmType,
+				}
 			});
-			console.log(res);
+			alert("res", res);
 			setCreateFarmName('');
 		} catch (err) {
-			console.log(err);
+			alert("err", err);
 		}
 	};
 

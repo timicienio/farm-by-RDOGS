@@ -9,6 +9,7 @@ const Farm = require('../../models/Farm');
 const { validateRegisterInput, validateLoginInput } = require('../../util/validators');
 const checkAuth = require('../../util/check-auth');
 const { mongo } = require('mongoose');
+const { resetApolloContext } = require('react-apollo');
 
 function genToken(user)
 {
@@ -236,20 +237,27 @@ module.exports = {
             });
 
             const res = await newFarm.save();
+            console.log("createFarm", res);
+            console.log("userid:", user.id)
+            try{
+                let dbUser = await User.findById(user.id);
+                console.log("createFarm", dbuser)
+                dbUser.farms.push({
+                    _id: res._id,
+                    farmName: res.farmName,
+                    farmType: res.farmType,
+                    createdAt: res.createdAt
+                });
+                await dbUser.save();
+                return {
+                    ...res._doc,
+                    id: res._id
+                };
+            }
+            catch(err){
+                throw new Error(err);
+            }
 
-            let dbUser = await User.findById(user.id);
-            dbUser.farms.push({
-                _id: res._id,
-                farmName: res.farmName,
-                farmType: res.farmType,
-                createdAt: res.createdAt
-            });
-            await dbUser.save();
-
-            return {
-                ...res._doc,
-                id: res._id
-            };
         },
         async leaveFarm(_, { farmId }, context)
         {
