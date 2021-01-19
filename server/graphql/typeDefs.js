@@ -72,11 +72,12 @@ module.exports = gql`
     }
     input PlantInput {
         farmId: ID!
-        plantType: String!
+        plantId: ID
+        plantType: String
         title: String
-        body: String!
-        chunkCoordinates: CoordinateInput!
-        plantCoordinates: CoordinateInput!
+        body: String
+        chunkCoordinates: CoordinateInput
+        plantCoordinates: CoordinateInput
     }
     type Query {
         getFarms: [Farm]!
@@ -87,6 +88,7 @@ module.exports = gql`
         register(registerInput: RegisterInput!): User!
         login(username: String!, passwordHash: String!): User!
         createPlant(plantInput: PlantInput!): Plant!
+        editPlant(plantInput: PlantInput!): Plant!
         deletePlant(farmId: ID!, plantId: ID!): String!
         createFarm(farmName: String!, farmType: String!): Farm!
         leaveFarm(farmId: ID!): String!

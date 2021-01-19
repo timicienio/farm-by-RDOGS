@@ -60,7 +60,6 @@ module.exports = {
 			{ registerInput: { username, email, passwordHash, confirmHash } }
 		) {
 			//Validate user data
-			//console.log(username, email, passwordHash)
 			const { valid, errors } = validateRegisterInput(
 				username,
 				email,
@@ -117,6 +116,10 @@ module.exports = {
             const user = checkAuth(context);
             try
             {
+                if(!(farmId && plantType && title && body && chunkCoordinates && plantCoordinates))
+                {
+                    throw new Error("Missing arguments");
+                }
                 let farm = await Farm.findById(farmId);
                 if(!farm)
                 {
@@ -140,7 +143,6 @@ module.exports = {
                     }
                     farm.plants.push(plant);
                     const res = await farm.save();
-                    console.log(res);
                     const plantIndex = farm.plants.findIndex(plt => plt._id === plant._id);
                     if(plantIndex !== -1)
                     {
@@ -176,7 +178,68 @@ module.exports = {
                 throw new Error(err);
             }
         },
-
+        async editPlant(_, { 
+            plantInput: { farmId, plantId, title, body, chunkCoordinates, plantCoordinates }
+        }, context)
+        {
+            const user = checkAuth(context);
+            try {
+                if(!plantId)
+                {
+                    throw new Error("Missing argument: plantId")
+                }
+                let farm = await Farm.findById(farmId);
+                let dbUser = await User.findById(user.id);
+                //user exists?
+                if(!dbUser)
+                {
+                    throw new UserInputError("User not found");
+                }
+                //farm exists?
+                if(!farm)
+                {
+                    throw new Error("Farm not found");
+                }
+                //plant exists
+                const plantIndex = farm.plants.findIndex(plt => plt._id == plantId);
+                if(plantIndex === -1)
+                {
+                    throw new Error("Plant not found");
+                }
+                //user is author
+                let plant = farm.plants[plantIndex];
+                if(plant.author !== user.username)
+                {
+                    throw new Error("Action not allowed");
+                }
+                //edits
+                if(title)
+                {
+                    plant.title = title;
+                }
+                if(body)
+                {
+                    plant.body = body;
+                }
+                if(chunkCoordinates)
+                {
+                    plant.chunkCoordinates = chunkCoordinates;
+                }
+                if(plantCoordinates)
+                {
+                    plant.plantCoordinates = plantCoordinates;
+                }
+                const res = await farm.save()
+                const r = {
+                    ...res.plants[plantIndex]._doc,
+                    id: res.plants[plantIndex]._id
+                }
+                console.log(r);
+                return r;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
         async deletePlant(_, { farmId, plantId }, context)
         {
             const user = checkAuth(context);
@@ -191,8 +254,6 @@ module.exports = {
                 {
                     throw new UserInputError("User not found");
                 }
-                console.log(plantId)
-                console.log(farm.plants)
                 let plantIndex = farm.plants.findIndex(plt => plt._id == plantId);
                 if(plantIndex === -1)
                 {
@@ -226,7 +287,6 @@ module.exports = {
         
         async createFarm(_, { farmName, farmType }, context)
         {
-            console.log(farmType)
             const user = checkAuth(context);
             const date = new Date().toISOString();
             const newFarm = new Farm({
@@ -284,7 +344,6 @@ module.exports = {
                     createdAt: res.createdAt
                 });
                 await dbUser.save();
-                console.log("No error")
                 let r = {
                     ...res._doc,
                     id: res._id
@@ -300,34 +359,32 @@ module.exports = {
         {
             const user = checkAuth(context);
             try{
-                await Farm.findByIdAndUpdate(
-                    farmId,
-                    {
-                        $pull: 
-                        { 
-                            members: 
-                            {
-                                username: user.username
-                            }
-                        }
-                    });
-                const farm = await Farm.findById(farmId);
+                let farm = await Farm.findById(farmId);
+                let dbUser = await User.findById(user.id);
+                if(!dbUser)
+                {
+                    throw new UserInputError('User not found');
+                }
                 if(!farm)
                 {
                     throw new Error('Farm not found');
                 }
+                const userIndex = farm.members.findIndex(mem => mem._id == user.id);
+                if(userIndex === -1)
+                {
+                    throw new Error('Not a member');
+                }
+                dbUser.farms.splice(dbUser.farms.findIndex(farm => farm._id === farmId), 1);
+                farm.members.splice(userIndex, 1);
+                await dbUser.save();
                 if(farm.members.length === 0)
                 {
+                    //delete
                     await farm.delete();
                     return 'No members left, farm deleted';
                 }
-                else if(!farm.members.find(mem => mem.username === user.username))
-                {
+                else{
                     return 'Farm left successfully';
-                }
-                else
-                {
-                    throw new Error('Action failed');
                 }
             }
             catch(err)
@@ -495,7 +552,6 @@ module.exports = {
             try {
                 let farm = await Farm.findById(farmId);
                 let friend = await User.findById(friendId);
-                console.log(farm)
                 if(!friend)
                 {
                     throw new UserInputError('User not found');
