@@ -8,6 +8,7 @@ import {
 	SEND_FARM_INVITATION_MUTATION,
 	GET_FARM_QUERY,
 	GET_FRIENDS_MUTATION,
+	FARM_SUBSCRIPTION,
 } from '../graphql';
 
 const useFarm = farmId => {

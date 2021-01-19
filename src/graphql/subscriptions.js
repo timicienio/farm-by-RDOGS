@@ -1,7 +1,31 @@
 import { gql } from 'apollo-boost'
 
-// export const FRIENDS_SUBSCRIPTION = gql`
-//   subscription {
-
-//   }
-// `
+export const FARM_SUBSCRIPTION = gql`
+  subscription plant (
+    $farmId: ID!
+  ){
+    farm(
+        farmId: $farmId
+    ){
+        mutation{
+            PlantMutationType
+        }
+        index
+        plant{
+            id
+            plantType
+            title
+            body
+            chunkCoordinates {
+                x
+                y
+            }
+            plantCoordinates {
+                x
+                y
+            }
+            author
+        }
+    }
+  }
+`
