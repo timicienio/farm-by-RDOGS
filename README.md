@@ -67,3 +67,14 @@ Draggable utilities that provides a more flexible UX.
 #### Web Services
 + [React Apollo](https://www.npmjs.com/package/react-apollo)
 ### Backend
+
+## Contributors
+* @desk2000 B08705010 陳以潼
+  
+  frontend, UI.
+* @gary1030 B08705008 胡家愷
+  
+  frontend, web service, deploy.
+* @fredred357 B08705012 祝浩文
+  
+  backend, database, web service.
