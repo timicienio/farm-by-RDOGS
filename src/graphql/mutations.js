@@ -106,9 +106,8 @@ export const CREATE_PLANT_MUTATION = gql`
 		$plantType: String!
 		$title: String!
 		$body: String!
-		$chunkCoordinates: Coordinate!
-		$plantCoordinates: Coordinate!
-		$author: String!
+		$chunkCoordinates: CoordinateInput!
+		$plantCoordinates: CoordinateInput!
 	) {
 		createPlant(
 			plantInput: {
@@ -118,7 +117,6 @@ export const CREATE_PLANT_MUTATION = gql`
 				body: $body
 				chunkCoordinates: $chunkCoordinates
 				plantCoordinates: $plantCoordinates
-				author: $author
 			}
 		) {
 			plantType
