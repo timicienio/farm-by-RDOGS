@@ -10,6 +10,7 @@ import {
 	GET_FRIENDS_MUTATION,
 	FARM_SUBSCRIPTION,
 	EDIT_PLANT_MUTATION,
+	ADD_CHUNK_MUTATION,
 } from '../graphql';
 
 const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
@@ -46,6 +47,9 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 	const [editOldPlant] = useMutation(EDIT_PLANT_MUTATION);
 	const [deleteOldPlant] = useMutation(DELETE_PLANT_MUTATION);
 	const [leaveCurrentFarm] = useMutation(LEAVE_FARM_MUTATION);
+	const [addNewChunk] = useMutation(ADD_CHUNK_MUTATION);
+	const [addChunkError, setAddChunkError] = useState('');
+	const [showAddChunkError, setShowAddChunkError] = useState(false);
 
 	function checkPlantCollision(
 		chunkCoordinates,
@@ -113,8 +117,8 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 			});
 			console.log(res);
 		} catch (err) {
-			alert(err.graphQLErrors[0].message);
-			// console.log(err.graphQLErrors[0].message);
+			//alert(err.graphQLErrors[0].message);
+			console.log(err.graphQLErrors[0].message);
 		}
 	};
 
@@ -247,6 +251,26 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 			console.log('deletePlant result: ', res);
 		} catch (err) {
 			alert('deletePlant Error: ', err.graphQLErrors[0].message);
+		}
+	};
+
+	const addChunk = async (chunkX, chunkY) => {
+		setShowAddChunkError(false);
+		try {
+			const res = await addNewChunk({
+				variables: {
+					farmId: farmId,
+					chunkCoordinates: {
+						x: chunkX,
+						y: chunkY,
+					},
+				},
+			});
+			console.log(res);
+		} catch (err) {
+			console.log(err.graphQLErrors[0].message);
+			setAddChunkError(err.graphQLErrors[0].message);
+			setShowAddChunkError(true);
 		}
 	};
 
@@ -551,6 +575,9 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 		createNewPlant,
 		editPlant,
 		deletePlant,
+		addChunk,
+		addChunkError,
+		showAddChunkError,
 		addNewMember,
 		addMemberError,
 		showAddMemberError,

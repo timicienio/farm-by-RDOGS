@@ -423,6 +423,26 @@ module.exports = {
 				});
 				await dbUser.save();
 				await friend.save();
+				context.pubsub.publish(`subscribe friendList ${user.id}`, {
+					friendList: {
+						friend: {
+							id: friend._id,
+							username: friend.username,
+							email: friend.email,
+							createdAt: date,
+						}
+					}
+				});
+				context.pubsub.publish(`subscribe friendList ${friend._id}`, {
+					friendList: {
+						friend: {
+							id: dbUser._id,
+							username: dbUser.username,
+							email: dbUser.email,
+							createdAt: date,
+						}
+					}
+				});
 				return 'Friend added successfully';
 			} catch (err) {
 				throw new Error(err);
@@ -590,6 +610,53 @@ module.exports = {
 				await farm.save();
 				await friend.save();
 				return "Farmer added successfully";
+			} catch (err) {
+				throw new Error(err)
+			}
+		},
+		async addChunk(_, { farmId, chunkCoordinates }, context)
+		{
+			const user = checkAuth(context);
+			try {
+				const dbUser = await User.findById(user.id);
+				if(!dbUser)
+				{
+					throw new UserInputError("User not found");
+				}
+				let farm = await Farm.findById(farmId);
+				if(!farm)
+				{
+					throw new Error("Farm not found");
+				}
+				if(!farm.members.find(mem => mem._id == user.id))
+				{
+					throw new Error("Action not allowed: User not a member");
+				}
+				//check coordinate logic
+				let logic = false;
+				for (let index = 0; index < farm.chunks.length; index++) {
+					const element = farm.chunks[index];
+					const distance = Math.abs(element.coordinates.x - chunkCoordinates.x) + Math.abs(element.coordinates.y - chunkCoordinates.y);
+					if(distance === 0)
+					{
+						throw new Error("Chunk already available");
+					}
+					else if(distance === 1)
+					{
+						logic = true;
+					}
+				}
+				if(!logic)
+				{
+					throw new Error("Invalid chunk coordinate");
+				}
+				farm.chunks.push({
+					_id: new mongodb.ObjectID(),
+					coordinates: chunkCoordinates,
+					createdAt: new Date().toISOString()
+				})	
+				await farm.save()
+				return `Chunk (${chunkCoordinates.x}, ${chunkCoordinates.y}) added successfully`;
 			} catch (err) {
 				throw new Error(err)
 			}

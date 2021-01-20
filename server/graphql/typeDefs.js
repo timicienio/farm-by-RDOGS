@@ -98,10 +98,16 @@ module.exports = gql`
         getInvitations: [Friend]!
         editProfile(newProfile: String!): String!
         addFarmer(farmId: ID!, friendId: ID!): String!
+        addChunk(farmId: ID!, chunkCoordinates: CoordinateInput!): String! 
     }
 
     type Subscription {
         farm(farmId: ID!): FarmSubscriptionPayload!
+        friendList(userId: ID!): FriendListSubscriptionPayload!
+    }
+
+    type FriendListSubscriptionPayload {
+        friend: Friend!
     }
 
     type FarmSubscriptionPayload {
