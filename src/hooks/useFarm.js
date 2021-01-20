@@ -138,22 +138,6 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 
 	//add a member to this farm
 	const addNewMember = async friendId => {
-		// if (friendName === '') {
-		// 	setAddMemberError('Please enter a friend name.');
-		// 	setShowAddMemberError(true);
-		// }
-		// let id = '';
-		// for (let i = 0; i < friends.length - 1; i++) {
-		// 	if (friends[i].username === friendName) {
-		// 		id = friends[i].id;
-		// 		break;
-		// 	}
-		// }
-		// if (id === ''){
-		// 	setAddMemberError("Please enter your friend's name.");
-		// 	setShowAddMemberError(true);
-		// }
-		// else{
 		setShowAddMemberError(false);
 		try {
 			const res = await addFarmer({

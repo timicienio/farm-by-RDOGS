@@ -57,7 +57,7 @@ const useFriends = () => {
 					subscriptionData.data.friendList.mutation === 'FRIEND_LIST'
 				) {
 					const newFriend = subscriptionData.data.friendList.friend;
-					console.log(newFriend);
+					//console.log(newFriend);
 					return {
 						...prev,
 						getFriendList: [...prev.getFriendList, newFriend],
@@ -80,7 +80,7 @@ const useFriends = () => {
 					subscriptionData.data.friendList.mutation === 'INVITATION_LIST'
 				) {
 					const newInvitation = subscriptionData.data.friendList.friend;
-					console.log(newInvitation);
+					//console.log(newInvitation);
 					return {
 						...prev,
 						getInvitationList: [...prev.getInvitationList, newInvitation],
@@ -111,13 +111,18 @@ const useFriends = () => {
 	};
 
 	const acceptInv = async friendName => {
+		for (let i = 0; i < invitations.getInvitationList.length; i++ ){
+			if(invitations.getInvitationList[i].username === friendName){
+				invitations.getInvitationList.splice(i , 1);
+				break;
+			}
+		}
 		try {
 			const res = await acceptInvitation({
 				variables: {
 					friendName: friendName,
 				},
-			});
-			//TODO: DELETE ACCEPTED FRIEND
+			})
 		} catch (err) {
 			setAcceptInvitationAlert(err.graphQLErrors[0].message);
 			setShowAcceptInvitationAlert(true);
