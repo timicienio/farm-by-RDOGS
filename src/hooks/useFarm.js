@@ -295,6 +295,8 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 						coordinates.cellCoordinates.x,
 						coordinates.cellCoordinates.y
 					);
+					setSelectedMovePlant(false);
+					setClickedPlant({ title: '', body: '' });
 				}
 				break;
 			// case 'HARVEST':
