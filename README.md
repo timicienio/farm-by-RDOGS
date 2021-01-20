@@ -23,7 +23,7 @@ We envision that, in this way, not only does the communities have a larger freed
 
 ## Features
 
-### Register/Login
+### Register / Login
 Users can register an account with an email address. After logging in, it stays so even if the page refreshes (before the validation expires).
 
 ### Me & Friends
