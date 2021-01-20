@@ -83,7 +83,7 @@ module.exports = gql`
         getFarm(farmId: ID!): Farm!
         getUserData(userId: ID!): User!
         getFriendList(userId: ID!): [Friend]!
-        getInvitation(userId: ID!): [Friend]!
+        getInvitationList(userId: ID!): [Friend]!
     }
     type Mutation {
         register(registerInput: RegisterInput!): User!
