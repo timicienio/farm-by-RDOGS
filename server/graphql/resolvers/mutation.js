@@ -436,8 +436,8 @@ module.exports = {
 				});
 				context.pubsub.publish(`subscribe friendList ${friend._id}`, {
 					friendList: {
+						mutation: 'FRIEND_LIST',
 						friend: {
-							mutation: 'FRIEND_LIST',
 							id: dbUser._id,
 							username: dbUser.username,
 							email: dbUser.email,

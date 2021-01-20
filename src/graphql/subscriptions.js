@@ -31,6 +31,7 @@ export const FRIEND_LIST_SUBSCRIPTION = gql`
   subscription($userId: ID!) {
     friendList(userId: $userId)
     {
+      mutation
       friend
       {
         id 

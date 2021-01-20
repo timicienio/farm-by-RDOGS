@@ -9,15 +9,14 @@ import {
 	DECLINE_INVITATION_MUTATION,
 	FRIEND_LIST_SUBSCRIPTION,
 	GET_FRIENDS_LIST_QUERY,
+	GET_INVITATION_LIST_QUERY,
 } from '../graphql';
 
 const useFriends = () => {
 	const { user } = useContext(AuthContext);
 
 	const [inviteFriendName, setInviteFriendName] = useState('');
-	const [invitation, setInvitation] = useState([]);
 
-	const [hasGetInv, setHasGetInv] = useState(false);
 	const [invitationAlert, setInvitationAlert] = useState('');
 	const [acceptInvitationAlert, setAcceptInvitationAlert] = useState('');
 	const [declineInvitationAlert, setDeclineInvitationAlert] = useState('');
@@ -36,18 +35,20 @@ const useFriends = () => {
 	const [acceptInvitation] = useMutation(ACCEPT_INVITATION_MUTATION);
 	const [declineInvitation] = useMutation(DECLINE_INVITATION_MUTATION);
 
-	const { data, subscribeToMore } = useQuery(GET_FRIENDS_LIST_QUERY, {
+	const { data: friends, subscribeToMore: subscribeToMore1 } = useQuery(GET_FRIENDS_LIST_QUERY, {
 		variables: {
 			userId: user.id,
 		},
 	});
 
-	// useEffect(()=>{
-	// 	console.log(data.getFriendList);
-	// 	setFriends(data.getFriendList);
-	// }, [data])
+	const { data: invitations, subscribeToMore: subscribeToMore2 } = useQuery(GET_INVITATION_LIST_QUERY, {
+		variables: {
+			userId: user.id,
+		},
+	});
+
 	useEffect(() => {
-		subscribeToMore({
+		subscribeToMore1({
 			document: FRIEND_LIST_SUBSCRIPTION,
 			variables: { userId: user.id },
 			updateQuery: (prev, { subscriptionData }) => {
@@ -56,6 +57,7 @@ const useFriends = () => {
 					subscriptionData.data.friendList.mutation === 'FRIEND_LIST'
 				) {
 					const newFriend = subscriptionData.data.friendList.friend;
+					//console.log(newFriend);
 					return {
 						...prev,
 						getFriendList: [...prev.getFriendList, newFriend],
@@ -66,7 +68,30 @@ const useFriends = () => {
 			},
 			onError: err => console.log(err),
 		});
-	}, [subscribeToMore, user.id]);
+	}, [subscribeToMore1, user.id]);
+
+	useEffect(() => {
+		subscribeToMore2({
+			document: FRIEND_LIST_SUBSCRIPTION,
+			variables: { userId: user.id },
+			updateQuery: (prev, { subscriptionData }) => {
+				if (!subscriptionData.data) return prev;
+				if (
+					subscriptionData.data.friendList.mutation === 'INVITATION_LIST'
+				) {
+					const newInvitation = subscriptionData.data.friendList.friend;
+					//console.log(newInvitation);
+					return {
+						...prev,
+						getInvitationList: [...prev.getInvitationList, newInvitation],
+					};
+				} else {
+					return prev;
+				}
+			},
+			onError: err => console.log(err),
+		});
+	}, [subscribeToMore2, user.id]);
 
 	const inviteFriend = async () => {
 		try {
@@ -86,13 +111,18 @@ const useFriends = () => {
 	};
 
 	const acceptInv = async friendName => {
+		for (let i = 0; i < invitations.getInvitationList.length; i++ ){
+			if(invitations.getInvitationList[i].username === friendName){
+				invitations.getInvitationList.splice(i , 1);
+				break;
+			}
+		}
 		try {
 			const res = await acceptInvitation({
 				variables: {
 					friendName: friendName,
 				},
-			});
-			setHasGetInv(false);
+			})
 		} catch (err) {
 			setAcceptInvitationAlert(err.graphQLErrors[0].message);
 			setShowAcceptInvitationAlert(true);
@@ -106,7 +136,6 @@ const useFriends = () => {
 					friendName: friendName,
 				},
 			});
-			setHasGetInv(false);
 		} catch (err) {
 			alert(err);
 			setDeclineInvitationAlert(err.message);
@@ -117,17 +146,6 @@ const useFriends = () => {
 	const getFriendsList = async () => {
 		try {
 			const res = await getFriends();
-		} catch (err) {
-			//console.log(err);
-			alert(err);
-		}
-	};
-
-	const getInvitationsList = async () => {
-		try {
-			const res = await getInvitations();
-			setInvitation(res.data.getInvitations);
-			setHasGetInv(true);
 		} catch (err) {
 			//console.log(err);
 			alert(err);
@@ -149,13 +167,11 @@ const useFriends = () => {
 	};
 
 	useEffect(() => {
-		if (!data) {
+		if (!friends) {
 			getFriendsList();
 		}
-		if (!hasGetInv) {
-			getInvitationsList();
-		}
-	}, [data, hasGetInv]);
+
+	}, [friends]);
 
 	return {
 		handleChange,
@@ -172,8 +188,8 @@ const useFriends = () => {
 		dismissAcceptInvitationAlert,
 		dismissDeclineInvitationAlert,
 		inviteFriendName,
-		invitation,
-		friends: (data && data.getFriendList) || [],
+		invitation: (invitations && invitations.getInvitationList) || [],
+		friends: (friends && friends.getFriendList) || [],
 	};
 };
 export default useFriends;
