@@ -47,9 +47,6 @@ const Friends = ({ userData, setUserData }) => {
 		logout();
 	};
 
-	// useEffect(() => {
-	// });
-
 	return (
 		<div className='friends-root'>
 			<Container fluid id='friend-container'>
