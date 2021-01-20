@@ -9,7 +9,7 @@ function useAddNewPlantPopUp(handlePopUpSubmit, type) {
 	const [contentAlert, setContentAlert] = useState('');
 	const handleTitleChange = e => setTitle(e.target.value);
 	const handleContentChange = e => setContent(e.target.value);
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (title === '' && type === 'Post') {
 			setShowTitleAlert(true);
 			setTitleAlert('Please enter title.');
@@ -23,7 +23,7 @@ function useAddNewPlantPopUp(handlePopUpSubmit, type) {
 			setShowContentAlert(false);
 		}
 		if (!showTitleAlert && !showContentAlert) {
-			if (type === 'Comment') setTitle('(empty)');
+			if (type === 'Comment') await setTitle('(empty)');
 			handlePopUpSubmit(title, content);
 		}
 	};
