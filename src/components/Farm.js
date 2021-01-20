@@ -8,6 +8,7 @@ import AddCommentPopUp from './AddCommentPopUp';
 import AddReactionPopUp from './AddReactionPopUp';
 import RewritePostPopUp from './RewritePostPopUp';
 import RewriteCommentPopUp from './RewriteCommentPopUp';
+import HarvestPlantPopUp from './HarvestPlantPopUp';
 import './Farm.css';
 
 function Farm({
@@ -19,7 +20,7 @@ function Farm({
 	setShowManageFarmPopUp,
 }) {
 	// console.log(data.farmType);
-	const [
+	const {
 		farmData, //include id, farmName, farmType, members, chunks, plants
 		friends, //this user's all friends
 		getFarmLoading,
@@ -49,7 +50,7 @@ function Farm({
 		setShowAddPlantPopUp,
 		handleAddPlantSubmit,
 
-		//Edit > Move
+		// Edit > Move
 		movePlantId,
 
 		// Edit > Rewrite
@@ -57,7 +58,12 @@ function Farm({
 		setShowRewritePlantPopUp,
 		handleRewritePlantSubmit,
 		clickedPlant,
-	] = useFarm(data.id, selectedTool, selectedPlant, selectedEdit);
+
+		// Harvest
+		showHarvestPlantPopUp,
+		setShowHarvestPlantPopUp,
+		handleHarvestPlantSubmit,
+	} = useFarm(data.id, selectedTool, selectedPlant, selectedEdit);
 
 	switch (data.farmType) {
 		case 'Club':
@@ -97,6 +103,11 @@ function Farm({
 						handlePopUpSubmit={handleRewritePlantSubmit}
 						oldTitle={clickedPlant.title}
 						oldContent={clickedPlant.body}
+					/>
+					<HarvestPlantPopUp
+						show={showHarvestPlantPopUp}
+						setShow={setShowHarvestPlantPopUp}
+						handleSubmit={handleHarvestPlantSubmit}
 					/>
 					<ManageFarmPopUp
 						data={farmData}

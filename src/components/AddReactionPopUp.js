@@ -1,6 +1,5 @@
 import React from 'react';
-import useAddNewPlantPopUp from '../hooks/useAddNewPlantPopUp';
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
 
@@ -32,6 +31,7 @@ function AddReactionPopUp({ show, setShow, handlePopUpSubmit }) {
 					handlePopUpSubmit('Empty', emoji.native);
 					setShow(false);
 				}}
+				set='google'
 			></Picker>
 
 			{/* <Button

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Reaction({ body, coordinates, moving }) {
+function Reaction({ body, coordinates, moving, onClick }) {
 	const style = {
 		marginLeft: String(6 + 72 * coordinates.x) + 'px',
 		marginTop: String(6 + 72 * coordinates.y) + 'px',
@@ -10,6 +10,7 @@ function Reaction({ body, coordinates, moving }) {
 		<div
 			className={'plant reaction' + (moving ? ' moving' : '')}
 			style={style}
+			onClick={onClick}
 		>
 			<span role='img' aria-label='sheep'>
 				{body}

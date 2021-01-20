@@ -23,6 +23,8 @@ function useAddNewPlantPopUp(handlePopUpSubmit, plantType) {
 			setShowContentAlert(false);
 		}
 		if (!showTitleAlert && !showContentAlert) {
+			setTitle('');
+			setContent('');
 			switch (plantType) {
 				case 'Post':
 					handlePopUpSubmit(title, content);

@@ -28,7 +28,7 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 	const [selectedMovePlant, setSelectedMovePlant] = useState(false);
 	const [movePlantId, setMovePlantId] = useState(-1);
 	const [showRewritePlantPopUp, setShowRewritePlantPopUp] = useState(false);
-	// const [rewritePlantType, setRewritePlantType] = useState('Post'); // 'Post', 'Comment'
+	const [showHarvestPlantPopUp, setShowHarvestPlantPopUp] = useState(false);
 	const { user } = useContext(AuthContext);
 	const {
 		loading: getFarmLoading,
@@ -501,6 +501,13 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 						break;
 				}
 				break;
+			case 'HARVEST':
+				{
+					if (clickedPlant.author === user.username) {
+						setShowHarvestPlantPopUp(true);
+					}
+				}
+				break;
 		}
 	};
 	const handleRewritePlantSubmit = async (title, content) => {
@@ -530,6 +537,10 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 				);
 				break;
 		}
+	};
+
+	const handleHarvestPlantSubmit = async () => {
+		await deletePlant(clickedPlant.id);
 	};
 	const handlePlantHover = index => {};
 
@@ -569,7 +580,7 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 		}
 	}, [selectedTool]);
 
-	return [
+	return {
 		farmData, //include id, farmName, farmType, members, chunks, plants
 		friends, //this user's all friends
 		getFarmLoading,
@@ -599,7 +610,7 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 		setShowAddPlantPopUp,
 		handleAddPlantSubmit,
 
-		//Edit > Move
+		// Edit > Move
 		movePlantId,
 
 		// Edit > Rewrite
@@ -607,7 +618,12 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 		setShowRewritePlantPopUp,
 		handleRewritePlantSubmit,
 		clickedPlant,
-	];
+
+		// Harvest
+		showHarvestPlantPopUp,
+		setShowHarvestPlantPopUp,
+		handleHarvestPlantSubmit,
+	};
 };
 
 export default useFarm;
