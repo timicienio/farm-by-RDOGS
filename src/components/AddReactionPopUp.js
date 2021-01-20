@@ -1,20 +1,9 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import 'emoji-mart/css/emoji-mart.css';
-import { Picker } from 'emoji-mart';
+import Picker from 'emoji-picker-react';
 
 function AddReactionPopUp({ show, setShow, handlePopUpSubmit }) {
-	// const [
-	// 	title,
-	// 	showTitleAlert,
-	// 	titleAlert,
-	// 	content,
-	// 	showContentAlert,
-	// 	contentAlert,
-	// 	handleTitleChange,
-	// 	handleContentChange,
-	// 	handleSubmit,
-	// ] = useAddNewPlantPopUp(handlePopUpSubmit);
 	return (
 		<Modal
 			id='add-reaction-select'
@@ -27,11 +16,13 @@ function AddReactionPopUp({ show, setShow, handlePopUpSubmit }) {
 			<Modal.Header closeButton>Reaction</Modal.Header>
 
 			<Picker
-				onSelect={emoji => {
-					handlePopUpSubmit('Empty', emoji.native);
+				onEmojiClick={(_, emojiObject) => {
+					console.log(emojiObject);
+					handlePopUpSubmit('Empty', emojiObject.emoji);
 					setShow(false);
 				}}
-				pickerStyle={{ height: '75%' }}
+				preload
+				// native
 			></Picker>
 
 			{/* <Button
