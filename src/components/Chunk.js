@@ -66,7 +66,7 @@ function Chunk({
 						return (
 							<Comment
 								coordinates={plant.plantCoordinates}
-								title={plant.title}
+								// title={plant.title}
 								body={plant.body}
 								author={plant.author}
 								onClick={() => handlePlantClicked(i)}
@@ -78,7 +78,8 @@ function Chunk({
 						return (
 							<Reaction
 								coordinates={plant.plantCoordinates}
-								title={plant.title}
+								// title={plant.title}
+								body={plant.body}
 								author={plant.author}
 								onClick={() => handlePlantClicked(i)}
 								onHover={() => handlePlantHover(i)}

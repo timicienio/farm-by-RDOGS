@@ -27,7 +27,12 @@ function AddReactionPopUp({ show, setShow, handlePopUpSubmit }) {
 		>
 			<Modal.Header closeButton>Reaction</Modal.Header>
 
-			<Picker onSelect={emoji => handlePopUpSubmit(null, emoji)}></Picker>
+			<Picker
+				onSelect={emoji => {
+					handlePopUpSubmit('Empty', emoji.native);
+					// console.log(emoji.native);
+				}}
+			></Picker>
 
 			{/* <Button
 				variant='primary'
