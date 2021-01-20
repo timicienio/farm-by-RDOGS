@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ListGroup, Button, Dropdown } from 'react-bootstrap';
 import { IconContext } from 'react-icons';
 import { BsFilePost } from 'react-icons/bs';
-import { BiPlus, BiCommentDetail } from 'react-icons/bi';
+import { BiPlus, BiCommentDetail, BiMove, BiPencil } from 'react-icons/bi';
 import { FaRegHandPaper } from 'react-icons/fa';
 import { RiPlantLine, RiMoreLine } from 'react-icons/ri';
 import { GiDigDug, GiWheat } from 'react-icons/gi';
@@ -19,18 +19,28 @@ const Farms = ({}) => {
 	const {
 		handleNewFarmChange,
 		createNewFarm,
+
 		farmListLoading,
 		farmListError,
 		data, // List of farms fetched
+
 		selectedFarm,
 		onSelectFarm,
 		selectedTool,
 		onSelectTool,
 		selectedPlant,
 		onSelectPlant,
+		selectedEdit, // 'MOVE', 'REWRITE'
+		onSelectEdit,
+
 		createFarmName,
 		createFarmType,
 		createFarmAlert,
+
+		// addFarmMemberName,
+		// handleAddFarmMemberChange,
+		// leaveFarm,
+
 		showCreateFarmAlert,
 		// history,
 		showCreateFarmPopUp,
@@ -55,6 +65,7 @@ const Farms = ({}) => {
 									data={farm}
 									selectedTool={selectedTool}
 									selectedPlant={selectedPlant}
+									selectedEdit={selectedEdit}
 									showManageFarmPopUp={showManageFarmPopUp}
 									setShowManageFarmPopUp={
 										setShowManageFarmPopUp
@@ -190,12 +201,39 @@ const Farms = ({}) => {
 								</ListGroup>
 							</ListGroup.Item>
 
-							<ListGroup.Item
-								onClick={() => onSelectTool('MODIFY')}
-								active={selectedTool === 'MODIFY'}
-							>
+							<ListGroup.Item active={selectedTool === 'EDIT'}>
 								<GiDigDug />
 								<span className='tool-name'>Edit</span>
+								<ListGroup id='edit-type-switch' horizontal>
+									<ListGroup.Item
+										style={{ padding: 0 }}
+										onClick={() => {
+											onSelectTool('EDIT');
+											onSelectEdit('MOVE');
+										}}
+										active={
+											selectedTool === 'EDIT' &&
+											selectedEdit === 'MOVE'
+										}
+										variant='secondary'
+									>
+										<BiMove style={{ margin: 10 }} />
+									</ListGroup.Item>
+									<ListGroup.Item
+										style={{ padding: 0 }}
+										onClick={() => {
+											onSelectTool('EDIT');
+											onSelectEdit('REWRITE');
+										}}
+										active={
+											selectedTool === 'EDIT' &&
+											selectedEdit === 'REWRITE'
+										}
+										variant='secondary'
+									>
+										<BiPencil style={{ margin: 10 }} />
+									</ListGroup.Item>
+								</ListGroup>
 							</ListGroup.Item>
 
 							<ListGroup.Item

@@ -57,7 +57,9 @@ function Chunk({
 								title={plant.title}
 								body={plant.body}
 								author={plant.author}
-								onClick={() => handlePlantClicked(i)}
+								onClick={() => {
+									handlePlantClicked(i);
+								}}
 								onHover={() => handlePlantHover(i)}
 							></Post>
 						);

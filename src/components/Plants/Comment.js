@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Comment({ body, author, coordinates }) {
+function Comment({ body, author, coordinates, onClick }) {
 	const style = {
 		marginLeft: String(6 + 72 * coordinates.x) + 'px',
 		marginTop: String(6 + 72 * coordinates.y) + 'px',
 	};
 	return (
-		<div className='plant comment' style={style}>
+		<div className='plant comment' style={style} onClick={onClick}>
 			<div className='author-container'>
 				<h2 className='post-author'>{author}</h2>
 			</div>

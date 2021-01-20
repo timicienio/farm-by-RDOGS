@@ -12,13 +12,20 @@ import {
 	EDIT_PLANT_MUTATION,
 } from '../graphql';
 
-const useFarm = (farmId, selectedTool, selectedPlant) => {
+const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 	// console.log(typeof farmId);
 	// const [test, setTest] = useState(false);
 	const [showPositionCue, setShowPositionCue] = useState(false);
 	const [positionCueValidity, setPositionCueValidity] = useState(false);
 	const [positionCueType, setPositionCueType] = useState('post');
 	const [clickedCell, setClickedCell] = useState({});
+	const [clickedPlant, setClickedPlant] = useState({});
+	const [showAddMemberError, setShowAddMemberError] = useState(false);
+	const [friends, setFriends] = useState([]);
+	const [hasGetFriend, setHasGetFriend] = useState(false);
+	const [showAddPlantPopUp, setShowAddPlantPopUp] = useState(false);
+	const [showRewritePlantPopUp, setShowRewritePlantPopUp] = useState(false);
+	const [rewritePlantType, setRewritePlantType] = useState('Post'); // 'Post', 'Comment'
 	const { user } = useContext(AuthContext);
 	const {
 		loading: getFarmLoading,
@@ -38,36 +45,63 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 	const [deleteOldPlant] = useMutation(DELETE_PLANT_MUTATION);
 	const [leaveCurrentFarm] = useMutation(LEAVE_FARM_MUTATION);
 
-	// useEffect(()=>{
-	// 	alert("subscription procedure.")
-	// 	if(!getFarmLoading){
-	// 		subscribeToMore({
-	// 			document: FARM_SUBSCRIPTION,
-	// 			variables: {farmId: farmId},
-	// 			updateQuery: (prev, { subscriptionData }) => {
-	// 				if (!subscriptionData.data) return prev
-	// 				alert("sth change");
-	// 				console.log("subscriptionData: ", subscriptionData);
-	// 				let plants = prev.getFarm.plants;
-	// 				let changePlant = subscriptionData.data.farm.plant;
-	// 				switch(subscriptionData.data.mutation){
-	// 					case 'CREATED_PLANT':
-	// 						return { plants: [plants, changePlant]};
-	// 					case 'EDITED_PLANT':
-	// 						let newPlants = plants.splice(subscriptionData.data.farm.index, 1);
-	// 						newPlants = newPlants.splice(subscriptionData.data.farm.index, 1, changePlant);
-	// 						return {plants: [newPlants]};
-	// 					case 'DELETED_PLANT':
-	// 						const newPlants2 = plants.splice(subscriptionData.data.farm.index, 1);
-	// 						return {plants: [newPlants2]};
-	// 					default:
-	// 						return {plants:[plants]};
-	// 				}
-	// 			},
-	// 			onError: err => console.error(err)
-	// 		})
-	// 	}
-	// }, [subscribeToMore, getFarmLoading])
+	function checkPlantCollision(
+		chunkCoordinates,
+		cellCoordinates,
+		cueSize,
+		ignorePlantIndex = -1
+	) {
+		let plantSize;
+		const cueAbsolutePosition = {
+			x: chunkCoordinates.x * 32 + cellCoordinates.x,
+			y: chunkCoordinates.y * 32 + cellCoordinates.y,
+		};
+
+		for (let i = 0; i < farmData.getFarm.plants.length; i++) {
+			if (i === ignorePlantIndex) continue;
+
+			let plant = farmData.getFarm.plants[i];
+			// console.log(plant);
+			const plantAbsolutePosition = {
+				x: plant.chunkCoordinates.x * 32 + plant.plantCoordinates.x,
+				y: plant.chunkCoordinates.y * 32 + plant.plantCoordinates.y,
+			};
+
+			switch (plant.plantType) {
+				case 'Post':
+					plantSize = 4;
+
+					break;
+				case 'Comment':
+					plantSize = 2;
+
+					break;
+				case 'Reaction':
+					plantSize = 1;
+			}
+
+			const xCollide =
+				(cueAbsolutePosition.x < plantAbsolutePosition.x &&
+					cueAbsolutePosition.x + cueSize >
+						plantAbsolutePosition.x) ||
+				(cueAbsolutePosition.x >= plantAbsolutePosition.x &&
+					plantAbsolutePosition.x + plantSize >
+						cueAbsolutePosition.x);
+
+			const yCollide =
+				(cueAbsolutePosition.y < plantAbsolutePosition.y &&
+					cueAbsolutePosition.y + cueSize >
+						plantAbsolutePosition.y) ||
+				(cueAbsolutePosition.y >= plantAbsolutePosition.y &&
+					plantAbsolutePosition.y + plantSize >
+						cueAbsolutePosition.y);
+
+			if (xCollide && yCollide) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	const leaveFarm = async () => {
 		try {
@@ -85,10 +119,6 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 
 	const [addFarmer] = useMutation(ADD_FARMER_MUTATION);
 	const [addMemberError, setAddMemberError] = useState('');
-	const [showAddMemberError, setShowAddMemberError] = useState(false);
-	const [friends, setFriends] = useState([]);
-	const [hasGetFriend, setHasGetFriend] = useState(false);
-	const [showAddPlantPopUp, setShowAddPlantPopUp] = useState(false);
 
 	const getFriendsList = async () => {
 		try {
@@ -181,6 +211,7 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 		plantY
 	) => {
 		try {
+			// console.log(plantId);
 			const res = await editOldPlant({
 				variables: {
 					farmId: farmId,
@@ -200,7 +231,7 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 			});
 			console.log(res);
 		} catch (err) {
-			alert('editPlant Error: ', err.graphQLErrors[0].message);
+			console.log('editPlant Error: ', err);
 		}
 	};
 
@@ -227,12 +258,12 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 					setShowAddPlantPopUp(true);
 				}
 				break;
-			case 'EDIT':
-				//TODO
-				break;
-			case 'HARVEST':
-				//TODO
-				break;
+			// case 'EDIT':
+			// 	//TODO
+			// 	break;
+			// case 'HARVEST':
+			// 	//TODO
+			// 	break;
 		}
 	};
 
@@ -240,11 +271,8 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 		// console.log('hover');
 		if (selectedTool === 'PLANT') {
 			let valid = true;
-			let cueSize, plantSize;
-			const cueAbsolutePosition = {
-				x: chunkCoordinates.x * 32 + cellCoordinates.x,
-				y: chunkCoordinates.y * 32 + cellCoordinates.y,
-			};
+			let cueSize;
+
 			switch (selectedPlant) {
 				case 'POST':
 					cueSize = 4;
@@ -285,58 +313,11 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 
 			// check collision with other plants
 			if (valid) {
-				for (let i = 0; i < farmData.getFarm.plants.length; i++) {
-					let plant = farmData.getFarm.plants[i];
-					// console.log(plant);
-					const plantAbsolutePosition = {
-						x:
-							plant.chunkCoordinates.x * 32 +
-							plant.plantCoordinates.x,
-						y:
-							plant.chunkCoordinates.y * 32 +
-							plant.plantCoordinates.y,
-					};
-
-					switch (plant.plantType) {
-						case 'Post':
-							plantSize = 4;
-
-							break;
-						case 'Comment':
-							plantSize = 2;
-
-							break;
-						case 'Reaction':
-							plantSize = 1;
-					}
-					// console.log(
-					// 	cueAbsolutePosition,
-					// 	cueSize,
-					// 	plantAbsolutePosition,
-					// 	plantSize
-					// );
-
-					const xCollide =
-						(cueAbsolutePosition.x < plantAbsolutePosition.x &&
-							cueAbsolutePosition.x + cueSize >
-								plantAbsolutePosition.x) ||
-						(cueAbsolutePosition.x >= plantAbsolutePosition.x &&
-							plantAbsolutePosition.x + plantSize >
-								cueAbsolutePosition.x);
-
-					const yCollide =
-						(cueAbsolutePosition.y < plantAbsolutePosition.y &&
-							cueAbsolutePosition.y + cueSize >
-								plantAbsolutePosition.y) ||
-						(cueAbsolutePosition.y >= plantAbsolutePosition.y &&
-							plantAbsolutePosition.y + plantSize >
-								cueAbsolutePosition.y);
-
-					if (xCollide && yCollide) {
-						valid = false;
-						break;
-					}
-				}
+				valid = checkPlantCollision(
+					chunkCoordinates,
+					cellCoordinates,
+					cueSize
+				);
 			}
 			// console.log(valid);
 			if (valid) {
@@ -390,8 +371,60 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 		}
 	};
 
-	const handlePostClicked = index => {};
-	const handlePostHover = index => {};
+	const handlePlantClicked = index => {
+		setClickedPlant(farmData.getFarm.plants[index]);
+
+		switch (selectedTool) {
+			case 'EDIT':
+				switch (selectedEdit) {
+					case 'MOVE':
+						break;
+					case 'REWRITE':
+						if (
+							(clickedPlant.plantType === 'Post' ||
+								clickedPlant.plantType === 'Comment') &&
+							clickedPlant.author === user.username
+						) {
+							setRewritePlantType(clickedPlant.plantType);
+							setShowRewritePlantPopUp(true);
+						}
+						break;
+					default:
+						break;
+				}
+				break;
+		}
+	};
+	const handleRewritePlantSubmit = async (title, content) => {
+		switch (clickedPlant.plantType) {
+			case 'Post':
+				await editPlant(
+					clickedPlant.id,
+					'Post',
+					title,
+					content,
+					clickedPlant.chunkCoordinates.x,
+					clickedPlant.chunkCoordinates.y,
+					clickedPlant.plantCoordinates.x,
+					clickedPlant.plantCoordinates.y
+				);
+				break;
+			case 'Comment':
+				await editPlant(
+					clickedPlant.id,
+					'Comment',
+					'(Empty)',
+					content,
+					clickedPlant.chunkCoordinates.x,
+					clickedPlant.chunkCoordinates.y,
+					clickedPlant.plantCoordinates.x,
+					clickedPlant.plantCoordinates.y
+				);
+				break;
+		}
+	};
+	const handlePlantHover = index => {};
+
 	// test
 	// useEffect(() => {
 	// 	if (!test && !getFarmLoading) {
@@ -425,17 +458,25 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 
 		handleChunkCellClicked,
 		handleChunkCellHover,
-		handlePostClicked,
-		handlePostHover,
+		handlePlantClicked,
+		handlePlantHover,
 
 		showPositionCue,
 		setShowPositionCue,
 		positionCueValidity,
 		positionCueType,
 
+		// Grow
 		showAddPlantPopUp,
 		setShowAddPlantPopUp,
 		handleAddPlantSubmit,
+
+		// Edit > Rewrite
+		showRewritePlantPopUp,
+		setShowRewritePlantPopUp,
+		rewritePlantType,
+		handleRewritePlantSubmit,
+		clickedPlant,
 	];
 };
 

@@ -66,7 +66,7 @@ function ManageFarmPopUp({
 							variant='secondary'
 							onClick={() => handleSubmitAddNewMember()}
 						>
-							Add
+							Add Farmer
 						</Button>
 					</InputGroup.Append>
 				</InputGroup>

@@ -1,13 +1,13 @@
 import React from 'react';
 import './Plant.css';
 
-function Post({ title, author, body, coordinates }) {
+function Post({ title, author, body, coordinates, onClick }) {
 	const style = {
 		marginLeft: String(6 + 72 * coordinates.x) + 'px',
 		marginTop: String(6 + 72 * coordinates.y) + 'px',
 	};
 	return (
-		<div className='plant post' style={style}>
+		<div className='plant post' style={style} onClick={onClick}>
 			<h1 className='post-title'>{title}</h1>
 			<div className='author-container'>
 				<h2 className='post-author'>{author}</h2>

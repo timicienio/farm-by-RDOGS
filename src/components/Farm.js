@@ -6,12 +6,15 @@ import ManageFarmPopUp from '../components/ManageFarmPopUp';
 import AddPostPopUp from './AddPostPopUp';
 import AddCommentPopUp from './AddCommentPopUp';
 import AddReactionPopUp from './AddReactionPopUp';
+import RewritePostPopUp from './RewritePostPopUp';
+import RewriteCommentPopUp from './RewriteCommentPopUp';
 import './Farm.css';
 
 function Farm({
 	data,
 	selectedTool,
 	selectedPlant,
+	selectedEdit,
 	showManageFarmPopUp,
 	setShowManageFarmPopUp,
 }) {
@@ -30,8 +33,8 @@ function Farm({
 
 		handleChunkCellClicked,
 		handleChunkCellHover,
-		handlePostClicked,
-		handlePostHover,
+		handlePlantClicked,
+		handlePlantHover,
 
 		showPositionCue,
 		setShowPositionCue,
@@ -41,8 +44,14 @@ function Farm({
 		showAddPlantPopUp,
 		setShowAddPlantPopUp,
 		handleAddPlantSubmit,
-	] = useFarm(data.id, selectedTool, selectedPlant);
-	// console.log(showPositionCue);
+		// Edit > Rewrite
+		showRewritePlantPopUp,
+		setShowRewritePlantPopUp,
+		rewritePlantType,
+		handleRewritePlantSubmit,
+		clickedPlant,
+	] = useFarm(data.id, selectedTool, selectedPlant, selectedEdit);
+
 	switch (data.farmType) {
 		case 'Club':
 			return (
@@ -62,6 +71,26 @@ function Farm({
 						setShow={setShowAddPlantPopUp}
 						handlePopUpSubmit={handleAddPlantSubmit}
 					/>
+					<RewritePostPopUp
+						show={
+							showRewritePlantPopUp &&
+							clickedPlant.plantType === 'Post'
+						}
+						setShow={setShowRewritePlantPopUp}
+						handlePopUpSubmit={handleRewritePlantSubmit}
+						oldTitle={clickedPlant.title}
+						oldContent={clickedPlant.body}
+					/>
+					<RewriteCommentPopUp
+						show={
+							showRewritePlantPopUp &&
+							clickedPlant.plantType === 'Comment'
+						}
+						setShow={setShowRewritePlantPopUp}
+						handlePopUpSubmit={handleRewritePlantSubmit}
+						oldTitle={clickedPlant.title}
+						oldContent={clickedPlant.body}
+					/>
 					<ManageFarmPopUp
 						data={farmData}
 						friends={friends}
@@ -78,8 +107,8 @@ function Farm({
 						deletePlant={deletePlant}
 						handleChunkCellClicked={handleChunkCellClicked}
 						handleChunkCellHover={handleChunkCellHover}
-						handlePostClicked={handlePostClicked}
-						handlePostHover={handlePostHover}
+						handlePlantClicked={handlePlantClicked}
+						handlePlantHover={handlePlantHover}
 						selectedTool={selectedTool}
 						selectedPlant={selectedPlant}
 						showPositionCue={showPositionCue}
