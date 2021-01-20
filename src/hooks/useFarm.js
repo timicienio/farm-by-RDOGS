@@ -102,6 +102,7 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 	) => {
 		try {
 			console.log(plantType, title, body, chunkX, chunkY, plantX, plantY);
+			alert(title);
 			const res = await createPlant({
 				variables: {
 					farmId: farmId,
@@ -136,7 +137,7 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 	) => {
 		try {
 			const res = await editOldPlant({
-				plantInput: {
+				variables: {
 					farmId: farmId,
 					plantId: plantId,
 					plantType: plantType,
