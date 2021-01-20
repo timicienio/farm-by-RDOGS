@@ -64,6 +64,7 @@ function Farm({
 					/>
 					<ManageFarmPopUp
 						data={farmData}
+						friends={friends}
 						loading={getFarmLoading}
 						show={showManageFarmPopUp}
 						setShow={setShowManageFarmPopUp}

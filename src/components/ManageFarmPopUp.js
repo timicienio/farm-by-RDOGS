@@ -4,6 +4,7 @@ import FriendInfo from './FriendInfo';
 import useManageFarmPopUp from '../hooks/useManageFarmPopup';
 function ManageFarmPopUp({
 	data,
+	friends,
 	loading,
 	show,
 	setShow,
@@ -11,14 +12,23 @@ function ManageFarmPopUp({
 	leaveFarm,
 }) {
 	const {
-		addNewMemberName,
-		handleAddNewMemberNameChange,
+		addNewMemberId,
+		handleAddNewMemberIdChange,
 		handleSubmitAddNewMember,
 		alert,
 		showAlert,
 		dismissAlert,
 	} = useManageFarmPopUp(addNewMember);
-	// console.log(data);
+
+	const inFarm = id => {
+		for (let i = 0; i < data.getFarm.members.length; i++) {
+			if (data.getFarm.members[i].id === id) {
+				return true;
+			}
+		}
+		return false;
+	};
+
 	return loading ? (
 		<></>
 	) : (
@@ -33,16 +43,24 @@ function ManageFarmPopUp({
 			<Modal.Header closeButton>Manage Farm</Modal.Header>
 
 			<Modal.Body>
-				<InputGroup
-					className='mb-3'
-					// onSubmit={() => inviteFriend()}
-				>
+				<InputGroup className='mb-3'>
 					<FormControl
-						placeholder='Add farm member ...'
-						onChange={e => handleAddNewMemberNameChange(e)}
+						as='select'
+						onChange={e => handleAddNewMemberIdChange(e)}
 						id='add-new-member-input'
-						value={addNewMemberName}
-					/>
+						value={addNewMemberId}
+					>
+						<option value='0'>Choose a friend...</option>
+						{friends.map(friend =>
+							inFarm(friend.id) ? (
+								<></>
+							) : (
+								<option value={friend.id}>
+									{friend.username}
+								</option>
+							)
+						)}
+					</FormControl>
 					<InputGroup.Append>
 						<Button
 							variant='secondary'

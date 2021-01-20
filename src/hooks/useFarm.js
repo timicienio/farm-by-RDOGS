@@ -102,38 +102,38 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 	};
 
 	//add a member to this farm
-	const addNewMember = async friendName => {
-		if (friendName === '') {
-			setAddMemberError('Please enter a friend name.');
+	const addNewMember = async friendId => {
+		// if (friendName === '') {
+		// 	setAddMemberError('Please enter a friend name.');
+		// 	setShowAddMemberError(true);
+		// }
+		// let id = '';
+		// for (let i = 0; i < friends.length - 1; i++) {
+		// 	if (friends[i].username === friendName) {
+		// 		id = friends[i].id;
+		// 		break;
+		// 	}
+		// }
+		// if (id === ''){
+		// 	setAddMemberError("Please enter your friend's name.");
+		// 	setShowAddMemberError(true);
+		// }
+		// else{
+		setShowAddMemberError(false);
+		try {
+			const res = await addFarmer({
+				variables: {
+					farmId: farmId,
+					friendId: friendId,
+				},
+			});
+			console.log(res);
+		} catch (err) {
+			console.log(err);
+			setAddMemberError(err.graphQLErrors[0].message);
 			setShowAddMemberError(true);
 		}
-		let id = '';
-		for (let i = 0; i < friends.length - 1; i++) {
-			if (friends[i].username === friendName) {
-				id = friends[i].id;
-				break;
-			}
-		}
-		if (id === ''){
-			setAddMemberError("Please enter your friend's name.");
-			setShowAddMemberError(true);
-		}
-		else{ 
-			setShowAddMemberError(false);
-			try {
-				const res = await addFarmer({
-					variables: {
-						farmId: farmId,
-						friendId: id,
-					},
-				});
-				console.log(res);
-			} catch (err) {
-				console.log(err);
-				setAddMemberError(err.graphQLErrors[0].message);
-				setShowAddMemberError(true);
-			}
-		}
+		// }
 	};
 
 	// create a plant

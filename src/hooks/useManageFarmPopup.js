@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 
 const useManageFarmPopUp = addNewMember => {
-	const [addNewMemberName, setAddNewMemberName] = useState('');
+	const [addNewMemberId, setAddNewMemberId] = useState('');
 	const [alert, setAlert] = useState('');
 	const [showAlert, setShowAlert] = useState(false);
 
-	const handleAddNewMemberNameChange = e => {
-		setAddNewMemberName(e.target.value);
+	const handleAddNewMemberIdChange = e => {
+		setAddNewMemberId(e.target.value);
 	};
 
 	const handleSubmitAddNewMember = async () => {
 		try {
-			await addNewMember(addNewMemberName);
-			setAddNewMemberName('');
+			await addNewMember(addNewMemberId);
+			setAddNewMemberId('');
 		} catch (err) {
 			console.log(err);
 			setAlert(err.message);
@@ -25,8 +25,8 @@ const useManageFarmPopUp = addNewMember => {
 	};
 
 	return {
-		addNewMemberName,
-		handleAddNewMemberNameChange,
+		addNewMemberId,
+		handleAddNewMemberIdChange,
 		handleSubmitAddNewMember,
 		alert,
 		showAlert,

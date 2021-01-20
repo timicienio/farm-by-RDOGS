@@ -57,8 +57,11 @@ function AddPostPopUp({ show, setShow, handlePopUpSubmit }) {
 
 					<Button
 						variant='primary'
-						type='submit'
-						onClick={() => handleSubmit()}
+						// type='submit'
+						onClick={() => {
+							handleSubmit();
+							setShow(false);
+						}}
 					>
 						Grow!
 					</Button>
