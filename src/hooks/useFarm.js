@@ -38,37 +38,6 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 	const [deleteOldPlant] = useMutation(DELETE_PLANT_MUTATION);
 	const [leaveCurrentFarm] = useMutation(LEAVE_FARM_MUTATION);
 
-	// useEffect(()=>{
-	// 	alert("subscription procedure.")
-	// 	if(!getFarmLoading){
-	// 		subscribeToMore({
-	// 			document: FARM_SUBSCRIPTION,
-	// 			variables: {farmId: farmId},
-	// 			updateQuery: (prev, { subscriptionData }) => {
-	// 				if (!subscriptionData.data) return prev
-	// 				alert("sth change");
-	// 				console.log("subscriptionData: ", subscriptionData);
-	// 				let plants = prev.getFarm.plants;
-	// 				let changePlant = subscriptionData.data.farm.plant;
-	// 				switch(subscriptionData.data.mutation){
-	// 					case 'CREATED_PLANT':
-	// 						return { plants: [plants, changePlant]};
-	// 					case 'EDITED_PLANT':
-	// 						let newPlants = plants.splice(subscriptionData.data.farm.index, 1);
-	// 						newPlants = newPlants.splice(subscriptionData.data.farm.index, 1, changePlant);
-	// 						return {plants: [newPlants]};
-	// 					case 'DELETED_PLANT':
-	// 						const newPlants2 = plants.splice(subscriptionData.data.farm.index, 1);
-	// 						return {plants: [newPlants2]};
-	// 					default:
-	// 						return {plants:[plants]};
-	// 				}
-	// 			},
-	// 			onError: err => console.error(err)
-	// 		})
-	// 	}
-	// }, [subscribeToMore, getFarmLoading])
-
 	const leaveFarm = async () => {
 		try {
 			const res = await leaveCurrentFarm({
@@ -132,6 +101,7 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 		plantY
 	) => {
 		try {
+			console.log(plantType, title, body, chunkX, chunkY, plantX, plantY);
 			const res = await createPlant({
 				plantInput: {
 					farmId: farmId,
@@ -146,6 +116,7 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 						x: plantX,
 						y: plantY,
 					},
+					author: user.username,
 				},
 			});
 			console.log(res);

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Plant.css';
 
-function Post({ title, body, coordinates }) {
+function Post({ title, author, body, coordinates }) {
 	const style = {
 		marginTop: String(6 + 72 * coordinates.x) + 'px',
 		marginLeft: String(6 + 72 * coordinates.y) + 'px',
@@ -9,7 +9,12 @@ function Post({ title, body, coordinates }) {
 	return (
 		<div className='plant post' style={style}>
 			<h1 className='post-title'>{title}</h1>
-			<p className='post-body'>{body}</p>
+			<div className='post-author-container'>
+				<h2 className='post-author'>{author}</h2>
+			</div>
+			<div className='post-body-container'>
+				<p className='post-body'>{body}</p>
+			</div>
 		</div>
 	);
 }
