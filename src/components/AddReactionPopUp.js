@@ -31,7 +31,7 @@ function AddReactionPopUp({ show, setShow, handlePopUpSubmit }) {
 					handlePopUpSubmit('Empty', emoji.native);
 					setShow(false);
 				}}
-				set='google'
+				pickerStyle={{ height: '75%' }}
 			></Picker>
 
 			{/* <Button

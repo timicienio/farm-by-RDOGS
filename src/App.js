@@ -118,12 +118,13 @@ function App() {
 						margin: 30px;
 						height: fit-content;
 					}
+				
 					.modal-content {
 						background-color: #26979f;
 						border-radius: 12px;
 						border-width: 0px;
 						color: #faebd7;
-					
+					box-shadow: 5px 5px 7px 0 rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.15);
 					}
 					.modal-header {
 						color: #c8f0ef;

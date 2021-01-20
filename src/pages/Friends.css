@@ -1,5 +1,9 @@
 .friends-root {
-	overflow-y: scroll;
+	overflow-y: auto;
+	max-height: 90vh;
+}
+.friends-root * {
+	overflow-y: visible;
 }
 .user-info .std-box-content {
 	display: flex;

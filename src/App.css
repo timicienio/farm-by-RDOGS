@@ -9,6 +9,10 @@
 	overflow-y: hidden;
 }
 
+/* #root {
+	overflow-y: hidden;
+} */
+
 html body {
 	background-color: #faebd7;
 }
