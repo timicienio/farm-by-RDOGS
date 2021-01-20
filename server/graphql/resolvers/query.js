@@ -51,6 +51,19 @@ module.exports = {
 			{
 				throw new Error(err)
 			}
+		},
+		async getInvitationList(_, { userId })
+		{
+			try {
+				const user = await User.findById(userId);
+				if (!user) {
+					throw new UserInputError('User not found');
+				}
+				return user.invitations;
+			}catch(err)
+			{
+				throw new Error(err)
+			}
 		}
 	},
 };
