@@ -3,6 +3,7 @@ export {
     GET_FARM_QUERY,
     GET_USER_DATA_QUERY,
     GET_FRIENDS_LIST_QUERY,
+    GET_INVITATION_LIST_QUERY,
 } from './queries';
 export {
 	REGISTER_MUTATION,

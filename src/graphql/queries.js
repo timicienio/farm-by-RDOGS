@@ -106,4 +106,13 @@ export const GET_FRIENDS_LIST_QUERY = gql`
 			email
 		}
 	}
+`;
+export const GET_INVITATION_LIST_QUERY = gql`
+	query getInvitationList($userId: ID!){
+		getInvitationList( userId: $userId){
+			id
+			username
+			email
+		}
+	}
 ` 
