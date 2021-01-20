@@ -37,11 +37,10 @@ const useFriends = () => {
 	const [acceptInvitation] = useMutation(ACCEPT_INVITATION_MUTATION);
 	const [declineInvitation] = useMutation(DECLINE_INVITATION_MUTATION);
 
-	const { data } = useQuery(GET_FRIENDS_LIST_QUERY, {
+	const { data, subscribeToMore } = useQuery(GET_FRIENDS_LIST_QUERY, {
 		variables: {
 			userId: user.id,
-		},
-		pollInterval: 5000,
+		}
 	});
 
 	// useEffect(()=>{
@@ -49,20 +48,20 @@ const useFriends = () => {
 	// 	setFriends(data.getFriendList);
 	// }, [data])
 
-	// useEffect(()=>{
-	// 	subscribeToMore({
-	// 		document: FRIEND_LIST_SUBSCRIPTION,
-	// 		variables: {userId: user.id},
-	// 		updateQuery: (prev, { subscriptionData }) => {
-	// 			if (!subscriptionData.data) return prev
-	// 			const newFriend = subscriptionData.friendList.friend;
-	// 			console.log(newFriend);
-	// 			console.log(prev);
-	// 			return { friends: [...prev.friends, newFriend]};
-	// 		},
-	// 		onError: err => console.log(err)
-	// 	})
-	// }, [subscribeToMore])
+	useEffect(()=>{
+		subscribeToMore({
+			document: FRIEND_LIST_SUBSCRIPTION,
+			variables: {userId: user.id},
+			updateQuery: (prev, { subscriptionData }) => {
+				if (!subscriptionData.data) return prev
+				const newFriend = subscriptionData.friendList.friend;
+				console.log(newFriend);
+				console.log(prev);
+				return { friends: [...prev.friends, newFriend]};
+			},
+			onError: err => console.log(err)
+		})
+	}, [subscribeToMore, user.id])
 
 	const inviteFriend = async () => {
 		try {

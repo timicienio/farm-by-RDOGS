@@ -28,6 +28,14 @@ const wsLink = new WebSocketLink({
 
 // using the ability to split links, you can send data to each link
 // depending on what kind of operation is being sent
+const authLink = setContext(() => {
+	const token = localStorage.getItem('jwtToken');
+	return {
+	  headers: {
+		  Authorization: token ? `Bearer ${token}` : ''
+		}
+	};
+});
 const link = split(
 	// split based on operation type
 	({ query }) => {
@@ -38,21 +46,13 @@ const link = split(
 		);
 	},
 	wsLink,
-	httpLink
+	authLink.concat(httpLink)
 );
 
 
-const authLink = setContext(() => {
-	const token = localStorage.getItem('jwtToken');
-	return {
-	  headers: {
-		  Authorization: token ? `Bearer ${token}` : ''
-		}
-	};
-});
 
 const client = new ApolloClient({
-	link: authLink.concat(httpLink),
+	link,
 	cache: new InMemoryCache().restore({}),
 	onError: ({ networkError, graphQLErrors }) => {
 		console.log('graphQLErrors', graphQLErrors)
