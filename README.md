@@ -9,9 +9,14 @@ Farm by RDOGS attempts to free the elements from these structures, and let the u
 
 We envision that, in this way, not only does the communities have a larger freedom and room for creativity, the interactions and discussions could also 'grow' natually as the clustered posts, comments, and reactions clusters (implying a bigger trend), just like a real farm growing plants. 
 
-![Image](https://imgur.com/98u9HNE.png)
 
 *An example of a 'heated' discussion.*
+
+![Image](https://imgur.com/98u9HNE.png)
+
+*An example of creative plants usage.*
+
+![Image](https://i.ibb.co/6nVtpGD/2021-01-21-024207.png)
 
 ## Getting Started
 
