@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost'
 
 export const FARM_SUBSCRIPTION = gql`
-  subscription plant (
+  subscription farm (
     $farmId: ID!
   ){
     farm(
@@ -24,6 +24,21 @@ export const FARM_SUBSCRIPTION = gql`
             }
             author
         }
+    }
+  }
+`;
+export const FRIEND_LIST_SUBSCRIPTION = gql`
+  subscription(
+    $userId: ID!
+  ){
+    friendList(
+        userId: $userId
+    ){
+      friend{
+        id 
+        username
+        email
+      }
     }
   }
 `

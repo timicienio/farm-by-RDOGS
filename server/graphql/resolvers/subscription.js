@@ -18,6 +18,7 @@ module.exports = {
         },
         friendList: {
             async subscribe(_, { userId }, { pubsub } ) {
+                console.log(userId, "sub");
                 const user = await User.findById(userId);
                 if(!user)
                 {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { AuthContext } from '../context/auth';
 import {
 	GET_FRIENDS_MUTATION,
@@ -7,11 +7,13 @@ import {
 	GET_INVITATIONS_MUTATION,
 	ACCEPT_INVITATION_MUTATION,
 	DECLINE_INVITATION_MUTATION,
+	GET_USER_DATA_QUERY,
+	FRIEND_LIST_SUBSCRIPTION,
 } from '../graphql';
 
 const useFriends = () => {
-	const { user, logout } = useContext(AuthContext);
-
+	const { user } = useContext(AuthContext);
+	
 	const [inviteFriendName, setInviteFriendName] = useState('');
 	const [invitation, setInvitation] = useState([]);
 	const [friends, setFriends] = useState([]);
@@ -32,6 +34,33 @@ const useFriends = () => {
 	const [acceptInvitation] = useMutation(ACCEPT_INVITATION_MUTATION);
 	const [declineInvitation] = useMutation(DECLINE_INVITATION_MUTATION);
 	
+	const {
+		loading,
+		error,
+		data,
+		subscribeToMore,
+	} = useQuery(GET_USER_DATA_QUERY, {
+		variables: {
+			userId: user.id,
+		}
+	});
+
+	useEffect(()=>{
+		subscribeToMore({
+			document: FRIEND_LIST_SUBSCRIPTION,
+			variables: {userId: user.id},
+			updateQuery: (prev, { subscriptionData }) => {
+				if (!subscriptionData.data) return prev
+				const newFriend = subscriptionData.friend;
+				console.log(newFriend);
+				console.log(prev);
+				return { friends: [...prev.getUserData.friends, newFriend]};
+			} 
+		})
+	}, [subscribeToMore])
+
+	
+
 	const inviteFriend = async () => {
 		try {
 			const res = await sendInvitation({
