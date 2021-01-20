@@ -7,8 +7,8 @@ import {
 	GET_INVITATIONS_MUTATION,
 	ACCEPT_INVITATION_MUTATION,
 	DECLINE_INVITATION_MUTATION,
-	GET_USER_DATA_QUERY,
 	FRIEND_LIST_SUBSCRIPTION,
+	GET_FRIENDS_LIST_QUERY
 } from '../graphql';
 
 const useFriends = () => {
@@ -35,31 +35,33 @@ const useFriends = () => {
 	const [declineInvitation] = useMutation(DECLINE_INVITATION_MUTATION);
 	
 	const {
-		loading,
-		error,
-		data,
-		subscribeToMore,
-	} = useQuery(GET_USER_DATA_QUERY, {
+		data
+	} = useQuery(GET_FRIENDS_LIST_QUERY, {
 		variables: {
 			userId: user.id,
-		}
+		},
+		pollInterval: 5000,
 	});
 
 	useEffect(()=>{
-		subscribeToMore({
-			document: FRIEND_LIST_SUBSCRIPTION,
-			variables: {userId: user.id},
-			updateQuery: (prev, { subscriptionData }) => {
-				if (!subscriptionData.data) return prev
-				const newFriend = subscriptionData.friend;
-				console.log(newFriend);
-				console.log(prev);
-				return { friends: [...prev.getUserData.friends, newFriend]};
-			} 
-		})
-	}, [subscribeToMore])
+		console.log(data.getFriendList);
+		setFriends(data.getFriendList);
+	}, [data])
 
-	
+	// useEffect(()=>{
+	// 	subscribeToMore({
+	// 		document: FRIEND_LIST_SUBSCRIPTION,
+	// 		variables: {userId: user.id},
+	// 		updateQuery: (prev, { subscriptionData }) => {
+	// 			if (!subscriptionData.data) return prev
+	// 			const newFriend = subscriptionData.friendList.friend;
+	// 			console.log(newFriend);
+	// 			console.log(prev);
+	// 			return { friends: [...prev.friends, newFriend]};
+	// 		},
+	// 		onError: err => console.log(err)
+	// 	})
+	// }, [subscribeToMore])
 
 	const inviteFriend = async () => {
 		try {

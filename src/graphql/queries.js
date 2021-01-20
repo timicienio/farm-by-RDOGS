@@ -97,4 +97,13 @@ export const GET_USER_DATA_QUERY = gql`
 			}
 		}
 	}
-`
+`;
+export const GET_FRIENDS_LIST_QUERY = gql`
+	query getFriendList($userId: ID!){
+		getFriendList( userId: $userId){
+			id
+			username
+			email
+		}
+	}
+` 

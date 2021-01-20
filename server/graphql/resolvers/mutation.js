@@ -495,7 +495,7 @@ module.exports = {
 				if (invIndex !== -1) {
 					//accept
 					const date = new Date().toISOString();
-					friend.invitations.splice(invIndex, 1);
+					dbUser.invitations.splice(invIndex, 1);
 					friend.friends.push({
 						_id: dbUser._id,
 						username: dbUser.username,
