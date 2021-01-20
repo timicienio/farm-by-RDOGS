@@ -4,7 +4,7 @@
 	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
 	position: relative;
 	border-radius: 12px;
-	height: 610px;
+	height: 85vh;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
@@ -42,15 +42,24 @@
 
 .form-success {
 	text-align: center;
-	font-size: 24px;
-	margin-top: 80px;
+	font-size: 32px;
+	margin-top: 30vh;
 	color: #faebd7;
+}
+
+#form-success-button {
+	position: absolute;
+	margin: 50vh;
+	width: 10vh;
 }
 
 .form-content-right {
 	border-radius: 0 10px 10px 0;
 	position: relative;
 	background-color: #26979f;
+	display: flex;
+	/* flex-direction: column; */
+	justify-content: center;
 }
 
 .form {

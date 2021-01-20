@@ -39,35 +39,34 @@ const useFriends = () => {
 	const { data, subscribeToMore } = useQuery(GET_FRIENDS_LIST_QUERY, {
 		variables: {
 			userId: user.id,
-		}
+		},
 	});
 
 	// useEffect(()=>{
 	// 	console.log(data.getFriendList);
 	// 	setFriends(data.getFriendList);
 	// }, [data])
-	useEffect(()=>{
+	useEffect(() => {
 		subscribeToMore({
 			document: FRIEND_LIST_SUBSCRIPTION,
-			variables: {userId: user.id},
+			variables: { userId: user.id },
 			updateQuery: (prev, { subscriptionData }) => {
 				if (!subscriptionData.data) return prev;
-				if(subscriptionData.data.friendList.mutation === 'FRIEND_LIST') 
-				{
+				if (
+					subscriptionData.data.friendList.mutation === 'FRIEND_LIST'
+				) {
 					const newFriend = subscriptionData.data.friendList.friend;
-					return { 
+					return {
 						...prev,
-						getFriendList: [...prev.getFriendList, newFriend]
+						getFriendList: [...prev.getFriendList, newFriend],
 					};
-				}
-				else
-				{
+				} else {
 					return prev;
 				}
 			},
-			onError: err => console.log(err)
-		})
-	}, [subscribeToMore, user.id])
+			onError: err => console.log(err),
+		});
+	}, [subscribeToMore, user.id]);
 
 	const inviteFriend = async () => {
 		try {
@@ -78,6 +77,8 @@ const useFriends = () => {
 			});
 			console.log(res);
 			setInviteFriendName('');
+			setInvitationAlert('Request sent!');
+			setShowInvitationAlert(true);
 		} catch (err) {
 			setInvitationAlert(err.graphQLErrors[0].message);
 			setShowInvitationAlert(true);

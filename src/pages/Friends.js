@@ -105,7 +105,11 @@ const Friends = ({ userData, setUserData }) => {
 							</InputGroup>
 							<Alert
 								show={showInvitationAlert}
-								variant='warning'
+								variant={
+									invitationAlert === 'Request sent!'
+										? 'primary'
+										: 'warning'
+								}
 								onClose={() => dismissInvitationAlert()}
 								dismissible
 							>

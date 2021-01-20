@@ -15,7 +15,6 @@
 		"cors": "^2.8.5",
 		"dotenv": "^8.2.0",
 		"dotenv-defaults": "^2.0.1",
-		"emoji-mart": "^3.0.0",
 		"emoji-picker-react": "^3.4.1",
 		"express": "^4.17.1",
 		"graphql": "^15.4.0",
