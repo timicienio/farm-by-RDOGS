@@ -23,6 +23,7 @@ function useAddNewPlantPopUp(handlePopUpSubmit) {
 			setShowContentAlert(false);
 		}
 		if (!showTitleAlert && !showContentAlert) {
+			if (title === '') setTitle('(empty)');
 			handlePopUpSubmit(title, content);
 		}
 	};
