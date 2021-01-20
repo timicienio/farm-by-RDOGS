@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function useAddNewPlantPopUp(handlePopUpSubmit, type) {
+function useAddNewPlantPopUp(handlePopUpSubmit, plantType) {
 	const [title, setTitle] = useState('');
 	const [showTitleAlert, setShowTitleAlert] = useState(false);
 	const [titleAlert, setTitleAlert] = useState('');
@@ -10,7 +10,7 @@ function useAddNewPlantPopUp(handlePopUpSubmit, type) {
 	const handleTitleChange = e => setTitle(e.target.value);
 	const handleContentChange = e => setContent(e.target.value);
 	const handleSubmit = async () => {
-		if (title === '' && type === 'Post') {
+		if (title === '' && plantType === 'Post') {
 			setShowTitleAlert(true);
 			setTitleAlert('Please enter title.');
 		} else {
@@ -23,8 +23,14 @@ function useAddNewPlantPopUp(handlePopUpSubmit, type) {
 			setShowContentAlert(false);
 		}
 		if (!showTitleAlert && !showContentAlert) {
-			if (type === 'Comment') await setTitle('(empty)');
-			handlePopUpSubmit(title, content);
+			switch (plantType) {
+				case 'Post':
+					handlePopUpSubmit(title, content);
+					break;
+				case 'Comment':
+					handlePopUpSubmit('Empty', content);
+					break;
+			}
 		}
 	};
 	return [
