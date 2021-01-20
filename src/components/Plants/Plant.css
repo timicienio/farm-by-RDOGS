@@ -24,7 +24,7 @@
 	margin-bottom: 10px;
 }
 
-.post-author-container {
+.author-container {
 	background-color: #26979f;
 	color: #c8f0ef;
 	padding: 0.5rem;
@@ -41,18 +41,23 @@
 	font-size: 80%;
 }
 
-.post-body-container {
-	/* max-height: 65%; */
-}
-
 .comment {
 	height: 132px;
 	width: 132px;
+	overflow-y: auto;
 }
+
 .reaction {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	height: 60px;
 	width: 60px;
+	padding: 0.3rem;
+	font-size: 200%;
 }
+
 .cue {
 	opacity: 80%;
 	z-index: 0;

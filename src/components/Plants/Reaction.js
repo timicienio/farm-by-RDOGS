@@ -7,7 +7,9 @@ function Reaction({ body, coordinates }) {
 	};
 	return (
 		<div className='plant reaction' style={style}>
-			<p className='reaction-body'>{body}</p>
+			<span role='img' aria-label='sheep'>
+				{body}
+			</span>
 		</div>
 	);
 }

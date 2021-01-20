@@ -19,7 +19,7 @@ function Chunk({
 	positionCueType,
 }) {
 	const [hoveringCellCoordinates, setHoveringCellCoordinates] = useState({});
-	const grid = new Array(32).fill(new Array(32).fill({ type: 'Empty' }));
+	const grid = new Array(32).fill(new Array(32).fill());
 	// console.log(positionCueType);
 
 	return (

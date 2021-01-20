@@ -9,7 +9,7 @@ function Post({ title, author, body, coordinates }) {
 	return (
 		<div className='plant post' style={style}>
 			<h1 className='post-title'>{title}</h1>
-			<div className='post-author-container'>
+			<div className='author-container'>
 				<h2 className='post-author'>{author}</h2>
 			</div>
 			<div className='post-body-container'>

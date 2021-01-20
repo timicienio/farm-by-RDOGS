@@ -30,7 +30,7 @@ function AddReactionPopUp({ show, setShow, handlePopUpSubmit }) {
 			<Picker
 				onSelect={emoji => {
 					handlePopUpSubmit('Empty', emoji.native);
-					// console.log(emoji.native);
+					setShow(false);
 				}}
 			></Picker>
 
