@@ -3,8 +3,8 @@ import './Plant.css';
 
 function Post({ title, author, body, coordinates }) {
 	const style = {
-		marginTop: String(6 + 72 * coordinates.x) + 'px',
-		marginLeft: String(6 + 72 * coordinates.y) + 'px',
+		marginLeft: String(6 + 72 * coordinates.x) + 'px',
+		marginTop: String(6 + 72 * coordinates.y) + 'px',
 	};
 	return (
 		<div className='plant post' style={style}>
