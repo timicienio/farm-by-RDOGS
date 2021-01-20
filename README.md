@@ -11,15 +11,35 @@ We envision that, in this way, not only does the communities have a larger freed
 
 ![Image](https://imgur.com/98u9HNE.png)
 
-An example of a 'heated' discussion.
+*An example of a 'heated' discussion.*
 
 ## Features
 
 ### Register/Login
 Users can register an account with an email address. After logging in, it stays so even if the page refreshes (before the validation expires).
 
-### Friends
+### Me & Friends
+Users can add others as friends, this enables them to invite others to collab in a farm.
 
+* Self information
+* Friends list
+* Friend requests list
+
+
+### Farms
+* Farmers
+
+  Member of the farm, they can visit the farm, and also grow/edit/harvest plants.
+  
+  * Plants: Basic elements of the farm, placed on the grids.
+    * Posts: 4x4 plants, include a title and text body.
+    
+    * Comments: 2x2 plants, include a text body.
+  
+    * Reactions: 1x1 plants, include a single emoji chosen from the emoji picker.
+
+* Toolboxes
+Draggable utilities that provides a more flexible UX.
 
 ## Getting Started
 
