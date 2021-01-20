@@ -10,6 +10,7 @@ import {
 	GET_FRIENDS_MUTATION,
 	FARM_SUBSCRIPTION,
 	EDIT_PLANT_MUTATION,
+	ADD_CHUNK_MUTATION
 } from '../graphql';
 
 const useFarm = (farmId, selectedTool, selectedPlant) => {
@@ -37,6 +38,9 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 	const [editOldPlant] = useMutation(EDIT_PLANT_MUTATION);
 	const [deleteOldPlant] = useMutation(DELETE_PLANT_MUTATION);
 	const [leaveCurrentFarm] = useMutation(LEAVE_FARM_MUTATION);
+	const [addNewChunk] = useMutation(ADD_CHUNK_MUTATION);
+	const [addChunkError, setAddChunkError] = useState('');
+	const [showAddChunkError, setShowAddChunkError] = useState(false);
 
 	// useEffect(()=>{
 	// 	alert("subscription procedure.")
@@ -78,8 +82,8 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 			});
 			console.log(res);
 		} catch (err) {
-			alert(err.graphQLErrors[0].message);
-			// console.log(err.graphQLErrors[0].message);
+			//alert(err.graphQLErrors[0].message);
+			console.log(err.graphQLErrors[0].message);
 		}
 	};
 
@@ -217,6 +221,28 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 			alert('deletePlant Error: ', err.graphQLErrors[0].message);
 		}
 	};
+
+	const addChunk = async (chunkX, chunkY) => {
+		setShowAddChunkError(false);
+		try{
+			const res = await addNewChunk({
+				variables: {
+					farmId: farmId,
+					chunkCoordinates:{
+						x: chunkX,
+						y: chunkY
+					}
+				}
+			})
+			console.log(res)
+		}
+		catch(err){
+			console.log(err.graphQLErrors[0].message);
+			setAddChunkError(err.graphQLErrors[0].message);
+			setShowAddChunkError(true);
+
+		}
+	}
 
 	const handleChunkCellClicked = coordinates => {
 		console.log('click', coordinates);
@@ -419,6 +445,9 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 		createNewPlant,
 		editPlant,
 		deletePlant,
+		addChunk,
+		addChunkError,
+		showAddChunkError,
 		addNewMember,
 		addMemberError,
 		showAddMemberError,

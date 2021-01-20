@@ -17,6 +17,7 @@ export {
     LEAVE_FARM_MUTATION,
     ADD_FARMER_MUTATION,
     EDIT_PROFILE_MUTATION,
-    EDIT_PLANT_MUTATION
+    EDIT_PLANT_MUTATION,
+    ADD_CHUNK_MUTATION
 } from './mutations';
 export { FARM_SUBSCRIPTION } from './subscriptions'

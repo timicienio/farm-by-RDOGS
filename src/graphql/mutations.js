@@ -191,3 +191,11 @@ export const EDIT_PROFILE_MUTATION = gql`
 		editProfile(newProfile: $newProfile)
 	}
 `;
+export const ADD_CHUNK_MUTATION = gql`
+	mutation addChunk($farmId: ID!, $chunkCoordinates: CoordinateInput!){
+		addChunk(
+			farmId: $farmId,
+			chunkCoordinates: $chunkCoordinates
+		)
+	}
+`;
