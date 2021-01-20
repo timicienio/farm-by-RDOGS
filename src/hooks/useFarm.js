@@ -103,7 +103,7 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 		try {
 			console.log(plantType, title, body, chunkX, chunkY, plantX, plantY);
 			const res = await createPlant({
-				plantInput: {
+				variables: {
 					farmId: farmId,
 					plantType: plantType,
 					title: title,
@@ -116,7 +116,6 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 						x: plantX,
 						y: plantY,
 					},
-					author: user.username,
 				},
 			});
 			console.log(res);
