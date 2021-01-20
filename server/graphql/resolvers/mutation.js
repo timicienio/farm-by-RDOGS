@@ -532,43 +532,6 @@ module.exports = {
 				throw new Error(err);
 			}
 		},
-		async sendFarmInvitation(_, { farmId, friendId }, context) {
-			const user = checkAuth(context);
-			try {
-				let farm = await Farm.findById(farmId);
-				let friend = await User.findById(friendId);
-				if (!friend) {
-					throw new UserInputError('User not found');
-				}
-				//check if already a member
-				if (farm.members.find(mem => mem._id === friendId)) {
-					throw new Error('User already a member');
-				}
-				//check if already invited
-				if (farm.invited.find(inv => inv._id === friendId)) {
-					throw new Error('User already invited');
-				}
-				const date = new Date().toISOString();
-				friend.farmInvitations.push({
-					_id: farm._id,
-					farmName: farm.farmName,
-					farmType: farm.farmType,
-					invitedBy: user.username,
-					createdAt: date,
-				});
-				await friend.save();
-				farm.invited.push({
-					_id: friend._id,
-					username: friend.username,
-					email: friend.username,
-					createdAt: date,
-				});
-				await farm.save();
-				return 'Invited successfully';
-			} catch (err) {
-				throw new Error(err);
-			}
-		},
 		async editProfile(_, { newProfile }, context) {
 			const user = checkAuth(context);
 			try {

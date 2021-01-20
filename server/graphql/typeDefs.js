@@ -41,7 +41,6 @@ module.exports = gql`
         profile: String!
         token: String
         username: String!
-        farmInvitations: [FarmInfo]!
         farms: [FarmInfo]!
         invitations: [Friend]!
         friends: [Friend]!
@@ -97,7 +96,6 @@ module.exports = gql`
         declineInvitation(friendName: String!): String!
         getFriends: [Friend]!
         getInvitations: [Friend]!
-        sendFarmInvitation(farmId: ID!, friendId: ID!): String!
         editProfile(newProfile: String!): String!
     }
 

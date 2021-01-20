@@ -5,15 +5,6 @@ const userSchema = new Schema({
     passwordHash: String,
     email: String,
     profile: String,
-    farmInvitations: [
-        {
-            _id: Schema.Types.ObjectId,
-            farmName: String,
-            farmType: String,
-            invitedBy: String, //username
-            createdAt: String
-        }
-    ],
     farms: [
         {
             _id: Schema.Types.ObjectId,
