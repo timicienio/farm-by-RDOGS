@@ -20,7 +20,7 @@ function Chunk({
 }) {
 	const [hoveringCellCoordinates, setHoveringCellCoordinates] = useState({});
 	const grid = new Array(32).fill(new Array(32).fill({ type: 'Empty' }));
-	console.log(positionCueType);
+	// console.log(positionCueType);
 
 	return (
 		<div className={'chunk ' + (created ? '' : 'not-created')}>
