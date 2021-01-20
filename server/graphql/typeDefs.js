@@ -103,6 +103,11 @@ module.exports = gql`
 
     type Subscription {
         farm(farmId: ID!): FarmSubscriptionPayload!
+        friendList(userId: ID!): FriendListSubscriptionPayload!
+    }
+
+    type FriendListSubscriptionPayload {
+        friend: Friend!
     }
 
     type FarmSubscriptionPayload {

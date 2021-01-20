@@ -423,6 +423,26 @@ module.exports = {
 				});
 				await dbUser.save();
 				await friend.save();
+				context.pubsub.publish(`subscribe friendList ${user.id}`, {
+					friendList: {
+						friend: {
+							id: friend._id,
+							username: friend.username,
+							email: friend.email,
+							createdAt: date,
+						}
+					}
+				});
+				context.pubsub.publish(`subscribe friendList ${friend._id}`, {
+					friendList: {
+						friend: {
+							id: dbUser._id,
+							username: dbUser.username,
+							email: dbUser.email,
+							createdAt: date,
+						}
+					}
+				});
 				return 'Friend added successfully';
 			} catch (err) {
 				throw new Error(err);
