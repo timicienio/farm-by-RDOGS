@@ -8,12 +8,12 @@ import {
 	ACCEPT_INVITATION_MUTATION,
 	DECLINE_INVITATION_MUTATION,
 	FRIEND_LIST_SUBSCRIPTION,
-	GET_FRIENDS_LIST_QUERY
+	GET_FRIENDS_LIST_QUERY,
 } from '../graphql';
 
 const useFriends = () => {
 	const { user } = useContext(AuthContext);
-	
+
 	const [inviteFriendName, setInviteFriendName] = useState('');
 	const [invitation, setInvitation] = useState([]);
 	const [friends, setFriends] = useState([]);
@@ -26,27 +26,28 @@ const useFriends = () => {
 	const [showAcceptInvitationAlert, setShowAcceptInvitationAlert] = useState(
 		false
 	);
-	const [showDeclineInvitationAlert, setShowDeclineInvitationAlert] = useState(false);
+	const [
+		showDeclineInvitationAlert,
+		setShowDeclineInvitationAlert,
+	] = useState(false);
 
 	const [getFriends] = useMutation(GET_FRIENDS_MUTATION);
 	const [getInvitations] = useMutation(GET_INVITATIONS_MUTATION);
 	const [sendInvitation] = useMutation(SEND_INVITATION_MUTATION);
 	const [acceptInvitation] = useMutation(ACCEPT_INVITATION_MUTATION);
 	const [declineInvitation] = useMutation(DECLINE_INVITATION_MUTATION);
-	
-	const {
-		data
-	} = useQuery(GET_FRIENDS_LIST_QUERY, {
+
+	const { data } = useQuery(GET_FRIENDS_LIST_QUERY, {
 		variables: {
 			userId: user.id,
 		},
 		pollInterval: 5000,
 	});
 
-	useEffect(()=>{
-		console.log(data.getFriendList);
-		setFriends(data.getFriendList);
-	}, [data])
+	// useEffect(()=>{
+	// 	console.log(data.getFriendList);
+	// 	setFriends(data.getFriendList);
+	// }, [data])
 
 	// useEffect(()=>{
 	// 	subscribeToMore({
