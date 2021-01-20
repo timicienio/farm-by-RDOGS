@@ -1,4 +1,5 @@
 import React from 'react';
+import Emoji from 'react-emoji-render';
 
 function Reaction({ body, coordinates, moving, onClick }) {
 	const style = {
@@ -12,9 +13,7 @@ function Reaction({ body, coordinates, moving, onClick }) {
 			style={style}
 			onClick={onClick}
 		>
-			<span role='img' aria-label='sheep'>
-				{body}
-			</span>
+			<Emoji text={body} />
 		</div>
 	);
 }

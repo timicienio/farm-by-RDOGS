@@ -49,12 +49,12 @@
 
 .reaction {
 	display: flex;
-	align-items: center;
+	/* align-items: center; */
 	justify-content: center;
 
 	height: 60px;
 	width: 60px;
-	padding: 0.3rem;
+	padding: 0.15rem;
 	font-size: 200%;
 }
 
