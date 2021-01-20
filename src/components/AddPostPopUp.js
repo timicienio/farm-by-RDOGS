@@ -13,7 +13,7 @@ function AddPostPopUp({ show, setShow, handlePopUpSubmit }) {
 		handleTitleChange,
 		handleContentChange,
 		handleSubmit,
-	] = useAddNewPlantPopUp(handlePopUpSubmit);
+	] = useAddNewPlantPopUp(handlePopUpSubmit, 'Post');
 	return (
 		<Modal
 			size='lg'

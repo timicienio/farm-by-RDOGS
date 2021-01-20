@@ -40,7 +40,7 @@ function Farm({
 		setShowAddPlantPopUp,
 		handleAddPlantSubmit,
 	] = useFarm(data.id, selectedTool, selectedPlant);
-	console.log(showPositionCue);
+	// console.log(showPositionCue);
 	switch (data.farmType) {
 		case 'Club':
 			return (

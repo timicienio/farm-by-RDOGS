@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function useAddNewPlantPopUp(handlePopUpSubmit) {
+function useAddNewPlantPopUp(handlePopUpSubmit, type) {
 	const [title, setTitle] = useState('');
 	const [showTitleAlert, setShowTitleAlert] = useState(false);
 	const [titleAlert, setTitleAlert] = useState('');
@@ -10,7 +10,7 @@ function useAddNewPlantPopUp(handlePopUpSubmit) {
 	const handleTitleChange = e => setTitle(e.target.value);
 	const handleContentChange = e => setContent(e.target.value);
 	const handleSubmit = () => {
-		if (title === '') {
+		if (title === '' && type === 'Post') {
 			setShowTitleAlert(true);
 			setTitleAlert('Please enter title.');
 		} else {
@@ -23,7 +23,7 @@ function useAddNewPlantPopUp(handlePopUpSubmit) {
 			setShowContentAlert(false);
 		}
 		if (!showTitleAlert && !showContentAlert) {
-			if (title === '') setTitle('(empty)');
+			if (type === 'Comment') setTitle('(empty)');
 			handlePopUpSubmit(title, content);
 		}
 	};

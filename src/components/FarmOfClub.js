@@ -21,7 +21,7 @@ function FarmOfClub({
 	positionCueValidity,
 	positionCueType,
 }) {
-	console.log(selectedTool);
+	// console.log(selectedTool);
 
 	return loading ? (
 		<Spinner animation='grow' id='farm-loading-spinner' />

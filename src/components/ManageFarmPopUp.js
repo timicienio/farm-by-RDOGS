@@ -18,7 +18,7 @@ function ManageFarmPopUp({
 		showAlert,
 		dismissAlert,
 	} = useManageFarmPopUp(addNewMember);
-	console.log(data);
+	// console.log(data);
 	return loading ? (
 		<></>
 	) : (

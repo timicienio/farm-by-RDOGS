@@ -13,7 +13,7 @@ function AddCommentPopUp({ show, setShow, handlePopUpSubmit }) {
 		handleTitleChange,
 		handleContentChange,
 		handleSubmit,
-	] = useAddNewPlantPopUp(handlePopUpSubmit);
+	] = useAddNewPlantPopUp(handlePopUpSubmit, 'Comment');
 	return (
 		<Modal
 			size='lg'
