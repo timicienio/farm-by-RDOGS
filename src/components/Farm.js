@@ -41,13 +41,17 @@ function Farm({
 		positionCueValidity,
 		positionCueType,
 
+		// Grow
 		showAddPlantPopUp,
 		setShowAddPlantPopUp,
 		handleAddPlantSubmit,
+
+		//Edit > Move
+		movePlantId,
+
 		// Edit > Rewrite
 		showRewritePlantPopUp,
 		setShowRewritePlantPopUp,
-		rewritePlantType,
 		handleRewritePlantSubmit,
 		clickedPlant,
 	] = useFarm(data.id, selectedTool, selectedPlant, selectedEdit);
@@ -115,6 +119,7 @@ function Farm({
 						setShowPositionCue={setShowPositionCue}
 						positionCueValidity={positionCueValidity}
 						positionCueType={positionCueType}
+						movePlantId={movePlantId}
 					/>
 				</>
 			);

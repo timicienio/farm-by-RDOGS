@@ -17,6 +17,7 @@ function Chunk({
 	showPositionCue,
 	positionCueValidity,
 	positionCueType,
+	movePlantId,
 }) {
 	const [hoveringCellCoordinates, setHoveringCellCoordinates] = useState({});
 	const grid = new Array(32).fill(new Array(32).fill());
@@ -61,6 +62,7 @@ function Chunk({
 									handlePlantClicked(i);
 								}}
 								onHover={() => handlePlantHover(i)}
+								moving={plant.id === movePlantId}
 							></Post>
 						);
 
@@ -73,6 +75,7 @@ function Chunk({
 								author={plant.author}
 								onClick={() => handlePlantClicked(i)}
 								onHover={() => handlePlantHover(i)}
+								moving={plant.id === movePlantId}
 							></Comment>
 						);
 
@@ -85,6 +88,7 @@ function Chunk({
 								author={plant.author}
 								onClick={() => handlePlantClicked(i)}
 								onHover={() => handlePlantHover(i)}
+								moving={plant.id === movePlantId}
 							></Reaction>
 						);
 				}

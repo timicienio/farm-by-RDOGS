@@ -20,6 +20,7 @@ function FarmOfClub({
 	setShowPositionCue,
 	positionCueValidity,
 	positionCueType,
+	movePlantId,
 }) {
 	// console.log(selectedTool);
 
@@ -61,6 +62,7 @@ function FarmOfClub({
 							showPositionCue={showPositionCue}
 							positionCueValidity={positionCueValidity}
 							positionCueType={positionCueType}
+							movePlantId={movePlantId}
 							created
 						/>
 					))}

@@ -19,13 +19,15 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 	const [positionCueValidity, setPositionCueValidity] = useState(false);
 	const [positionCueType, setPositionCueType] = useState('post');
 	const [clickedCell, setClickedCell] = useState({});
-	const [clickedPlant, setClickedPlant] = useState({});
+	const [clickedPlant, setClickedPlant] = useState({ title: '', body: '' });
 	const [showAddMemberError, setShowAddMemberError] = useState(false);
 	const [friends, setFriends] = useState([]);
 	const [hasGetFriend, setHasGetFriend] = useState(false);
 	const [showAddPlantPopUp, setShowAddPlantPopUp] = useState(false);
+	const [selectedMovePlant, setSelectedMovePlant] = useState(false);
+	const [movePlantId, setMovePlantId] = useState(-1);
 	const [showRewritePlantPopUp, setShowRewritePlantPopUp] = useState(false);
-	const [rewritePlantType, setRewritePlantType] = useState('Post'); // 'Post', 'Comment'
+	// const [rewritePlantType, setRewritePlantType] = useState('Post'); // 'Post', 'Comment'
 	const { user } = useContext(AuthContext);
 	const {
 		loading: getFarmLoading,
@@ -49,7 +51,7 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 		chunkCoordinates,
 		cellCoordinates,
 		cueSize,
-		ignorePlantIndex = -1
+		ignorePlantId = -1
 	) {
 		let plantSize;
 		const cueAbsolutePosition = {
@@ -58,9 +60,8 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 		};
 
 		for (let i = 0; i < farmData.getFarm.plants.length; i++) {
-			if (i === ignorePlantIndex) continue;
-
 			let plant = farmData.getFarm.plants[i];
+			if (plant.id === ignorePlantId) continue;
 			// console.log(plant);
 			const plantAbsolutePosition = {
 				x: plant.chunkCoordinates.x * 32 + plant.plantCoordinates.x,
@@ -249,7 +250,7 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 		}
 	};
 
-	const handleChunkCellClicked = coordinates => {
+	const handleChunkCellClicked = async coordinates => {
 		console.log('click', coordinates);
 		setClickedCell(coordinates);
 		switch (selectedTool) {
@@ -258,9 +259,20 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 					setShowAddPlantPopUp(true);
 				}
 				break;
-			// case 'EDIT':
-			// 	//TODO
-			// 	break;
+			case 'EDIT':
+				if (selectedEdit === 'MOVE' && selectedMovePlant) {
+					await editPlant(
+						clickedPlant.id,
+						clickedPlant.plantType,
+						clickedPlant.title,
+						clickedPlant.content,
+						coordinates.chunkCoordinates.x,
+						coordinates.chunkCoordinates.y,
+						coordinates.cellCoordinates.x,
+						coordinates.cellCoordinates.y
+					);
+				}
+				break;
 			// case 'HARVEST':
 			// 	//TODO
 			// 	break;
@@ -268,7 +280,7 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 	};
 
 	const handleChunkCellHover = ({ chunkCoordinates, cellCoordinates }) => {
-		// console.log('hover');
+		console.log('hover');
 		if (selectedTool === 'PLANT') {
 			let valid = true;
 			let cueSize;
@@ -317,6 +329,70 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 					chunkCoordinates,
 					cellCoordinates,
 					cueSize
+				);
+			}
+			// console.log(valid);
+			if (valid) {
+				setPositionCueValidity(true);
+			} else {
+				setPositionCueValidity(false);
+			}
+			// console.log('show');
+			setShowPositionCue(true);
+		} else if (
+			selectedTool === 'EDIT' &&
+			selectedEdit === 'MOVE' &&
+			selectedMovePlant
+		) {
+			console.log('checking move pos');
+			let valid = true;
+			let cueSize;
+
+			switch (clickedPlant.plantType) {
+				case 'Post':
+					cueSize = 4;
+					setPositionCueType('post');
+					break;
+				case 'Comment':
+					cueSize = 2;
+					setPositionCueType('comment');
+					break;
+				case 'Reaction':
+					cueSize = 1;
+					setPositionCueType('reaction');
+					break;
+				default:
+					console.log('Invalid selected plant');
+			}
+			// check collision with farm border
+			if (cellCoordinates.x + cueSize > 32) {
+				valid = false;
+				for (let i = 0; i < farmData.getFarm.chunks.length; i++) {
+					const chunk = farmData.getFarm.chunks[i];
+					if (chunk.coordinates.x === chunkCoordinates.x + 1) {
+						valid = true;
+						break;
+					}
+				}
+			}
+			if (cellCoordinates.y + cueSize > 32) {
+				valid = false;
+				for (let i = 0; i < farmData.getFarm.chunks.length; i++) {
+					const chunk = farmData.getFarm.chunks[i];
+					if (chunk.coordinates.y === chunkCoordinates.y + 1) {
+						valid = true;
+						break;
+					}
+				}
+			}
+
+			// check collision with other plants
+			if (valid) {
+				valid = checkPlantCollision(
+					chunkCoordinates,
+					cellCoordinates,
+					cueSize,
+					clickedPlant.id
 				);
 			}
 			// console.log(valid);
@@ -378,6 +454,13 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 			case 'EDIT':
 				switch (selectedEdit) {
 					case 'MOVE':
+						if (
+							!selectedMovePlant &&
+							clickedPlant.author === user.username
+						) {
+							setSelectedMovePlant(true);
+						}
+
 						break;
 					case 'REWRITE':
 						if (
@@ -385,7 +468,6 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 								clickedPlant.plantType === 'Comment') &&
 							clickedPlant.author === user.username
 						) {
-							setRewritePlantType(clickedPlant.plantType);
 							setShowRewritePlantPopUp(true);
 						}
 						break;
@@ -442,7 +524,24 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 			getFriendsList();
 		}
 	}, [hasGetFriend]);
-	// console.log(positionCueType);
+	useEffect(() => {
+		if (
+			selectedMovePlant &&
+			selectedTool === 'EDIT' &&
+			selectedEdit === 'MOVE'
+		) {
+			setMovePlantId(clickedPlant.id);
+		} else {
+			setShowPositionCue(false);
+			setMovePlantId(-1);
+		}
+	}, [selectedTool, selectedEdit, selectedMovePlant, clickedPlant]);
+	useEffect(() => {
+		if (selectedTool === 'DRAG') {
+			setClickedPlant({ title: '', body: '' });
+			setSelectedMovePlant(false);
+		}
+	}, [selectedTool]);
 
 	return [
 		farmData, //include id, farmName, farmType, members, chunks, plants
@@ -471,10 +570,12 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 		setShowAddPlantPopUp,
 		handleAddPlantSubmit,
 
+		//Edit > Move
+		movePlantId,
+
 		// Edit > Rewrite
 		showRewritePlantPopUp,
 		setShowRewritePlantPopUp,
-		rewritePlantType,
 		handleRewritePlantSubmit,
 		clickedPlant,
 	];
