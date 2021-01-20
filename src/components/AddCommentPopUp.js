@@ -26,7 +26,7 @@ function AddCommentPopUp({ show, setShow, handlePopUpSubmit }) {
 			<Modal.Header closeButton>New Comment</Modal.Header>
 			<Modal.Body>
 				<Form>
-					<Form.Group controlId='newFarmForm'>
+					<Form.Group>
 						{/* <Form.Control
 							type='name'
 							placeholder='Title...'
@@ -53,7 +53,7 @@ function AddCommentPopUp({ show, setShow, handlePopUpSubmit }) {
 
 					<Button
 						variant='primary'
-						// type='submit'
+						type='submit'
 						onClick={() => handleSubmit()}
 					>
 						Grow!

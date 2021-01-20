@@ -48,7 +48,7 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 			console.log(res);
 		} catch (err) {
 			alert(err.graphQLErrors[0].message);
-			console.log(err.graphQLErrors[0].message);
+			// console.log(err.graphQLErrors[0].message);
 		}
 	};
 
@@ -192,7 +192,7 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 	};
 
 	const handleChunkCellHover = ({ chunkCoordinates, cellCoordinates }) => {
-		console.log('hover');
+		// console.log('hover');
 		if (selectedTool === 'PLANT') {
 			let valid = true;
 			let cueSize, plantSize;
@@ -264,12 +264,12 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 						case 'Reaction':
 							plantSize = 1;
 					}
-					console.log(
-						cueAbsolutePosition,
-						cueSize,
-						plantAbsolutePosition,
-						plantSize
-					);
+					// console.log(
+					// 	cueAbsolutePosition,
+					// 	cueSize,
+					// 	plantAbsolutePosition,
+					// 	plantSize
+					// );
 
 					const xCollide =
 						(cueAbsolutePosition.x < plantAbsolutePosition.x &&
@@ -293,16 +293,16 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 					}
 				}
 			}
-			console.log(valid);
+			// console.log(valid);
 			if (valid) {
 				setPositionCueValidity(true);
 			} else {
 				setPositionCueValidity(false);
 			}
-			console.log('show');
+			// console.log('show');
 			setShowPositionCue(true);
 		} else {
-			console.log('unshow');
+			// console.log('unshow');
 			setShowPositionCue(false);
 		}
 	};
