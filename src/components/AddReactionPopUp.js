@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import 'emoji-mart/css/emoji-mart.css';
+
 import Picker from 'emoji-picker-react';
 
 function AddReactionPopUp({ show, setShow, handlePopUpSubmit }) {
