@@ -17,7 +17,7 @@ import * as serviceWorker from './serviceWorker';
 
 // Create an http link:
 const httpLink = new HttpLink({
-	uri: 'http://localhost:5000/',
+	uri: 'http://localhost:5000/graphql',
 });
 
 // Create a WebSocket link:

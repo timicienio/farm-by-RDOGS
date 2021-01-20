@@ -50,12 +50,13 @@ const useFriends = () => {
 			document: FRIEND_LIST_SUBSCRIPTION,
 			variables: {userId: user.id},
 			updateQuery: (prev, { subscriptionData }) => {
-				if (!subscriptionData.data) return prev
-				const newFriend = subscriptionData.friend;
+				if (!subscriptionData.data) 	return prev
+				const newFriend = subscriptionData.data.friendList;
 				console.log(newFriend);
 				console.log(prev);
 				return { friends: [...prev.getUserData.friends, newFriend]};
-			} 
+			},
+			onError: err => console.log(err)
 		})
 	}, [subscribeToMore])
 

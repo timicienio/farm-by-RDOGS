@@ -28,13 +28,11 @@ export const FARM_SUBSCRIPTION = gql`
   }
 `;
 export const FRIEND_LIST_SUBSCRIPTION = gql`
-  subscription(
-    $userId: ID!
-  ){
-    friendList(
-        userId: $userId
-    ){
-      friend{
+  subscription($userId: ID!) {
+    friendList(userId: $userId)
+    {
+      friend
+      {
         id 
         username
         email
