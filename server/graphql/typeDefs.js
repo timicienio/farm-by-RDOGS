@@ -108,6 +108,7 @@ module.exports = gql`
     }
 
     type FriendListSubscriptionPayload {
+        mutation: UserMutationType!
         friend: Friend!
     }
 
@@ -121,5 +122,10 @@ module.exports = gql`
         CREATED_PLANT
         EDITED_PLANT
         DELETED_PLANT
+    }
+
+    enum UserMutationType {
+        INVITATION_LIST
+        FRIEND_LIST
     }
 `;

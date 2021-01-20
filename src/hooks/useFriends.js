@@ -16,8 +16,7 @@ const useFriends = () => {
 
 	const [inviteFriendName, setInviteFriendName] = useState('');
 	const [invitation, setInvitation] = useState([]);
-	const [friends, setFriends] = useState([]);
-	const [hasGetFriend, setHasGetFriend] = useState(false);
+
 	const [hasGetInv, setHasGetInv] = useState(false);
 	const [invitationAlert, setInvitationAlert] = useState('');
 	const [acceptInvitationAlert, setAcceptInvitationAlert] = useState('');
@@ -47,18 +46,24 @@ const useFriends = () => {
 	// 	console.log(data.getFriendList);
 	// 	setFriends(data.getFriendList);
 	// }, [data])
-
 	useEffect(()=>{
 		subscribeToMore({
 			document: FRIEND_LIST_SUBSCRIPTION,
 			variables: {userId: user.id},
 			updateQuery: (prev, { subscriptionData }) => {
-				if (!subscriptionData.data) return prev
-				const newFriend = subscriptionData.data.friendList.friend;
-				return { 
-					...prev,
-					getFriendList: [...prev.getFriendList, newFriend]
-				};
+				if (!subscriptionData.data) return prev;
+				if(subscriptionData.data.friendList.mutation === 'FRIEND_LIST') 
+				{
+					const newFriend = subscriptionData.data.friendList.friend;
+					return { 
+						...prev,
+						getFriendList: [...prev.getFriendList, newFriend]
+					};
+				}
+				else
+				{
+					return prev;
+				}
 			},
 			onError: err => console.log(err)
 		})
@@ -86,7 +91,6 @@ const useFriends = () => {
 					friendName: friendName,
 				},
 			});
-			setHasGetFriend(false);
 			setHasGetInv(false);
 		} catch (err) {
 			setAcceptInvitationAlert(err.graphQLErrors[0].message);
@@ -101,7 +105,6 @@ const useFriends = () => {
 					friendName: friendName,
 				},
 			});
-			setHasGetFriend(false);
 			setHasGetInv(false);
 		} catch (err) {
 			alert(err);
@@ -113,8 +116,6 @@ const useFriends = () => {
 	const getFriendsList = async () => {
 		try {
 			const res = await getFriends();
-			setFriends(res.data.getFriends);
-			setHasGetFriend(true);
 		} catch (err) {
 			//console.log(err);
 			alert(err);
@@ -147,13 +148,13 @@ const useFriends = () => {
 	};
 
 	useEffect(() => {
-		if (!hasGetFriend) {
+		if (!data) {
 			getFriendsList();
 		}
 		if (!hasGetInv) {
 			getInvitationsList();
 		}
-	}, [hasGetFriend, hasGetInv]);
+	}, [data, hasGetInv]);
 
 	return {
 		handleChange,
@@ -171,7 +172,7 @@ const useFriends = () => {
 		dismissDeclineInvitationAlert,
 		inviteFriendName,
 		invitation,
-		friends,
+		friends: (data && data.getFriendList) || [],
 	};
 };
 export default useFriends;
