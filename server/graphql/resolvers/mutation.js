@@ -546,5 +546,53 @@ module.exports = {
 				throw new Error(err);
 			}
 		},
+		async addFarmer(_, { farmId, friendId }, context)
+		{
+			const user = checkAuth(context);
+			try {
+				const date = new Date().toISOString();
+				let farm = await Farm.findById(farmId);
+				if(!farm)
+				{
+					throw new Error("Farm not found");
+				}
+				let friend = await User.findById(friendId);
+				if(!friend)
+				{
+					throw new Error("Friend not found");
+				}
+				const dbUser = await User.findById(user.id);
+				if(!dbUser)
+				{
+					throw new UserInputError("User not found");
+				}
+				if(!farm.members.find(mem => mem._id == user.id))
+				{
+					throw new Error("User not a member");
+				}
+				if(farm.members.find(mem => mem._id === friend._id))
+				{
+					throw new Error("Friend already farmer");
+				}
+				farm.members.push({
+					_id: friend._id,
+					username: friend.username,
+					email: friend.email,
+					createdAt: date
+				});
+				friend.farms.push({
+					_id: farm._id,
+					farmName: farm.farmName,
+					farmType: farm.farmType,
+					invitedBy: dbUser.username,
+					createdAt: date
+				})
+				await farm.save();
+				await friend.save();
+				return "Farmer added successfully";
+			} catch (err) {
+				throw new Error(err)
+			}
+		}
 	},
 };
