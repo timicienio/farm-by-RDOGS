@@ -97,6 +97,7 @@ module.exports = gql`
         getFriends: [Friend]!
         getInvitations: [Friend]!
         editProfile(newProfile: String!): String!
+        addFarmer(farmId: ID!, friendId: ID!): String!
     }
 
     type Subscription {
