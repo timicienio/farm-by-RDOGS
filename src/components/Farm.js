@@ -25,6 +25,8 @@ function Farm({
 		editPlant,
 		deletePlant,
 		addNewMember,
+		addMemberError,
+		showAddMemberError,
 
 		handleChunkCellClicked,
 		handleChunkCellHover,

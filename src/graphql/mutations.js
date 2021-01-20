@@ -181,9 +181,9 @@ export const LEAVE_FARM_MUTATION = gql`
 		leaveFarm(farmId: $farmId)
 	}
 `;
-export const SEND_FARM_INVITATION_MUTATION = gql`
-	mutation sendFarmInvitation($farmId: ID!, $friendId: ID!) {
-		sendFarmInvitation(farmId: $farmId, friendId: $friendId)
+export const ADD_FARMER_MUTATION = gql`
+	mutation addFarmer($farmId: ID!, $friendId: ID!) {
+		addFarmer(farmId: $farmId, friendId: $friendId)
 	}
 `;
 export const EDIT_PROFILE_MUTATION = gql`

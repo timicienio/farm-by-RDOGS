@@ -5,7 +5,7 @@ import {
 	CREATE_PLANT_MUTATION,
 	DELETE_PLANT_MUTATION,
 	LEAVE_FARM_MUTATION,
-	SEND_FARM_INVITATION_MUTATION,
+	ADD_FARMER_MUTATION,
 	GET_FARM_QUERY,
 	GET_FRIENDS_MUTATION,
 	FARM_SUBSCRIPTION,
@@ -38,6 +38,37 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 	const [deleteOldPlant] = useMutation(DELETE_PLANT_MUTATION);
 	const [leaveCurrentFarm] = useMutation(LEAVE_FARM_MUTATION);
 
+	// useEffect(()=>{
+	// 	alert("subscription procedure.")
+	// 	if(!getFarmLoading){
+	// 		subscribeToMore({
+	// 			document: FARM_SUBSCRIPTION,
+	// 			variables: {farmId: farmId},
+	// 			updateQuery: (prev, { subscriptionData }) => {
+	// 				if (!subscriptionData.data) return prev
+	// 				alert("sth change");
+	// 				console.log("subscriptionData: ", subscriptionData);
+	// 				let plants = prev.getFarm.plants;
+	// 				let changePlant = subscriptionData.data.farm.plant;
+	// 				switch(subscriptionData.data.mutation){
+	// 					case 'CREATED_PLANT':
+	// 						return { plants: [plants, changePlant]};
+	// 					case 'EDITED_PLANT':
+	// 						let newPlants = plants.splice(subscriptionData.data.farm.index, 1);
+	// 						newPlants = newPlants.splice(subscriptionData.data.farm.index, 1, changePlant);
+	// 						return {plants: [newPlants]};
+	// 					case 'DELETED_PLANT':
+	// 						const newPlants2 = plants.splice(subscriptionData.data.farm.index, 1);
+	// 						return {plants: [newPlants2]};
+	// 					default:
+	// 						return {plants:[plants]};
+	// 				}
+	// 			},
+	// 			onError: err => console.error(err)
+	// 		})
+	// 	}
+	// }, [subscribeToMore, getFarmLoading])
+
 	const leaveFarm = async () => {
 		try {
 			const res = await leaveCurrentFarm({
@@ -52,7 +83,9 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 		}
 	};
 
-	const [sendFarmInvitation] = useMutation(SEND_FARM_INVITATION_MUTATION);
+	const [addFarmer] = useMutation(ADD_FARMER_MUTATION);
+	const [addMemberError, setAddMemberError] = useState('');
+	const [showAddMemberError, setShowAddMemberError] = useState(false);
 	const [friends, setFriends] = useState([]);
 	const [hasGetFriend, setHasGetFriend] = useState(false);
 	const [showAddPlantPopUp, setShowAddPlantPopUp] = useState(false);
@@ -70,6 +103,10 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 
 	//add a member to this farm
 	const addNewMember = async friendName => {
+		if (friendName === '') {
+			setAddMemberError('Please enter a friend name.');
+			setShowAddMemberError(true);
+		}
 		let id = '';
 		for (let i = 0; i < friends.length - 1; i++) {
 			if (friends[i].username === friendName) {
@@ -77,16 +114,25 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 				break;
 			}
 		}
-		try {
-			const res = await sendFarmInvitation({
-				variables: {
-					friendId: id,
-				},
-			});
-			console.log(res);
-		} catch (err) {
-			console.log(err);
-			alert(err.graphQLErrors[0].message);
+		if (id === ''){
+			setAddMemberError("Please enter your friend's name.");
+			setShowAddMemberError(true);
+		}
+		else{ 
+			setShowAddMemberError(false);
+			try {
+				const res = await addFarmer({
+					variables: {
+						farmId: farmId,
+						friendId: id,
+					},
+				});
+				console.log(res);
+			} catch (err) {
+				console.log(err);
+				setAddMemberError(err.graphQLErrors[0].message);
+				setShowAddMemberError(true);
+			}
 		}
 	};
 
@@ -101,8 +147,7 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 		plantY
 	) => {
 		try {
-			console.log(plantType, title, body, chunkX, chunkY, plantX, plantY);
-			alert(title);
+			//console.log(plantType, title, body, chunkX, chunkY, plantX, plantY);
 			const res = await createPlant({
 				variables: {
 					farmId: farmId,
@@ -375,6 +420,8 @@ const useFarm = (farmId, selectedTool, selectedPlant) => {
 		editPlant,
 		deletePlant,
 		addNewMember,
+		addMemberError,
+		showAddMemberError,
 
 		handleChunkCellClicked,
 		handleChunkCellHover,
