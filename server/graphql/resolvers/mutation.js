@@ -625,7 +625,7 @@ module.exports = {
 				{
 					throw new Error("User not a member");
 				}
-				if(farm.members.find(mem => mem._id === friend._id))
+				if(farm.members.find(mem => mem._id == friend._id))
 				{
 					throw new Error("Friend already farmer");
 				}
