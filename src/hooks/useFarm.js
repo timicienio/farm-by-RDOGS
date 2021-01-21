@@ -34,7 +34,7 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 		loading: getFarmLoading,
 		error: getFarmError,
 		data: farmData,
-		subscribeToMore,
+		//subscribeToMore,
 	} = useQuery(GET_FARM_QUERY, {
 		variables: {
 			farmId: farmId,
@@ -51,35 +51,27 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 	const [addChunkError, setAddChunkError] = useState('');
 	const [showAddChunkError, setShowAddChunkError] = useState(false);
 
-	// const { data, loading } = useSubscription(FARM_SUBSCRIPTION, { variables: { farmId } });
+	const { data, loading } = useSubscription(FARM_SUBSCRIPTION, { variables: { farmId } });
 
 	useEffect(()=>{
-		subscribeToMore({
-			document: FARM_SUBSCRIPTION,
-			variables: { farmId: farmId },
-			updateQuery: (prev, { subscriptionData }) => {
-				if(!subscriptionData.data) return prev;
-				if(subscriptionData.data.farm.mutation === 'CREATED_PLANT')
-				{
-					const newPlant = subscriptionData.data.farm.plant;
-					prev.getFarm.plants.push(newPlant);
-					return prev;
-				}
-				else if(subscriptionData.data.farm.mutation === 'EDITED_PLANT')
-				{
-					const editedPlant = subscriptionData.data.farm.plant;
-					prev.getFarm.plants[subscriptionData.data.farm.index] = editedPlant;
-					return prev;
-				}
-				else if(subscriptionData.data.farm.mutation === 'DELETED_PLANT')
-				{
-					const deletedIndex = subscriptionData.data.farm.index;
-					prev.getFarm.plants.splice(deletedIndex, 1);
-					return prev;
-				}
+		if(!loading)
+		{
+			// console.log("yee", data.farm);
+			// console.log("farmData", farmData);
+			if(data.farm.mutation === 'CREATED_PLANT')
+			{
+				farmData.getFarm.plants.push(data.farm.plant);
 			}
-		});
-	}, [subscribeToMore, farmId])
+			else if(data.farm.mutation === 'EDITED_PLANT')
+			{
+				farmData.getFarm.plants[data.farm.index] = data.farm.plant;
+			}
+			else if(data.farm.mutation === 'DELETED_PLANT')
+			{
+				farmData.getFarm.plants.splice(data.farm.index, 1);
+			}
+		}
+	}, [data, loading])
 
 	function checkPlantCollision(
 		chunkCoordinates,
