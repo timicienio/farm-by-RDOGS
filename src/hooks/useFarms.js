@@ -64,7 +64,7 @@ const useFarms = () => {
 
 	const onSelectFarm = key => {
 		setSelectedFarm(key);
-		history.push('/farms/' + String(key));
+		history.push('/farms/:' + String(key));
 	};
 
 	const onSelectTool = tool => {
@@ -113,7 +113,7 @@ const useFarms = () => {
 		// leaveFarm,
 
 		showCreateFarmAlert,
-		// history,
+		history,
 		showCreateFarmPopUp,
 		setShowCreateFarmPopUp,
 		showManageFarmPopUp,

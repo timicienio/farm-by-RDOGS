@@ -16,6 +16,7 @@ import {
 const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 	// console.log(typeof farmId);
 	// const [test, setTest] = useState(false);
+	const [, updateState] = useState();
 	const [showPositionCue, setShowPositionCue] = useState(false);
 	const [positionCueValidity, setPositionCueValidity] = useState(false);
 	const [positionCueType, setPositionCueType] = useState('post');
@@ -51,27 +52,28 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 	const [addChunkError, setAddChunkError] = useState('');
 	const [showAddChunkError, setShowAddChunkError] = useState(false);
 
-	const { data, loading } = useSubscription(FARM_SUBSCRIPTION, { variables: { farmId } });
-
-	useEffect(()=>{
-		if(!loading)
-		{
-			// console.log("yee", data.farm);
-			// console.log("farmData", farmData);
-			if(data.farm.mutation === 'CREATED_PLANT')
-			{
+	const { data, loading } = useSubscription(FARM_SUBSCRIPTION, {
+		variables: { farmId },
+		onSubscriptionData: ({ subscriptionData: { data } }) => {
+			console.log(data);
+			if (data.farm.mutation === 'CREATED_PLANT') {
 				farmData.getFarm.plants.push(data.farm.plant);
-			}
-			else if(data.farm.mutation === 'EDITED_PLANT')
-			{
+			} else if (data.farm.mutation === 'EDITED_PLANT') {
 				farmData.getFarm.plants[data.farm.index] = data.farm.plant;
-			}
-			else if(data.farm.mutation === 'DELETED_PLANT')
-			{
+			} else if (data.farm.mutation === 'DELETED_PLANT') {
 				farmData.getFarm.plants.splice(data.farm.index, 1);
 			}
-		}
-	}, [data, loading])
+			updateState({});
+		},
+	});
+
+	// useEffect(() => {
+	// 	if (!loading) {
+	// 		// console.log("yee", data.farm);
+	// 		// console.log("farmData", farmData);
+
+	// 	}
+	// }, [data, loading]);
 
 	function checkPlantCollision(
 		chunkCoordinates,
@@ -594,7 +596,7 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 		}
 	}, [selectedTool]);
 
-	return {
+	return [
 		farmData, //include id, farmName, farmType, members, chunks, plants
 		friends, //this user's all friends
 		getFarmLoading,
@@ -637,7 +639,7 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 		showHarvestPlantPopUp,
 		setShowHarvestPlantPopUp,
 		handleHarvestPlantSubmit,
-	};
+	];
 };
 
 export default useFarm;

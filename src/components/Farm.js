@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import FarmOfClub from './FarmOfClub';
 // import Draggable from 'react-draggable';
 import useFarm from '../hooks/useFarm';
@@ -18,9 +19,10 @@ function Farm({
 	selectedEdit,
 	showManageFarmPopUp,
 	setShowManageFarmPopUp,
+	setSelectedFarmIndex,
 }) {
 	// console.log(data.farmType);
-	const {
+	const [
 		farmData, //include id, farmName, farmType, members, chunks, plants
 		friends, //this user's all friends
 		getFarmLoading,
@@ -63,7 +65,13 @@ function Farm({
 		showHarvestPlantPopUp,
 		setShowHarvestPlantPopUp,
 		handleHarvestPlantSubmit,
-	} = useFarm(data.id, selectedTool, selectedPlant, selectedEdit);
+	] = useFarm(data.id, selectedTool, selectedPlant, selectedEdit);
+
+	// let selectedFarmIndex = useParams();
+	// // console.log(selectedFarmIndex);
+	// useEffect(() => {
+	// 	setSelectedFarmIndex(selectedFarmIndex);
+	// }, [selectedFarmIndex]);
 
 	switch (data.farmType) {
 		case 'Club':
