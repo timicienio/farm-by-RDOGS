@@ -56,7 +56,7 @@ const useFarms = () => {
 	};
 
 	const handleNewFarmChange = e => {
-		console.log(e.target);
+		// console.log(e.target);
 		setCreateFarmName(e.target.value);
 	};
 

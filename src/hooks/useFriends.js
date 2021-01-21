@@ -111,7 +111,7 @@ const useFriends = () => {
 					friendName: inviteFriendName,
 				},
 			});
-			console.log(res);
+			// console.log(res);
 			setInviteFriendName('');
 			setInvitationAlert('Request sent!');
 			setShowInvitationAlert(true);
