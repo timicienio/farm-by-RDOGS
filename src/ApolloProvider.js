@@ -12,7 +12,7 @@ import { getMainDefinition } from 'apollo-utilities';
 import { setContext } from 'apollo-link-context';
 import { AuthProvider } from './context/auth';
 
-const localhost = false;
+const localhost = true;
 
 // Create an http link:
 const httpLink = new HttpLink({
