@@ -378,7 +378,7 @@ module.exports = {
 					throw new Error('Not a member');
 				}
 				dbUser.farms.splice(
-					dbUser.farms.findIndex(farm => farm._id === farmId),
+					dbUser.farms.findIndex(farm => farm._id == farmId),
 					1
 				);
 				farm.members.splice(userIndex, 1);
