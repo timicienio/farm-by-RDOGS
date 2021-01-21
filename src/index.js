@@ -17,12 +17,12 @@ import * as serviceWorker from './serviceWorker';
 
 // Create an http link:
 const httpLink = new HttpLink({
-	uri: 'http://localhost:5000/graphql',
+	uri: 'https://rdogs-farm.herokuapp.com/',
 });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-	uri: `ws://localhost:5000/graphql`,
+	uri: `wss://rdogs-farm.herokuapp.com/graphql`,
 	options: { reconnect: true },
 });
 
