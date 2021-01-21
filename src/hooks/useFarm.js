@@ -532,6 +532,7 @@ const useFarm = (farmId, selectedTool, selectedPlant, selectedEdit) => {
 	const handleHarvestPlantSubmit = async () => {
 		await deletePlant(clickedPlant.id);
 	};
+
 	const handlePlantHover = index => {};
 
 	// test
