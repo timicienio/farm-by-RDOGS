@@ -94,3 +94,4 @@ Draggable utilities that provides a more flexible UX.
   
  ## Deploy Link
  + [Farm](https://brave-easley-0f2f0c.netlify.app/)
+  *The websocket loses connections sometimes, we suspect it's some issue related to heroku.*
