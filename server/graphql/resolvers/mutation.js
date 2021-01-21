@@ -276,18 +276,19 @@ module.exports = {
 				if (plant.author !== user.username) {
 					throw new Error('Action not allowed');
 				}
-				farm.plants.splice(plantIndex, 1);
-				await farm.save();
+				const pubsubPlant = JSON.parse(JSON.stringify(plant));
 				context.pubsub.publish(`subscribe farm ${farmId}`, {
 					farm: {
 						mutation: 'DELETED_PLANT',
 						index: plantIndex,
 						plant: {
-							id: plant._id,
-							...plant,
+							id: pubsubPlant._id,
+							...pubsubPlant,
 						},
 					},
 				});
+				farm.plants.splice(plantIndex, 1);
+				await farm.save();
 				return 'Plant deleted successfully';
 			} catch (err) {
 				throw new Error(err);
@@ -621,12 +622,14 @@ module.exports = {
 				{
 					throw new UserInputError("User not found");
 				}
-				if(!farm.members.find(mem => mem._id == user.id))
+				if(!farm.members.find(mem => mem.username == user.username))
 				{
 					throw new Error("User not a member");
 				}
-				if(farm.members.find(mem => mem._id == friend._id))
+				console.log(farm.members.find(mem => mem.username == friend.username));
+				if(farm.members.find(mem => mem.username == friend.username))
 				{
+					console.log('error')
 					throw new Error("Friend already farmer");
 				}
 				farm.members.push({
