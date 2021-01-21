@@ -95,3 +95,4 @@ Draggable utilities that provides a more flexible UX.
  ## Deploy Link
  + [Farm](https://brave-easley-0f2f0c.netlify.app/)
   *The websocket loses connections sometimes, we suspect it's some issue related to heroku.*
+  *The visual cue when growing / moving plants is not able to display for some reason, we suggest the this project be reviewed with this repo*
