@@ -26,6 +26,10 @@ We envision that, in this way, not only does the communities have a larger freed
 4. Run `yarn server`, make sure MONGO_URL is provided in `.env` file.
 5. Run `yarn start`. The app will start in your default browser.
 
+## Example account
+Username: ntuee-wp
+Password: 123456
+
 ## Features
 
 ### Register / Login
