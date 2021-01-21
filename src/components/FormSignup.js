@@ -11,12 +11,12 @@ import { REGISTER_MUTATION } from '../graphql';
 const FormSignup = ({ submitForm }) => {
 	const [register] = useMutation(REGISTER_MUTATION);
 	const handleRegister = async () => {
-		console.log(errors);
-		//console.log(values);
-		//console.log(values.username)
+		// console.log(errors);
+		//// console.log(values);
+		//// console.log(values.username)
 		if (values.username != '') {
-			console.log(values);
-			console.log(values.username);
+			// console.log(values);
+			// console.log(values.username);
 			const res = await register({
 				variables: {
 					username: values.username,
@@ -26,7 +26,7 @@ const FormSignup = ({ submitForm }) => {
 				},
 			});
 
-			console.log(res);
+			// console.log(res);
 		}
 	};
 	const { handleChange, handleSubmit, values, errors } = useForm(

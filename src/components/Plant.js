@@ -10,7 +10,7 @@ function Plant(data) {
 		case 'Reaction':
 			return <Reaction data={data} />;
 		default:
-			console.log('error plant type');
+			// console.log('error plant type');
 	}
 }
 

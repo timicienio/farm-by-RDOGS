@@ -123,7 +123,7 @@ module.exports = {
 			},
 			context
 		) {
-			console.log('create plant');
+			// // console.log('create plant');
 			const user = checkAuth(context);
 			try {
 				if (
@@ -244,12 +244,23 @@ module.exports = {
 				if (plantCoordinates) {
 					plant.plantCoordinates = plantCoordinates;
 				}
+				const pubsubPlant = JSON.parse(JSON.stringify(plant));
+				context.pubsub.publish(`subscribe farm ${farmId}`, {
+					farm: {
+						mutation: 'EDITED_PLANT',
+						index: plantIndex,
+						plant: {
+							id: pubsubPlant._id,
+							...pubsubPlant,
+						},
+					},
+				});
 				const res = await farm.save();
 				const r = {
 					...res.plants[plantIndex]._doc,
 					id: res.plants[plantIndex]._id,
 				};
-				console.log(r);
+				// // console.log(r);
 				return r;
 			} catch (err) {
 				throw new Error(err);
@@ -388,6 +399,7 @@ module.exports = {
 					await farm.delete();
 					return 'No members left, farm deleted';
 				} else {
+					await farm.save();
 					return 'Farm left successfully';
 				}
 			} catch (err) {
@@ -626,10 +638,10 @@ module.exports = {
 				{
 					throw new Error("User not a member");
 				}
-				console.log(farm.members.find(mem => mem.username == friend.username));
+				// // console.log(farm.members.find(mem => mem.username == friend.username));
 				if(farm.members.find(mem => mem.username == friend.username))
 				{
-					console.log('error')
+					// console.log('error')
 					throw new Error("Friend already farmer");
 				}
 				farm.members.push({

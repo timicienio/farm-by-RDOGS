@@ -5,7 +5,7 @@ function PositionCue({ coordinates, type, validity }) {
 		marginTop: String(6 + 72 * coordinates.y) + 'px',
 		marginLeft: String(6 + 72 * coordinates.x) + 'px',
 	};
-	// console.log(validity, type);
+	// // console.log(validity, type);
 	return (
 		<div
 			className={'plant ' + type + ' cue ' + (validity ? '' : 'invalid')}

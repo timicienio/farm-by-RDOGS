@@ -44,7 +44,7 @@ const Friends = ({ userData, setUserData }) => {
 		setUserData({
 			loggedIn: false,
 		});
-		//console.log(userData);
+		//// console.log(userData);
 		logout();
 	};
 

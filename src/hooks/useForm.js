@@ -19,12 +19,12 @@ const useForm = (callback, validate) => {
 
 	const [register] = useMutation(REGISTER_MUTATION);
 	const handleRegister = async values => {
-		//console.log(errors);
-		//console.log(values);
-		//console.log(values.username)
+		//// console.log(errors);
+		//// console.log(values);
+		//// console.log(values.username)
 		if (values.username !== '') {
-			//console.log(values);
-			//console.log(values.username);
+			//// console.log(values);
+			//// console.log(values.username);
 			try {
 				const res = await register({
 					variables: {
@@ -34,14 +34,14 @@ const useForm = (callback, validate) => {
 						email: values.email,
 					},
 				});
-				//console.log(res.data.register);
+				//// console.log(res.data.register);
 				//context.login(res.data.register);
-				//console.log(res);
+				//// console.log(res);
 				setIsSubmitted(true);
 			} catch (err) {
-				//console.log(err);
+				//// console.log(err);
 				if (err.message === 'GraphQL error: Username is taken') {
-					//console.log("hello");
+					//// console.log("hello");
 					var newErrors = { username: 'User Exists' };
 					setErrors(newErrors);
 				} else if (
@@ -72,12 +72,12 @@ const useForm = (callback, validate) => {
 		e.preventDefault();
 
 		var errors = validate(values);
-		//console.log(errors);
+		//// console.log(errors);
 		setErrors(errors);
-		//console.log(typeof errors)
+		//// console.log(typeof errors)
 		if (Object.keys(errors).length === 0) {
 			handleRegister(values);
-			//console.log("handleRegister")
+			//// console.log("handleRegister")
 		}
 		setIsSubmitting(true);
 	};

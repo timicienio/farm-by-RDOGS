@@ -34,11 +34,11 @@ const usePreference = () => {
                         newProfile: newProfile
                     }
                 })
-                console.log(res);
+                // console.log(res);
             }catch(err){
                 setNewProfileAlert(err.message);
                 setShowNewProfileAlert(true);
-                console.log(err);
+                // console.log(err);
             }
         }
     }

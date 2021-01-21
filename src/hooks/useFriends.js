@@ -63,7 +63,7 @@ const useFriends = () => {
 					subscriptionData.data.friendList.mutation === 'FRIEND_LIST'
 				) {
 					const newFriend = subscriptionData.data.friendList.friend;
-					//console.log(newFriend);
+					//// console.log(newFriend);
 					return {
 						...prev,
 						getFriendList: [...prev.getFriendList, newFriend],
@@ -72,7 +72,7 @@ const useFriends = () => {
 					return prev;
 				}
 			},
-			onError: err => console.log(err),
+			// onError: err => // console.log(err),
 		});
 	}, [subscribeToMore1, user.id]);
 
@@ -88,7 +88,7 @@ const useFriends = () => {
 				) {
 					const newInvitation =
 						subscriptionData.data.friendList.friend;
-					//console.log(newInvitation);
+					//// console.log(newInvitation);
 					return {
 						...prev,
 						getInvitationList: [
@@ -100,7 +100,7 @@ const useFriends = () => {
 					return prev;
 				}
 			},
-			onError: err => console.log(err),
+			// onError: err => // console.log(err),
 		});
 	}, [subscribeToMore2, user.id]);
 
@@ -111,7 +111,7 @@ const useFriends = () => {
 					friendName: inviteFriendName,
 				},
 			});
-			// console.log(res);
+			// // console.log(res);
 			setInviteFriendName('');
 			setInvitationAlert('Request sent!');
 			setShowInvitationAlert(true);
@@ -164,7 +164,7 @@ const useFriends = () => {
 		try {
 			const res = await getFriends();
 		} catch (err) {
-			//console.log(err);
+			//// console.log(err);
 			alert(err);
 		}
 	};

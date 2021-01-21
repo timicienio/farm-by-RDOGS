@@ -21,7 +21,7 @@ function Farm({
 	setShowManageFarmPopUp,
 	setSelectedFarmIndex,
 }) {
-	// console.log(data.farmType);
+	// // console.log(data.farmType);
 	const [
 		farmData, //include id, farmName, farmType, members, chunks, plants
 		friends, //this user's all friends
@@ -68,7 +68,7 @@ function Farm({
 	] = useFarm(data.id, selectedTool, selectedPlant, selectedEdit);
 
 	// let selectedFarmIndex = useParams();
-	// // console.log(selectedFarmIndex);
+	// // // console.log(selectedFarmIndex);
 	// useEffect(() => {
 	// 	setSelectedFarmIndex(selectedFarmIndex);
 	// }, [selectedFarmIndex]);

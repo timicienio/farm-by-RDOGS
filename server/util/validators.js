@@ -22,9 +22,9 @@ module.exports.validateRegisterInput = (
     }
     if(passwordHash !== confirmHash)
     {
-        console.log(passwordHash);
-        console.log(confirmHash);
-        console.log(passwordHash === confirmHash);
+        // console.log(passwordHash);
+        // console.log(confirmHash);
+        // console.log(passwordHash === confirmHash);
         errors.confirmHash = 'Passwords must match';
     }
     return {

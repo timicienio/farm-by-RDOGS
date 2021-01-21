@@ -50,13 +50,13 @@ const useFarms = () => {
 				});
 				setCreateFarmName('');
 			} catch (err) {
-				console.log(err);
+				// console.log(err);
 			}
 		}
 	};
 
 	const handleNewFarmChange = e => {
-		// console.log(e.target);
+		// // console.log(e.target);
 		setCreateFarmName(e.target.value);
 	};
 

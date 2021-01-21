@@ -14,7 +14,7 @@ const useManageFarmPopUp = addNewMember => {
 			await addNewMember(addNewMemberId);
 			setAddNewMemberId('');
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			setAlert(err.message);
 			setShowAlert(true);
 		}

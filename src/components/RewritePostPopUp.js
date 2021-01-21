@@ -9,7 +9,7 @@ function RewritePostPopUp({
 	oldTitle,
 	oldContent,
 }) {
-	// console.log(oldTitle, oldContent);
+	// // console.log(oldTitle, oldContent);
 	const [
 		title,
 		setTitle,

@@ -12,8 +12,8 @@ const EntranceForm = ({ userData, setUserData }) => {
 
 	function submitSignUpForm() {
 		setIsSubmitted(true);
-		//console.log(values);
-		// console.log(email);
+		//// console.log(values);
+		// // console.log(email);
 	}
 
 	function submitLogInForm(values, token) {

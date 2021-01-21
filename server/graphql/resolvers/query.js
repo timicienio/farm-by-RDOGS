@@ -13,7 +13,7 @@ module.exports = {
 			}
 		},
 		async getFarm(_, { farmId }) {
-			console.log(farmId);
+			// console.log(farmId);
 			try {
 				const farm = await Farm.findById(farmId);
 				if (farm) {

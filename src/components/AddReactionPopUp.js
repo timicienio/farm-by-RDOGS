@@ -17,7 +17,7 @@ function AddReactionPopUp({ show, setShow, handlePopUpSubmit }) {
 
 			<Picker
 				onEmojiClick={(_, emojiObject) => {
-					// console.log(emojiObject);
+					// // console.log(emojiObject);
 					handlePopUpSubmit('Empty', emojiObject.emoji);
 					setShow(false);
 				}}

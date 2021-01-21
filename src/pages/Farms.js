@@ -50,7 +50,7 @@ const Farms = ({}) => {
 	} = useFarms();
 
 	// const [selectedFarmIndex, setSelectedFarmIndex] = useState(-1);
-	// console.log(selectedFarmIndex);
+	// // console.log(selectedFarmIndex);
 
 	return (
 		<IconContext.Provider value={{}}>
@@ -117,9 +117,9 @@ const Farms = ({}) => {
 													id='manage-farm-button'
 													size='sm'
 													onClick={() => {
-														console.log(
-															'show manage'
-														);
+														// console.log(
+														// 	'show manage'
+														// );
 														setShowManageFarmPopUp(
 															true
 														);
