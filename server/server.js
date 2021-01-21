@@ -1,6 +1,15 @@
 require('dotenv-defaults').config();
 const { ApolloServer, PubSub } = require('apollo-server');
 const mongoose = require('mongoose');
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 80;
+
+const wakeUpDyno = require('./wakeUpDyno')
+const DYNO_URL = "";
+app.listen(port, () => {
+    wakeUpDyno(DYNO_URL);
+})
 
 const typeDefs = require('./graphql/typeDefs.js');
 const resolvers = require('./graphql/resolvers')
