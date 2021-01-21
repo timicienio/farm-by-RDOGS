@@ -67,7 +67,12 @@ Draggable utilities that provides a more flexible UX.
 #### Web Services
 + [React Apollo](https://www.npmjs.com/package/react-apollo)
 ### Backend
-
++ [mongoDB](https://www.mongodb.com/)
++ [Express](https://expressjs.com/zh-tw/)
++ [GraphQL](https://graphql.org/)
++ [apollo-server](https://github.com/apollographql/apollo-server)
++ [JSON Web Tokens](https://jwt.io/)
++ [bcrypt](https://www.npmjs.com/package/bcrypt)
 ## Contributors
 * @desk2000 B08705010 陳以潼
   
@@ -75,7 +80,7 @@ Draggable utilities that provides a more flexible UX.
 * @gary1030 B08705008 胡家愷
   
   frontend, web service, deploy.
-* @fredred357 B08705012 祝浩文
+* @fredred375 B08705012 祝浩文
   
   backend, database, web service.
   
