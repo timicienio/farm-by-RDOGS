@@ -15,6 +15,7 @@ import { AuthContext } from '../context/auth';
 import StdBox from '../components/StdBox';
 import FriendInfo from '../components/FriendInfo';
 import useFriends from '../hooks/useFriends';
+
 import './Friends.css';
 
 const Friends = ({ userData, setUserData }) => {

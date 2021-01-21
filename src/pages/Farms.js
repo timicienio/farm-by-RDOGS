@@ -54,7 +54,11 @@ const Farms = ({}) => {
 			<div className='map-container'>
 				<Switch>
 					<Route exact path='/farms'>
-						Select a farm
+						<div className='map-not-selected'>
+							<h1 className='map-not-selected-text'>
+								Select a farm...
+							</h1>
+						</div>
 					</Route>
 					{farmListLoading ? (
 						<></>

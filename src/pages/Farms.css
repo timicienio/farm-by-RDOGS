@@ -5,6 +5,20 @@
 	width: 100%;
 }
 
+.map-not-selected {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.map-not-selected-text {
+	margin-bottom: 20vh;
+	text-align: center;
+	position: absolute;
+}
+
 .farm-list {
 	position: absolute;
 
