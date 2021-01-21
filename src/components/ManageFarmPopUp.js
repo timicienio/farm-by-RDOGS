@@ -82,6 +82,7 @@ function ManageFarmPopUp({
 				</div>
 				<Button
 					id='leave-farm-button'
+					type='submit'
 					variant='secondary'
 					onClick={async () => {
 						await leaveFarm();
