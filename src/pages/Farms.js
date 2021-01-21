@@ -57,9 +57,9 @@ const Farms = ({}) => {
 			<div className='map-container'>
 				<Switch>
 					<Route exact path='/farms/'>
-						<Redirect to='/farms/:-1' />
+						<Redirect to='/farms/-1' />
 					</Route>
-					<Route exact path='/farms/:-1'>
+					<Route exact path='/farms/-1'>
 						<div className='map-not-selected'>
 							<h1 className='map-not-selected-text'>
 								Select a farm...
@@ -70,7 +70,7 @@ const Farms = ({}) => {
 						<></>
 					) : (
 						data.getUserData.farms.map((farm, index) => (
-							<Route path={'/farms/:' + String(index)}>
+							<Route path={'/farms/' + String(index)}>
 								<Farm
 									data={farm}
 									selectedTool={selectedTool}

@@ -85,6 +85,7 @@ function ManageFarmPopUp({
 					variant='secondary'
 					onClick={async () => {
 						await leaveFarm();
+						setShow(false);
 					}}
 				>
 					Leave Farm
