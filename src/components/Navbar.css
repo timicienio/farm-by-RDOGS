@@ -76,3 +76,10 @@
 .sidebar-item-title {
 	margin-left: 16px;
 }
+
+#navbar-title {
+	font-family: 'Lobster', cursive;
+	color: #faebd7;
+	/* margin: auto; */
+	margin-right: 45%;
+}

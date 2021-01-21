@@ -18,6 +18,7 @@ function Navbar() {
 					<Link to='#' className='menu-bars'>
 						<FaIcons.FaBars onClick={showSidebar} />
 					</Link>
+					<h1 id='navbar-title'>Farm</h1>
 				</div>
 				<nav
 					className={

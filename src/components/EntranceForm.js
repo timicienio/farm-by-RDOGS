@@ -21,7 +21,7 @@ const EntranceForm = ({ userData, setUserData }) => {
 			loggedIn: true,
 			name: values.username,
 			passwords: values.password,
-			token: token
+			token: token,
 		});
 	}
 
@@ -29,7 +29,10 @@ const EntranceForm = ({ userData, setUserData }) => {
 		<>
 			<div className='form-container'>
 				<div className='form-content-left'>
-					<div className='entrance-title'>Farm by RDOGS</div>
+					<div className='entrance-title'>
+						<span id='name'>Farm</span>
+						<span id='by-rdogs'>by RDOGS</span>
+					</div>
 				</div>
 				<Switch>
 					{userData.loggedIn ? (

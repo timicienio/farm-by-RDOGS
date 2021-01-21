@@ -14,12 +14,24 @@
 	border-radius: 12px 0 0 12px;
 	position: relative;
 	display: flex;
+	/* flex-direction: column; */
 }
 
 .entrance-title {
 	font-size: 54px;
 	color: #faebd7;
 	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#name {
+	font-size: 15vh;
+	font-family: 'Lobster', cursive;
+}
+#by-rdogs {
+	font-size: 5vh;
 }
 
 .form-img {
