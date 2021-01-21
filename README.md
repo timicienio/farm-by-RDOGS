@@ -73,6 +73,9 @@ Draggable utilities that provides a more flexible UX.
 + [apollo-server](https://github.com/apollographql/apollo-server)
 + [JSON Web Tokens](https://jwt.io/)
 + [bcrypt](https://www.npmjs.com/package/bcrypt)
+
+### Reference
++ [classsed-graphql-mern-apollo](https://github.com/hidjou/classsed-graphql-mern-apollo/tree/master)
 ## Contributors
 * @desk2000 B08705010 陳以潼
   
